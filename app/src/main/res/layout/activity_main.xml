@@ -6,13 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="246dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="307dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSettings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo"
+        android:contentDescription="Logo image"/>
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="189dp"
+        android:layout_height="255dp"
+        android:layout_marginTop="4dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:srcCompat="@drawable/imag01"
+        android:contentDescription="Game image"/>
+
+    <ImageButton
+        android:id="@+id/btnPlay"
+        android:layout_width="165dp"
+        android:layout_height="94dp"
+        android:layout_marginBottom="134dp"
+        android:background="@null"
+        android:contentDescription="Play Button"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:srcCompat="@drawable/imag02" />
+
+    <ImageButton
+        android:id="@+id/btnSettings"
+        android:layout_width="165dp"
+        android:layout_height="94dp"
+        android:layout_marginBottom="56dp"
+        android:background="@null"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPlay"
+        app:srcCompat="@drawable/imag03"
+        android:contentDescription="Settings Button" />
 </androidx.constraintlayout.widget.ConstraintLayout>
