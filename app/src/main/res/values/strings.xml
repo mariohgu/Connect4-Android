@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Connect4</string>
+    <string name="settings">Settings</string>
+    <string-array name="Spinlanguage">
+        <item>English</item>
+        <item>French</item>
+        <item>Spanish</item>
+    </string-array>
 </resources>
