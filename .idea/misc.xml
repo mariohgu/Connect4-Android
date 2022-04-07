@@ -3,7 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/Connect4-Android-main/app/src/main/res/drawable-land-400x400/splash_image.xml" value="0.1115" />
+        <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/Connect4-Android-main/app/src/main/res/drawable/background_splashscreen.xml" value="0.1115" />
+        <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/Connect4-Android-main/app/src/main/res/drawable/ic_buttonBlue_background.xml" value="0.1" />
+        <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/Connect4-Android-main/app/src/main/res/drawable/ic_logo.xml" value="0.1115" />
+        <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/Connect4-Android-main/app/src/main/res/drawable/ic_newGameButton_background.xml" value="0.2155" />
+        <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/Connect4-Android-main/app/src/main/res/drawable/splash_image.xml" value="0.1115" />
+        <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/Connect4-Android-main/app/src/main/res/layout/activity_main.xml" value="0.10338541666666666" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
       </map>
     </option>
   </component>
