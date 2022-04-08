@@ -3,6 +3,7 @@ package edu.handong.android.connect4;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
         btnSettings.setOnClickListener(view -> {
             Intent settings = new Intent(this, Settings.class);
             startActivity(settings);
+        });
+
+        ImageButton btnRankings = findViewById(R.id.rankings);
+        btnRankings.setOnClickListener(view -> {
+            Intent ranking = new Intent(this, RankingActivity.class);
+            startActivity(ranking);
         });
 
     }
