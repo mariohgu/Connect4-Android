@@ -2,7 +2,11 @@ package edu.handong.android.connect4;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -12,9 +16,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setTheme(R.style.Theme_Connect4);
         setContentView(R.layout.activity_main);
-        //r1=findViewById(R.id.RelativeLayout1);
-        //r1.setBackgroundResource(R.drawable.background);
+        ImageButton New_Game_Button = (ImageButton)findViewById(R.id.newgame);
+        //Binding the button to a listener
+        New_Game_Button.setOnClickListener(view -> {
+            Intent intent = new Intent(this, NewGame_Settings.class);
+            startActivity(intent);}
+        );
+        ImageButton Load_Game_Button = (ImageButton)findViewById(R.id.loadgame);
+        //Binding the button to a listener
+
+        Load_Game_Button.setOnClickListener(view -> {
+            Intent intent = new Intent(this, load_game.class);
+            startActivity(intent);}
+        );
     }
 }

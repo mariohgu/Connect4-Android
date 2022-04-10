@@ -10,9 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/SplashScreenTheme">
         <activity
+            android:name=".load_game"
+            android:exported="false" />
+        <activity
+            android:name=".game_activity"
+            android:exported="false" />
+        <activity
+            android:name=".NewGame_Settings"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:exported="true"
-            >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
