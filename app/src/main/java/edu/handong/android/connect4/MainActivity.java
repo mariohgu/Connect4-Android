@@ -32,5 +32,14 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, load_game.class);
             startActivity(intent);}
         );
+
+        ImageButton Settings_Button = (ImageButton)findViewById(R.id.settings);
+        //Binding the button to a listener
+        Settings_Button.setOnClickListener(view -> {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);}
+        );
+
+
     }
 }

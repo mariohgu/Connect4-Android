@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/SplashScreenTheme">
         <activity
+            android:name=".RankingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".load_game"
             android:exported="false" />
         <activity
