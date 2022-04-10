@@ -5,23 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SettingsActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="544dp"
-        android:layout_height="274dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        android:id="@+id/imgSettings"
+        android:layout_width="780dp"
+        android:layout_height="580dp"
+        android:background="@android:color/transparent"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.768"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.398"
-        app:srcCompat="@drawable/settings_board"
-        android:contentDescription="Settings Layout"
-        />
+        app:layout_constraintVertical_bias="0.394"
+        app:srcCompat="@drawable/settings_board" />
 
     <TextView
         android:id="@+id/txtSettings"
@@ -29,7 +28,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/mickey"
         android:text="SETTINGS"
-        android:textSize="40sp"
+        android:textSize="70sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.16"
@@ -44,13 +43,13 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/babycake"
         android:text="Language"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.237"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.222"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
+        app:layout_constraintEnd_toEndOf="@+id/imgSettings"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="@+id/imgSettings"
+        app:layout_constraintTop_toTopOf="@+id/imgSettings"
+        app:layout_constraintVertical_bias="0.198"
         android:textColor="#000000"/>
 
     <TextView
@@ -59,13 +58,13 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/babycake"
         android:text="Dark Mode"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.247"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.355"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
+        app:layout_constraintEnd_toEndOf="@+id/imgSettings"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="@+id/imgSettings"
+        app:layout_constraintTop_toTopOf="@+id/imgSettings"
+        app:layout_constraintVertical_bias="0.356"
         android:textColor="#000000"/>
 
     <TextView
@@ -74,13 +73,13 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/babycake"
         android:text="Music"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.224"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.472"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
+        app:layout_constraintEnd_toEndOf="@+id/imgSettings"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="@+id/imgSettings"
+        app:layout_constraintTop_toTopOf="@+id/imgSettings"
+        app:layout_constraintVertical_bias="0.505"
         android:textColor="#000000"/>
 
     <TextView
@@ -89,100 +88,110 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/babycake"
         android:text="Game Sounds"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.254"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.605"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
+        app:layout_constraintEnd_toEndOf="@+id/imgSettings"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="@+id/imgSettings"
+        app:layout_constraintTop_toTopOf="@+id/imgSettings"
+        app:layout_constraintVertical_bias="0.644"
         android:textColor="#000000"/>
 
     <Switch
         android:id="@+id/swDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
+        android:minWidth="70dp"
+        android:minHeight="70dp"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.601"
+        app:layout_constraintHorizontal_bias="0.589"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.33"
+        app:layout_constraintVertical_bias="0.351"
         />
 
     <Switch
         android:id="@+id/swMusic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
+        android:minWidth="70dp"
+        android:minHeight="70dp"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.601"
+        app:layout_constraintHorizontal_bias="0.589"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.469" />
+        app:layout_constraintVertical_bias="0.479" />
 
     <Switch
         android:id="@+id/swSounds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
+        android:minWidth="70dp"
+        android:minHeight="70dp"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.601"
+        app:layout_constraintHorizontal_bias="0.589"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.619" />
+        app:layout_constraintVertical_bias="0.599" />
 
     <Spinner
         android:id="@+id/spLanguage"
-        android:layout_width="126dp"
-        android:layout_height="48dp"
+        android:layout_width="250dp"
+        android:layout_height="120dp"
         android:entries="@array/Spinlanguage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.673"
+        app:layout_constraintHorizontal_bias="0.689"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.209" />
 
     <ImageButton
         android:id="@+id/btnSaveSettings"
-        android:layout_width="62dp"
-        android:layout_height="59dp"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:contentDescription="Save Settings"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.806"
+        app:layout_constraintEnd_toStartOf="@+id/imgSettings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75"
+        app:layout_constraintVertical_bias="0.285"
         app:srcCompat="@drawable/saved_game_button" />
 
     <ImageButton
         android:id="@+id/btnCancelSettings"
-        android:layout_width="58dp"
-        android:layout_height="61dp"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:contentDescription="Cancel"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.543"
+        app:layout_constraintEnd_toStartOf="@+id/imgSettings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.752"
+        app:layout_constraintVertical_bias="0.485"
         app:srcCompat="@drawable/cross" />
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgSettings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.685"
+        app:srcCompat="@drawable/back_arrow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

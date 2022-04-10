@@ -40,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);}
         );
 
+        ImageButton Ranking_buttons = (ImageButton)findViewById(R.id.rankings);
+        //Binding the button to a listener
+        Ranking_buttons.setOnClickListener(view -> {
+            Intent intent = new Intent(this, RankingActivity.class);
+            startActivity(intent);}
+        );
+
 
     }
 }

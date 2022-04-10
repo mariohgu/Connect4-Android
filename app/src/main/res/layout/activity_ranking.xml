@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RankingActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/imgRankingland"
-        android:layout_width="667dp"
-        android:layout_height="449dp"
+        android:layout_width="999dp"
+        android:layout_height="668dp"
         android:adjustViewBounds="true"
         android:contentDescription="Ranking Layout"
         android:scaleType="fitCenter"
@@ -26,13 +27,13 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/cloudcomic"
         android:text="PELE"
-        android:textSize="15sp"
+        android:textSize="27sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.472" />
+        app:layout_constraintVertical_bias="0.479" />
 
     <TextView
         android:id="@+id/txtRanktwo"
@@ -40,13 +41,13 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/cloudcomic"
         android:text="MARADONA"
-        android:textSize="15sp"
+        android:textSize="27sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.553"
+        app:layout_constraintHorizontal_bias="0.543"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.595" />
+        app:layout_constraintVertical_bias="0.589" />
 
     <TextView
         android:id="@+id/txtRankthree"
@@ -54,12 +55,24 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/cloudcomic"
         android:text="MESSI"
-        android:textSize="15sp"
+        android:textSize="27sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintHorizontal_bias="0.548"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.718" />
+        app:layout_constraintVertical_bias="0.706" />
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgRankingland"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.685"
+        app:srcCompat="@drawable/back_arrow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
