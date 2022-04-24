@@ -36,8 +36,7 @@ public class game_activity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: message(1);
                         break;
-                }
-                return true;
+                }return true;
             }
 
         });
