@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Connect4Game</string>
+    <string name="player_name">Joueur</string>
+
+    <string name="multi_player">Multijoueur</string>
+    <string name="ball_shape">Type de balle</string>
+    <string name="game_sounds">Sons</string>
+    <string name="single_player">Mode solo</string>
+    <string name="elapsed_time">Temps imparti</string>
+    <string name="toggle_on">OUI</string>
+    <string name="toggle_off">NON</string>
+    <string name="txtLanguage">Langue</string>
+    <string name="txtdark">Mode nuit</string>
+    <string name="txtMusic">Musique</string>
+
+    <string name="txtSounds">Sons</string>
+</resources>
