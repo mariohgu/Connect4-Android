@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".SettingsActivity"
     android:background="@drawable/background"
     android:orientation="horizontal">
@@ -79,11 +80,13 @@
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
         app:layout_constraintVertical_bias="0.607" />
 
+
     <TextView
         android:id="@+id/txtLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/babycake"
+
         android:text="@string/txtLanguage"
         android:textColor="#000000"
         android:textSize="40sp"
@@ -94,11 +97,13 @@
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
         app:layout_constraintVertical_bias="0.198" />
 
+
     <TextView
         android:id="@+id/txtdark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/babycake"
+
         android:text="@string/txtdark"
         android:textColor="#000000"
         android:textSize="40sp"
@@ -109,11 +114,13 @@
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
         app:layout_constraintVertical_bias="0.401" />
 
+
     <TextView
         android:id="@+id/txtMusic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/babycake"
+
         android:text="@string/txtMusic"
         android:textColor="#000000"
         android:textSize="40sp"
@@ -124,11 +131,13 @@
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
         app:layout_constraintVertical_bias="0.589" />
 
+
     <TextView
         android:id="@+id/txtSounds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/babycake"
+
         android:text="@string/txtSounds"
         android:textColor="#000000"
         android:textSize="40sp"

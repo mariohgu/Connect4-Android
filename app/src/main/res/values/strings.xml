@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name" translatable="false">Connect4Game</string>
     <!--activity_new_game_settings-->
         <string name="player_name">Player name</string>
@@ -26,5 +27,6 @@
         <item name="En">soccer ball</item>
         <item name="Fr">tennis ball</item>
         <item name="Sp">snooker ball</item>
+
     </string-array>
 </resources>

@@ -3,7 +3,9 @@ package edu.handong.android.connect4;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+
 import android.content.pm.ActivityInfo;
+
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,12 +16,14 @@ public class MainActivity extends AppCompatActivity {
 
     RelativeLayout r1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setTheme(R.style.Theme_Connect4);
         setContentView(R.layout.activity_main);
+
         ImageButton New_Game_Button = (ImageButton)findViewById(R.id.newgame);
         //Binding the button to a listener
         New_Game_Button.setOnClickListener(view -> {

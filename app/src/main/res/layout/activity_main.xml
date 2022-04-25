@@ -48,6 +48,7 @@
         app:layout_constraintStart_toEndOf="@+id/gametitle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.082"
+
         app:srcCompat="@drawable/settings_button" />
 
     <ImageButton

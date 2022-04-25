@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".game_activity"
     android:background="@drawable/background"
     android:focusable="auto" >
@@ -322,6 +323,7 @@
 
     <!--endregion-->
     <!-- endregion-->
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
