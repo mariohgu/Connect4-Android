@@ -10,16 +10,17 @@
         <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/Connect4-Android-main/app/src/main/res/drawable/ic_newGameButton_background.xml" value="0.2155" />
         <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/Connect4-Android-main/app/src/main/res/drawable/splash_image.xml" value="0.1115" />
         <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/Connect4-Android-main/app/src/main/res/layout/activity_main.xml" value="0.10338541666666666" />
-        <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/remote/app/src/main/res/layout/activity_game.xml" value="0.12" />
-        <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/remote/app/src/main/res/layout/activity_load_game.xml" value="0.103125" />
         <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/remote/app/src/main/res/layout/activity_main.xml" value="0.10416666666666667" />
-        <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/remote/app/src/main/res/layout/activity_new_game_settings.xml" value="0.12" />
-        <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/remote/app/src/main/res/layout/activity_newgame_settings.xml" value="0.10416666666666667" />
-        <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/remote/app/src/main/res/layout/activity_settings.xml" value="0.14" />
-        <entry key="..\:/Users/HP/Documents/Courses/Handong God University/Spring Semester 2022/Android Programming/Android Project/remote/app/src/main/res/layout/spinner_view.xml" value="0.1" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout-land/activity_game.xml" value="0.4" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout-land/activity_main.xml" value="0.4" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout-land/activity_ranking.xml" value="0.4" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout-land/activity_settings.xml" value="0.4" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout/activity_game.xml" value="0.8800000000000001" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout/activity_load_game.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout/activity_ranking.xml" value="0.264" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout/activity_settings.xml" value="0.4" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout/activity_new_game_settings.xml" value="0.1" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout/activity_ranking.xml" value="0.30391459074733096" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout/activity_settings.xml" value="0.1" />
       </map>
     </option>
   </component>
