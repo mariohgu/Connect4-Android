@@ -21,7 +21,7 @@ public class game_activity extends AppCompatActivity {
         game_Button.setOnClickListener(view -> {
             Intent intent = new Intent(this, NewGame_Settings.class);
             startActivity(intent);}
-        ); //comment
+        ); //comment 2
 
         View column1 = findViewById(R.id.view1);
         View column2 = findViewById(R.id.view2);
