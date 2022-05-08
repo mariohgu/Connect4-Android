@@ -47,7 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newgamehome"
         app:layout_constraintVertical_bias="0.21"
-        app:srcCompat="@drawable/new_game_button" />
+        app:srcCompat="@drawable/play" />
 
     <TextView
         android:id="@+id/player_name"
@@ -63,51 +63,6 @@
         app:layout_constraintStart_toStartOf="@+id/load_game_board"
         app:layout_constraintTop_toTopOf="@+id/load_game_board"
         app:layout_constraintVertical_bias="0.198" />
-
-    <TextView
-        android:id="@+id/ball_shape"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/babycake"
-        android:text="@string/ball_shape"
-        android:textColor="#0B0B0B"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
-        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="@+id/load_game_board"
-        app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.505" />
-
-    <TextView
-        android:id="@+id/game_sounds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/babycake"
-        android:text="@string/game_sounds"
-        android:textColor="#0B0B0B"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
-        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
-        app:layout_constraintHorizontal_bias="0.069"
-        app:layout_constraintStart_toStartOf="@+id/load_game_board"
-        app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.644" />
-
-    <TextView
-        android:id="@+id/elapsed_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/babycake"
-        android:text="@string/elapsed_time"
-        android:textColor="#0B0B0B"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
-        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="@+id/load_game_board"
-        app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.795" />
 
     <EditText
         android:id="@+id/edit_playerName"
@@ -125,8 +80,23 @@
         app:layout_constraintTop_toTopOf="@+id/load_game_board"
         app:layout_constraintVertical_bias="0.2" />
 
+    <TextView
+        android:id="@+id/activate_bluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/babycake"
+        android:text="@string/activate_bluetooth"
+        android:textColor="#090909"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
+        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
+        app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintStart_toStartOf="@+id/load_game_board"
+        app:layout_constraintTop_toBottomOf="@+id/player_name"
+        app:layout_constraintVertical_bias="0.112" />
+
     <ToggleButton
-        android:id="@+id/ingame_sound_toggleButton"
+        android:id="@+id/bluetooth_toggleButton"
         android:layout_width="150dp"
         android:layout_height="70dp"
         android:layout_marginEnd="120dp"
@@ -141,37 +111,9 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
         app:layout_constraintEnd_toEndOf="@+id/load_game_board"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/activate_bluetooth"
         app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.652" />
-
-    <ToggleButton
-        android:id="@+id/elapsed_time_toggleButton2"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="120dp"
-        android:background="@drawable/green_button"
-        android:fontFamily="@font/babycake"
-        android:text="ToggleButton"
-        android:textOff="@string/toggle_off"
-        android:textOn="@string/toggle_on"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
-        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
-        app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.805" />
-
-    <Spinner
-        android:id="@+id/ballShape_spinner"
-        android:layout_width="370dp"
-        android:layout_height="45sp"
-        android:scrollbarSize="50dp"
-        android:soundEffectsEnabled="true"
-        android:spinnerMode="dialog"
-        android:entries="@array/balls"
-        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
-        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
-        app:layout_constraintStart_toEndOf="@+id/ball_shape"
-        app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.503" />
+        app:layout_constraintVertical_bias="0.384" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

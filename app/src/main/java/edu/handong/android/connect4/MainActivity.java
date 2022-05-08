@@ -26,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, NewGame_Settings.class);
             startActivity(intent);}
         );
-        ImageButton Load_Game_Button = (ImageButton)findViewById(R.id.loadgame);
+        /*ImageButton Load_Game_Button = (ImageButton)findViewById(R.id.loadgame);
         //Binding the button to a listener
 
         Load_Game_Button.setOnClickListener(view -> {
             Intent intent = new Intent(this, load_game.class);
             startActivity(intent);}
-        );
+        );*/
 
         ImageButton Settings_Button = (ImageButton)findViewById(R.id.settings);
         //Binding the button to a listener
@@ -45,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
         //Binding the button to a listener
         Ranking_buttons.setOnClickListener(view -> {
             Intent intent = new Intent(this, RankingActivity.class);
+            startActivity(intent);}
+        );
+
+        ImageButton bluetooth_button = (ImageButton)findViewById(R.id.multiplayer);
+        //Binding the button to a listener
+        bluetooth_button.setOnClickListener(view -> {
+            Intent intent = new Intent(this, multiplayer.class);
             startActivity(intent);}
         );
 

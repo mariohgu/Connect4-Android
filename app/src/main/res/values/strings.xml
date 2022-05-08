@@ -1,30 +1,32 @@
 <resources>
     <string name="app_name" translatable="false">Connect4Game</string>
     <!--activity_new_game_settings-->
-        <string name="player_name">Player name</string>
-        <string name="single_player">Single player</string>
-        <string name="multi_player">Multi-player</string>
-        <string name="ball_shape">Ball shape</string>
-        <string name="game_sounds">In-game sounds</string>
-        <string name="elapsed_time">Elapsed time</string>
-        <string name="toggle_on">ON</string>
-        <string name="toggle_off">OFF</string>
+    <string name="player_name">Player name</string>
+    <string name="single_player">Single player</string>
+    <string name="multi_player">Multi-player</string>
+    <string name="ball_shape">Ball shape</string>
+    <string name="game_sounds">In-game sounds</string>
+    <string name="elapsed_time">Elapsed time</string>
+    <string name="toggle_on">ON</string>
+    <string name="toggle_off">OFF</string>
     <!--activity_settings-->
-        <string name="txtLanguage">Language</string>
-        <string name="txtdark">Dark Mode</string>
-        <string name="txtMusic">Music</string>
-        <string name="txtSounds">Game Sounds</string>
+    <string name="txtLanguage">Language</string>
+    <string name="txtdark">Dark Mode</string>
+    <string name="txtMusic">Music</string>
+    <string name="txtSounds">Game Sounds</string>
 
-
-    <string-array name="Spinlanguage" >
+    <string-array name="Spinlanguage">
         <item name="En">English</item>
         <item name="Fr">French</item>
         <item name="Sp">Spanish</item>
     </string-array>
 
-    <string-array name="balls" >
+    <string-array name="balls">
         <item name="En">soccer ball</item>
         <item name="Fr">tennis ball</item>
         <item name="Sp">snooker ball</item>
     </string-array>
+    <!--activity_multiplayer-->
+    <string name="activate_bluetooth">Activate bluetooth</string>
+
 </resources>
