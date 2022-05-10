@@ -10,16 +10,19 @@
 
     <ImageView
         android:id="@+id/imgRankingland"
-        android:layout_width="999dp"
-        android:layout_height="668dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="Ranking Layout"
-        android:scaleType="fitCenter"
+        android:layout_width="780dp"
+        android:layout_height="520dp"
+        android:adjustViewBounds="false"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.768"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ranking_landscape" />
+        app:layout_constraintVertical_bias="0.495"
+        app:srcCompat="@drawable/ranking_landscape"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/txtRankone"
@@ -68,11 +71,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imgRankingland"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.685"
-        app:srcCompat="@drawable/back_arrow" />
+        app:layout_constraintVertical_bias="0.676"
+        app:srcCompat="@drawable/back_arrow"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
