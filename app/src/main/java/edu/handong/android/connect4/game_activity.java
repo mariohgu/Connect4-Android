@@ -6,13 +6,9 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.content.res.AssetManager;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.ImageView;
+
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 import java.util.HashMap;
 import java.util.Random;
@@ -28,11 +24,8 @@ public class game_activity extends AppCompatActivity implements Runnable{
     private static final String INPUT_NODE = "main_input";
     private static final String OUTPUT_NODE1 = "value_head/Tanh"; //To find out the exact output node names
     private static final String OUTPUT_NODE2 = "policy_head/MatMul";
-
-    private ImageButton mButton;
-    private Connect4View mBoardView;
-    private TextView mTextView;
-    private ImageView conBoard;
+    TextView cTxtV;
+    Connect4View cBoardV;
 
     public static final int AI_PIECE = -1;
     public static final int HUMAN_PIECE = 1;
@@ -230,34 +223,26 @@ public class game_activity extends AppCompatActivity implements Runnable{
 
 
     }
-
     public TextView getTextView() {
-        return mTextView;
+        return cTxtV;
     }
-
-
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        mButton = findViewById(R.id.reload_game_button);
-        mTextView = findViewById(R.id.textview);
-        mBoardView = findViewById(R.id.boardview);
+        ImageButton cButton = findViewById(R.id.reload_game_button);
+        cTxtV = findViewById(R.id.textview);
+        cBoardV = findViewById(R.id.boardview);
         ImageButton settings = findViewById(R.id.settings_button);
         settings.setOnClickListener(view -> {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         });
 
-        mButton.setOnClickListener(view -> {
-            mTextView.setText("");
+        cButton.setOnClickListener(view -> {
+            cTxtV.setText("");
 
             Random rand = new Random();
             int n = rand.nextInt(2);
@@ -268,15 +253,15 @@ public class game_activity extends AppCompatActivity implements Runnable{
             else aiTurn = false;
 
             if (aiTurn)
-                mTextView.setText("Waiting for AI's move");
+                cTxtV.setText("Waiting for AI's move");
             else
-                mTextView.setText("Tap the column for your move");
+                cTxtV.setText("Tap the column for your move");
 
             for (int i=0; i<PIECES_NUM; i++)
                 board[i] = 0;
             aiMoves.clear();
             humanMoves.clear();
-            mBoardView.drawBoard();
+            cBoardV.drawBoard();
 
             Thread thread = new Thread(game_activity.this);
             thread.start();
@@ -294,8 +279,8 @@ public class game_activity extends AppCompatActivity implements Runnable{
                 new Runnable() {
                     @Override
                     public void run() {
-                        mBoardView.invalidate();
-                        mTextView.setText(result);
+                        cBoardV.invalidate();
+                        cTxtV.setText(result);
                     }
                 });
     }
