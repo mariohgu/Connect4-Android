@@ -15,4 +15,6 @@
     <string name="txtMusic">Musique</string>
 
     <string name="txtSounds">Sons</string>
+    <string name="activate_bluetooth">Activer bluetooth</string>
+
 </resources>
