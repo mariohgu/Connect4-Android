@@ -16,40 +16,41 @@ import java.util.Vector;
 import static java.lang.Math.exp;
 import static java.lang.Math.max;
 
+/**
+ * Our code is based in:
+ * - The book "Intelligent Mobile Projects with TensorFlow" by Jeff Tang,
+ *          ISBN: 978-1-78883-454-4
+ * - The post "How to build your own AlphaZero AI using Python and Keras" by David Foster
+ *          URL: https://medium.com/applied-data-science/how-to-build-your-own-alphazero-ai-using-python-and-keras-7f664945c188
+ */
 
 public class game_activity extends AppCompatActivity implements Runnable{
-
-    private static final String MODEL_FILE = "file:///android_asset/alphazero19.pb";
-
-    private static final String INPUT_NODE = "main_input";
-    private static final String OUTPUT_NODE1 = "value_head/Tanh"; //To find out the exact output node names
-    private static final String OUTPUT_NODE2 = "policy_head/MatMul";
+    //The model is in the assets folder, it names alphazero19.
+    private static final String MODEL_ALPHA = "file:///android_asset/alphazero19.pb";
+    private static final String I_NODE = "main_input";
+    private static final String O_NODE1 = "value_head/Tanh"; //To find out the exact output node names
+    private static final String O_NODE2 = "policy_head/MatMul";
     TextView cTxtV;
     Connect4View cBoardV;
-
-    public static final int AI_PIECE = -1;
+    public static final int MACHINE_PIECE = -1;
     public static final int HUMAN_PIECE = 1;
-    private static final int PIECES_NUM = 42;
-
-    private Boolean aiFirst = false;
-    private Boolean aiTurn = false;
-
-    private Vector<Integer> aiMoves = new Vector<>();
+    private static final int NUM_PIECES = 42;
+    private Boolean machineFirst = false;
+    private Boolean machineTurn = false;
+    private Vector<Integer> machineMoves = new Vector<>();
     private Vector<Integer> humanMoves = new Vector<>();
-
-    private int board[] = new int[PIECES_NUM];
+    private int board[] = new int[NUM_PIECES];
     private static final HashMap<Integer, String> PIECE_SYMBOL;
+    private TensorFlowInferenceInterface mInferenceInterface;
     static
     {
         PIECE_SYMBOL = new HashMap<Integer, String>();
-        PIECE_SYMBOL.put(AI_PIECE, "X");
+        PIECE_SYMBOL.put(MACHINE_PIECE, "X");
         PIECE_SYMBOL.put(HUMAN_PIECE, "O");
         PIECE_SYMBOL.put(0, "-");
     }
-
-    private TensorFlowInferenceInterface mInferenceInterface;
-
-    private final int winners[][] = {
+    //Both the aiWon and aiLost functions use a constant array that defines all the 69 possible winning positions:
+    private final int winMoves[][] = {
             {0,1,2,3},
             {1,2,3,4},
             {2,3,4,5},
@@ -140,19 +141,19 @@ public class game_activity extends AppCompatActivity implements Runnable{
             {16,24,32,40},
             {7,15,23,31},
             {15,23,31,39},
-            {14,22,30,38}};
+            {14,22,30,38} };
 
 
-    public boolean getAITurn() {
-        return aiTurn;
+    public boolean getMachineTurn() {
+        return machineTurn;
     }
 
-    public boolean getAIFirst() {
-        return aiFirst;
+    public boolean getMachineFirst() {
+        return machineFirst;
     }
 
-    public Vector<Integer> getAIMoves() {
-        return aiMoves;
+    public Vector<Integer> getMachineMoves() {
+        return machineMoves;
     }
 
     public Vector<Integer> getHumanMoves() {
@@ -163,35 +164,35 @@ public class game_activity extends AppCompatActivity implements Runnable{
         return board;
     }
 
-    public void setAiTurn() {
-        aiTurn = true;
+    public void setMachineTurn() {
+        machineTurn = true;
     }
 
 
-
-    public boolean aiWon(int bd[]) {
+//helper functions are defined to test the game-end status
+    public boolean machineWon(int bd[]) {
         for (int i=0; i<69; i++) {
             int sum = 0;
             for (int j=0; j<4; j++)
-                sum += bd[winners[i][j]];
-            if (sum == 4*AI_PIECE ) return true;
+                sum += bd[winMoves[i][j]];
+            if (sum == 4* MACHINE_PIECE) return true;
         }
         return false;
     }
 
-    public boolean  aiLost(int bd[]) {
+    public boolean machineLost(int bd[]) {
         for (int i=0; i<69; i++) {
             int sum = 0;
             for (int j=0; j<4; j++)
-                sum += bd[winners[i][j]];
-            if (sum == 4*HUMAN_PIECE ) return true;
+                sum += bd[winMoves[i][j]];
+            if (sum == 4*HUMAN_PIECE) return true;
         }
         return false;
     }
 
-    public boolean aiDraw(int bd[]) {
+    public boolean humanDraw(int bd[]) {
         boolean hasZero = false;
-        for (int i=0; i<PIECES_NUM; i++) {
+        for (int i = 0; i< NUM_PIECES; i++) {
             if (bd[i] == 0) {
                 hasZero = true;
                 break;
@@ -203,15 +204,15 @@ public class game_activity extends AppCompatActivity implements Runnable{
 
 
     public boolean gameEnded(int[] bd) {
-        if (aiWon(bd) || aiLost(bd) || aiDraw(bd)) return true;
+        if (machineWon(bd) || machineLost(bd) || humanDraw(bd)) return true;
 
         return false;
     }
 
     void getAllowedActions(int bd[], Vector<Integer> actions) {
 
-        for (int i=0; i<PIECES_NUM; i++) {
-            if (i>=PIECES_NUM-7) {
+        for (int i = 0; i< NUM_PIECES; i++) {
+            if (i>= NUM_PIECES -7) {
                 if (bd[i] == 0)
                     actions.add(i);
             }
@@ -247,19 +248,19 @@ public class game_activity extends AppCompatActivity implements Runnable{
             Random rand = new Random();
             int n = rand.nextInt(2);
 
-            aiFirst = (n==0); // make this random between true and false
+            machineFirst = (n==0); // make this random between true and false
 
-            if (aiFirst) aiTurn = true;
-            else aiTurn = false;
+            if (machineFirst) machineTurn = true;
+            else machineTurn = false;
 
-            if (aiTurn)
-                cTxtV.setText("Waiting for AI's move");
+            if (machineTurn)
+                cTxtV.setText("Waiting for Machine's move");
             else
                 cTxtV.setText("Tap the column for your move");
 
-            for (int i=0; i<PIECES_NUM; i++)
+            for (int i = 0; i< NUM_PIECES; i++)
                 board[i] = 0;
-            aiMoves.clear();
+            machineMoves.clear();
             humanMoves.clear();
             cBoardV.drawBoard();
 
@@ -303,7 +304,7 @@ public class game_activity extends AppCompatActivity implements Runnable{
     void getProbs(int binary[], float probs[]) {
         if (mInferenceInterface == null) {
             AssetManager assetManager = getAssets();
-            mInferenceInterface = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
+            mInferenceInterface = new TensorFlowInferenceInterface(assetManager, MODEL_ALPHA);
         }
 
         float[] floatValues  = new float[2*6*7];
@@ -315,10 +316,10 @@ public class game_activity extends AppCompatActivity implements Runnable{
         float[] value = new float[1];
         float[] policy = new float[42];
 
-        mInferenceInterface.feed(INPUT_NODE, floatValues, 1, 2, 6, 7);
-        mInferenceInterface.run(new String[] {OUTPUT_NODE1, OUTPUT_NODE2}, false);
-        mInferenceInterface.fetch(OUTPUT_NODE1, value);
-        mInferenceInterface.fetch(OUTPUT_NODE2, policy);
+        mInferenceInterface.feed(I_NODE, floatValues, 1, 2, 6, 7);
+        mInferenceInterface.run(new String[] {O_NODE1, O_NODE2}, false);
+        mInferenceInterface.fetch(O_NODE1, value);
+        mInferenceInterface.fetch(O_NODE2, policy);
 
         Vector<Integer> actions = new Vector<>();
         getAllowedActions(board, actions);
@@ -326,7 +327,7 @@ public class game_activity extends AppCompatActivity implements Runnable{
             probs[action] = policy[action];
         }
 
-        softmax(probs, PIECES_NUM);
+        softmax(probs, NUM_PIECES);
     }
 
     void printBoard(int bd[]) {
@@ -342,42 +343,42 @@ public class game_activity extends AppCompatActivity implements Runnable{
 
 
     String playGame() {
-        if (!aiTurn) return "Tap the column for your move";
+        if (!machineTurn) return "Tap the column for your move";
 
-        int binary[] = new int[PIECES_NUM*2];
+        int binary[] = new int[NUM_PIECES *2];
 
         // convert board to binary input
-        for (int i=0; i<PIECES_NUM; i++)
+        for (int i = 0; i< NUM_PIECES; i++)
             if (board[i] == 1) binary[i] = 1;
             else binary[i] = 0;
 
-        for (int i=0; i<PIECES_NUM; i++)
+        for (int i = 0; i< NUM_PIECES; i++)
             if (board[i] == -1) binary[42+i] = 1;
-            else binary[PIECES_NUM+i] = 0;
+            else binary[NUM_PIECES +i] = 0;
 
-        float probs[] = new float[PIECES_NUM];
-        for (int i=0; i<PIECES_NUM; i++)
+        float probs[] = new float[NUM_PIECES];
+        for (int i = 0; i< NUM_PIECES; i++)
             probs[i] = -100.0f;
         getProbs(binary, probs);
         int action = -1;
 
         float max = 0.0f;
-        for (int i=0; i<PIECES_NUM; i++) {
+        for (int i = 0; i< NUM_PIECES; i++) {
             if (probs[i] > max) {
                 max = probs[i];
                 action = i;
             }
         }
 
-        board[action] = AI_PIECE;
+        board[action] = MACHINE_PIECE;
         printBoard(board);
-        aiMoves.add(action);
+        machineMoves.add(action);
 
-        if (aiWon(board)) return "THE MACHINE BEATS YOU!";
-        else if (aiLost(board)) return "You Won!";
-        else if (aiDraw(board)) return "Draw";
+        if (machineWon(board)) return "THE MACHINE BEATS YOU!";
+        else if (machineLost(board)) return "You Won!";
+        else if (humanDraw(board)) return "Draw";
 
-        aiTurn = false;
+        machineTurn = false;
         return "Tap the column for your move";
 
     }
