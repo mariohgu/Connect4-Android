@@ -17,13 +17,23 @@ import android.widget.ToggleButton;
 import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
+    private EditText player_name;
+    private Spinner language;
+    private ToggleButton music;
+    private ToggleButton sounds;
+    private String player;
 
-    Context context;
     SharedPreferences preferences;
-    private static final String PREF = "PlayerPref";
+    public static final String PREF = "PlayerPref";
+    public static final String TEXT = "player1";
+    public static final String MUSIC = "music";
+    public static final String SOUNDS = "sounds";
+    public static final String PREF_LANG = "pref_lang";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
 
         //Load saved preferences from SharedPreferences object instance
         //loadPref();
@@ -38,37 +48,47 @@ public class SettingsActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_settings);
 
-        ImageButton back_Button = (ImageButton)findViewById(R.id.back_button);
+        player_name = findViewById(R.id.playerName);
+        language = findViewById(R.id.spLanguage);
+        music =  findViewById(R.id.toggle_music);
+        sounds =  findViewById(R.id.toggle_sounds);
+
+        ImageButton back_Button = findViewById(R.id.back_button);
         back_Button.setOnClickListener(view -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);}
+            onBackPressed();
+        }
         );
 
-        ImageButton save_Button = (ImageButton)findViewById(R.id.btnSaveSettings);
+        ImageButton save_Button = findViewById(R.id.btnSaveSettings);
         save_Button.setOnClickListener(view -> {
                 savePref();
+
             }
         );
 
-        ImageButton cancel_Button = (ImageButton)findViewById(R.id.btnCancelSettings);
+        ImageButton cancel_Button = findViewById(R.id.btnCancelSettings);
         cancel_Button.setOnClickListener(view -> {
                 //Make a Pop-up to prompt the user if he is sure to cancel the changes
                 Toast.makeText(SettingsActivity.this,"Cancelling the changes",Toast.LENGTH_SHORT).show();
                 }
         );
+        loadPref();
+
+
+
 
     }
 
     //Load saved preferences from SharedPreferences object instance
-    private void loadPref(){
+    public void loadPref(){
         // Fetching the stored data from the SharedPreference
-        SharedPreferences preferences = getSharedPreferences(PREF, MODE_PRIVATE);
-        String lang,player;
+        SharedPreferences preferences = getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        String lang;
         Locale locale;
         //Checking if we already have a preferred language selected
-        if (preferences.contains("pref_lang")){
+        if (preferences.contains(PREF_LANG)){
 
-            lang = preferences.getString("pref_lang", "");
+            lang = preferences.getString(PREF_LANG, "");
             if (lang.equals("French")){
                 locale = new Locale("fr");
                 Configuration config = getBaseContext().getResources().getConfiguration();
@@ -97,27 +117,34 @@ public class SettingsActivity extends AppCompatActivity {
             Toast.makeText(SettingsActivity.this,player,Toast.LENGTH_SHORT).show();
             EditText player_name = (EditText) findViewById(R.id.edit_playerName);
             player_name.setText(player);
-        }*/
+        } */
+        player = preferences.getString(TEXT, "");
+        player_name.setText(player);
+
     }
 
 
     //Save all changes related to the user settings preferences
-    private void savePref(){
-        EditText player_name = (EditText) findViewById(R.id.playerName);
-        Spinner language = (Spinner) findViewById(R.id.spLanguage);
-        ToggleButton music = (ToggleButton) findViewById(R.id.toggle_music);
-        ToggleButton sounds = (ToggleButton) findViewById(R.id.toggle_sounds);
+    public void savePref(){
+
 
         preferences = getSharedPreferences(PREF, MODE_PRIVATE);
         SharedPreferences.Editor editor= preferences.edit();
-        editor.putBoolean("music",music.isChecked());
-        editor.putBoolean("sounds",sounds.isChecked());
-        editor.putString("player",player_name.getText().toString());
-        editor.putString("pref_lang", language.getSelectedItem().toString());
-        editor.commit();
+
+
+        editor.putBoolean(MUSIC,music.isChecked());
+        editor.putBoolean(SOUNDS,sounds.isChecked());
+        editor.putString(TEXT,player_name.getText().toString());
+        editor.putString(PREF_LANG, language.getSelectedItem().toString());
+        //editor.commit();
+        editor.apply();
         Toast.makeText(SettingsActivity.this,"Settings saved successfully",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+
     }
+
+
+
 
 }

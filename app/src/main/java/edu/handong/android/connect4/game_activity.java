@@ -2,7 +2,9 @@ package edu.handong.android.connect4;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.content.res.AssetManager;
@@ -234,9 +236,16 @@ public class game_activity extends AppCompatActivity implements Runnable{
         setContentView(R.layout.activity_game);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         ImageButton cButton = findViewById(R.id.reload_game_button);
+        ImageButton settings = findViewById(R.id.settings_button);
+        ImageButton back_button = findViewById(R.id.back_button);
         cTxtV = findViewById(R.id.textview);
         cBoardV = findViewById(R.id.boardview);
-        ImageButton settings = findViewById(R.id.settings_button);
+        loadPref();
+        back_button.setOnClickListener(view -> {
+            super.finish();
+                }
+        );
+
         settings.setOnClickListener(view -> {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
@@ -383,16 +392,15 @@ public class game_activity extends AppCompatActivity implements Runnable{
 
     }
 
+    private void loadPref(){
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("PlayerPref", Context.MODE_PRIVATE);
+        String player = preferences.getString("player1", "");
+        TextView player_name = findViewById(R.id.player_turn_label);
+        player_name.setText(player);
+
+    }
+
 
 
 }
-/*
-    protected void message (int a){
-        CharSequence text = "COLUMN "+a;
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(this,text,duration);
-        toast.show();
-    }
-
- */
 
