@@ -374,9 +374,9 @@ public class game_activity extends AppCompatActivity implements Runnable{
         printBoard(board);
         machineMoves.add(action);
 
-        if (machineWon(board)) return "THE MACHINE BEATS YOU!";
-        else if (machineLost(board)) return "You Won!";
-        else if (humanDraw(board)) return "Draw";
+        if (machineWon(board)) return "Player lost";
+        else if (machineLost(board)) return "Player won!";
+        else if (humanDraw(board)) return "Draw game";
 
         machineTurn = false;
         return "Tap the column for your move";

@@ -24,6 +24,7 @@
         android:id="@+id/pause_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:background="@android:color/transparent"
         android:keepScreenOn="true"
         android:scaleType="fitCenter"
@@ -31,13 +32,14 @@
         app:layout_constraintEnd_toStartOf="@+id/board_game"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.067"
+        app:layout_constraintVertical_bias="0.066"
         app:srcCompat="@drawable/pause_game" />
 
     <ImageButton
         android:id="@+id/reload_game_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/board_game"
@@ -47,39 +49,30 @@
         app:srcCompat="@drawable/reload_game" />
 
     <ImageButton
-        android:id="@+id/save_game_button"
+        android:id="@+id/settings_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/board_game"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reload_game_button"
-        app:layout_constraintVertical_bias="0.055"
-        app:srcCompat="@drawable/save_game_green" />
-
-    <ImageButton
-        android:id="@+id/settings_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/board_game"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/save_game_button"
-        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintVertical_bias="0.079"
         app:srcCompat="@drawable/options" />
 
     <ImageButton
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintHorizontal_bias="0.013"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/board_game"
+        app:layout_constraintTop_toBottomOf="@+id/settings_button"
+        app:layout_constraintVertical_bias="0.238"
         app:srcCompat="@drawable/back_arrow" />
 
     <ImageView
@@ -115,7 +108,6 @@
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:textAlignment="center"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"

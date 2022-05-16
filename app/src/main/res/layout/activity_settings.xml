@@ -20,11 +20,11 @@
         app:layout_constraintHorizontal_bias="0.772"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.394"
+        app:layout_constraintVertical_bias="0.389"
         app:srcCompat="@drawable/settings_board" />
 
     <ToggleButton
-        android:id="@+id/dark_mode3"
+        android:id="@+id/toggle_sounds"
         android:layout_width="150dp"
         android:layout_height="70dp"
         android:layout_marginEnd="260dp"
@@ -43,26 +43,7 @@
         app:layout_constraintVertical_bias="0.784" />
 
     <ToggleButton
-        android:id="@+id/dark_mode"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="260dp"
-        android:autoText="false"
-        android:background="@drawable/green_button"
-        android:checked="true"
-        android:cursorVisible="false"
-        android:fontFamily="@font/babycake"
-        android:freezesText="false"
-        android:textOff="@string/toggle_off"
-        android:textOn="@string/toggle_on"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
-        app:layout_constraintEnd_toEndOf="@+id/imgSettings"
-        app:layout_constraintTop_toTopOf="@+id/imgSettings"
-        app:layout_constraintVertical_bias="0.415" />
-
-    <ToggleButton
-        android:id="@+id/dark_mode2"
+        android:id="@+id/toggle_music"
         android:layout_width="150dp"
         android:layout_height="70dp"
         android:layout_marginEnd="260dp"
@@ -99,12 +80,12 @@
 
 
     <TextView
-        android:id="@+id/txtdark"
+        android:id="@+id/player_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/babycake"
 
-        android:text="@string/txtdark"
+        android:text="@string/player_name"
         android:textColor="#000000"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
@@ -114,6 +95,20 @@
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
         app:layout_constraintVertical_bias="0.401" />
 
+    <EditText
+        android:id="@+id/playerName"
+        android:layout_width="300sp"
+        android:layout_height="68sp"
+        android:layout_marginEnd="108dp"
+        android:editable="true"
+        android:ems="10"
+        android:fontFamily="@font/babycake"
+        android:inputType="textPersonName"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
+        app:layout_constraintEnd_toEndOf="@+id/imgSettings"
+        app:layout_constraintTop_toBottomOf="@+id/spLanguage"
+        app:layout_constraintVertical_bias="0.088" />
 
     <TextView
         android:id="@+id/txtMusic"
@@ -152,15 +147,14 @@
         android:id="@+id/spLanguage"
         android:layout_width="150dp"
         android:layout_height="70dp"
+        android:layout_marginTop="68dp"
         android:layout_marginEnd="260dp"
         android:entries="@array/Spinlanguage"
         android:gravity="center"
         android:spinnerMode="dropdown"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/dark_mode"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
-        app:layout_constraintTop_toTopOf="@+id/imgSettings"
-        app:layout_constraintVertical_bias="0.788" />
+        app:layout_constraintTop_toTopOf="@+id/imgSettings" />
 
     <ImageButton
         android:id="@+id/btnSaveSettings"

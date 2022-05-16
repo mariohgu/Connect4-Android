@@ -2,20 +2,27 @@ package edu.handong.android.connect4;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
+import java.util.Locale;
+
 
 public class MainActivity extends AppCompatActivity {
 
     RelativeLayout r1;
-
+    Context context;
+    SharedPreferences preferences;
+    private static final String PREF = "PlayerPref";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,55 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, multiplayer.class);
             startActivity(intent);}
         );
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadPref();
+    }
+
+    private void loadPref(){
+        // Fetching the stored data from the SharedPreference
+        SharedPreferences preferences = getSharedPreferences(PREF, MODE_PRIVATE);
+        String lang,player;
+        Locale locale;
+        //Checking if we already have a preferred language selected
+        if (preferences.contains("pref_lang")){
+
+            lang = preferences.getString("pref_lang", "");
+            if (lang.equals("French")){
+                locale = new Locale("fr");
+                Configuration config = getBaseContext().getResources().getConfiguration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+            }
+            else if (lang.equals("Spanish")){
+                locale = new Locale("sp");
+                Configuration config = getBaseContext().getResources().getConfiguration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+            }
+            else{
+                locale = new Locale("en");
+                Configuration config = getBaseContext().getResources().getConfiguration();
+                config.locale = locale;
+                getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+            }
+
+        }
+        /*if (preferences.contains("player")){
+            player = preferences.getString("player", "");
+            Toast.makeText(SettingsActivity.this,player,Toast.LENGTH_SHORT).show();
+            EditText player_name = (EditText) findViewById(R.id.edit_playerName);
+            player_name.setText(player);
+        }*/
+
 
 
     }

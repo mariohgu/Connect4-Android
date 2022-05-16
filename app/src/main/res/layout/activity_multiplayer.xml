@@ -64,14 +64,13 @@
         app:layout_constraintTop_toTopOf="@+id/load_game_board"
         app:layout_constraintVertical_bias="0.198" />
 
-    <EditText
-        android:id="@+id/edit_playerName"
+    <TextView
+        android:id="@+id/playerName"
         android:layout_width="300sp"
         android:layout_height="68sp"
         android:ems="10"
         android:fontFamily="@font/babycake"
         android:inputType="textPersonName"
-        android:text="Player_1"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
         app:layout_constraintEnd_toEndOf="@+id/load_game_board"

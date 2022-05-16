@@ -35,6 +35,7 @@ public class Connect4View extends View {
     public Connect4View(Context context, AttributeSet attrs) {
         super(context, attrs);
         gActivity = (game_activity) context;
+        ///Start multiplayer informations
         setPathPaint();
     }
     //Set the attributes of the figures using the Path class

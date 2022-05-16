@@ -50,21 +50,6 @@
         app:srcCompat="@drawable/new_game_button" />
 
     <TextView
-        android:id="@+id/player_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/babycake"
-        android:text="@string/player_name"
-        android:textColor="#0B0B0B"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
-        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
-        app:layout_constraintHorizontal_bias="0.059"
-        app:layout_constraintStart_toStartOf="@+id/load_game_board"
-        app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.198" />
-
-    <TextView
         android:id="@+id/ball_shape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -109,21 +94,7 @@
         app:layout_constraintTop_toTopOf="@+id/load_game_board"
         app:layout_constraintVertical_bias="0.795" />
 
-    <EditText
-        android:id="@+id/edit_playerName"
-        android:layout_width="300sp"
-        android:layout_height="68sp"
-        android:ems="10"
-        android:fontFamily="@font/babycake"
-        android:inputType="textPersonName"
-        android:text="Player_1"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
-        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
-        app:layout_constraintHorizontal_bias="0.58"
-        app:layout_constraintStart_toEndOf="@+id/player_name"
-        app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.2" />
+
 
     <ToggleButton
         android:id="@+id/ingame_sound_toggleButton"
