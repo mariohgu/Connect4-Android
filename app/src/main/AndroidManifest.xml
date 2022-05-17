@@ -19,9 +19,6 @@
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".load_game"
-            android:exported="false" />
-        <activity
             android:name=".game_activity"
             android:exported="false" />
         <activity

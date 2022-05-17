@@ -11,8 +11,8 @@
 
     <ImageButton
         android:id="@+id/newgame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/h2"
@@ -26,8 +26,8 @@
 
     <ImageButton
         android:id="@+id/settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/h2"
@@ -42,8 +42,8 @@
 
     <ImageButton
         android:id="@+id/rankings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/h2"
@@ -84,7 +84,7 @@
         android:scaleType="centerCrop"
         android:text="4"
         android:textColor="#7D4E24"
-        android:textSize="170sp"
+        android:textSize="100sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/h4"
@@ -95,8 +95,8 @@
 
     <ImageButton
         android:id="@+id/multiplayer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/h2"
