@@ -62,6 +62,7 @@ public class SettingsActivity extends AppCompatActivity {
         ImageButton save_Button = findViewById(R.id.btnSaveSettings);
         save_Button.setOnClickListener(view -> {
                 savePref();
+                onBackPressed();
 
             }
         );
@@ -139,8 +140,7 @@ public class SettingsActivity extends AppCompatActivity {
         //editor.commit();
         editor.apply();
         Toast.makeText(SettingsActivity.this,"Settings saved successfully",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+
 
     }
 

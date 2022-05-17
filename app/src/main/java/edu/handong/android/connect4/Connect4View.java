@@ -149,6 +149,15 @@ public class Connect4View extends View {
     }
 
     //The event TouchEvent, these are all the events that running when the user touch the screen
+
+    /**
+     * Inside public boolean onTouchEvent(MotionEvent event) of Connect4View, which returns if it's
+     * the machine's turn, we check which column has been tapped, and if the column has not been filled
+     * up with all six possible pieces, add the new human move to the humanMoves Vector of
+     * MainActivity and redraw the view.
+     * @param event
+     * @return
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (gActivity.getMachineTurn()) return true;
@@ -172,6 +181,11 @@ public class Connect4View extends View {
                     }
                 //Invalidate the whole view.
                 invalidate();
+                /**
+                 * Here we set the turn to the machine and return if the game ends; otherwise, launch a new thread to
+                 * continue to play the game by letting the machine make the next move based on the model's policy return
+                 * before the human can touch and select their next move:
+                 */
                 //Machine Turns
                 gActivity.setMachineTurn();
                 // Finished the process when the game ends
@@ -184,10 +198,8 @@ public class Connect4View extends View {
                         gActivity.getTextView().setText("Draw");
                     return true;
                 }
-
                 Thread thread = new Thread(gActivity);
                 thread.start();
-
                 break;
             default:
                 return false;

@@ -43,7 +43,7 @@ public class game_activity extends AppCompatActivity implements Runnable{
     private Vector<Integer> humanMoves = new Vector<>();
     private int board[] = new int[NUM_PIECES];
     private static final HashMap<Integer, String> PIECE_SYMBOL;
-    private TensorFlowInferenceInterface mInferenceInterface;
+    private TensorFlowInferenceInterface infInterface;
     static
     {
         PIECE_SYMBOL = new HashMap<Integer, String>();
@@ -210,7 +210,7 @@ public class game_activity extends AppCompatActivity implements Runnable{
 
         return false;
     }
-
+//sets all the allowed actions for a given board position to the actions vector
     void getAllowedActions(int bd[], Vector<Integer> actions) {
 
         for (int i = 0; i< NUM_PIECES; i++) {
@@ -229,6 +229,14 @@ public class game_activity extends AppCompatActivity implements Runnable{
     public TextView getTextView() {
         return cTxtV;
     }
+
+    /**
+     * In the onCreate method, instantiate the three UI elements, and set the button click listener
+     * so it randomly decides who makes the first move. And we have a reset button, when it is
+     * tapped the user will replay the game, so we need to reset the MachineMoves and HumanMoves
+     * vectors before drawing the board and starting a thread to play the game:
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -250,6 +258,11 @@ public class game_activity extends AppCompatActivity implements Runnable{
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         });
+        /**
+         * When the Replay button is tapped, randomly decide who goes first, reset the board represented
+         * as an integer array, clear the two vectors that store our moves and the AI's moves, and redraw the
+         * original board grid
+         */
 
         cButton.setOnClickListener(view -> {
             cTxtV.setText("");
@@ -273,12 +286,15 @@ public class game_activity extends AppCompatActivity implements Runnable{
             humanMoves.clear();
             cBoardV.drawBoard();
 
-            Thread thread = new Thread(game_activity.this);
+            Thread thread = new Thread(this);
             thread.start();
         });
 
 
-
+/**
+ * The thread starts the run method, which further calls the playGame method to first convert the board
+ * position to a binary integer array to be used as the input of the model
+ */
     }
     @Override
     public void run() {
@@ -295,7 +311,13 @@ public class game_activity extends AppCompatActivity implements Runnable{
                 });
     }
 
-    void softmax(float vals[], int count) {
+    /**
+     * maxValue makes the sum of the probs values for the allowed actions be 1
+     * @param vals
+     * @param count
+     */
+
+    void maxValue(float vals[], int count) {
         float maxval = -Float.MAX_VALUE;
         for (int i=0; i<count; i++) {
             maxval = max(maxval, vals[i]);
@@ -310,10 +332,18 @@ public class game_activity extends AppCompatActivity implements Runnable{
         }
     }
 
+    /**
+     * The getProbs method loads the model if it hasn't been loaded, runs the model with the current board
+     * state as input, and gets the output policy before calling maxValue to get the true probability values, which
+     * sum to 1.
+     * @param binary
+     * @param probs
+     */
+
     void getProbs(int binary[], float probs[]) {
-        if (mInferenceInterface == null) {
+        if (infInterface == null) {
             AssetManager assetManager = getAssets();
-            mInferenceInterface = new TensorFlowInferenceInterface(assetManager, MODEL_ALPHA);
+            infInterface = new TensorFlowInferenceInterface(assetManager, MODEL_ALPHA);
         }
 
         float[] floatValues  = new float[2*6*7];
@@ -325,10 +355,10 @@ public class game_activity extends AppCompatActivity implements Runnable{
         float[] value = new float[1];
         float[] policy = new float[42];
 
-        mInferenceInterface.feed(I_NODE, floatValues, 1, 2, 6, 7);
-        mInferenceInterface.run(new String[] {O_NODE1, O_NODE2}, false);
-        mInferenceInterface.fetch(O_NODE1, value);
-        mInferenceInterface.fetch(O_NODE2, policy);
+        infInterface.feed(I_NODE, floatValues, 1, 2, 6, 7);
+        infInterface.run(new String[] {O_NODE1, O_NODE2}, false);
+        infInterface.fetch(O_NODE1, value);
+        infInterface.fetch(O_NODE2, policy);
 
         Vector<Integer> actions = new Vector<>();
         getAllowedActions(board, actions);
@@ -336,7 +366,7 @@ public class game_activity extends AppCompatActivity implements Runnable{
             probs[action] = policy[action];
         }
 
-        softmax(probs, NUM_PIECES);
+        maxValue(probs, NUM_PIECES);
     }
 
     void printBoard(int bd[]) {
@@ -367,7 +397,21 @@ public class game_activity extends AppCompatActivity implements Runnable{
 
         float probs[] = new float[NUM_PIECES];
         for (int i = 0; i< NUM_PIECES; i++)
+        /**
+         * The reason we initialize all probs array elements to -100.0 is that inside the
+         * getProbs method the probs array will be changed, only for
+         * the allowed actions, to the values (all small ones around -1.0 to 1.0) returned in the
+         * policy, so the probs values for all the illegal actions will remain -100.0 and after
+         * the maxValue function, which makes the probabilities for the illegal moves basically
+         * zero, we can just use the probabilities for the legal moves.
+          */
+
             probs[i] = -100.0f;
+        /**
+         * getProbs method, which runs the frozen model with the binary input
+         * and returns the probability policy in probs, and finds the maximum probability
+         * value among the p
+         */
         getProbs(binary, probs);
         int action = -1;
 
