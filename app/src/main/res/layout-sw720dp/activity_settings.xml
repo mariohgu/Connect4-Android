@@ -178,9 +178,10 @@
         android:layout_width="95dp"
         android:layout_height="95dp"
         android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         android:background="@android:color/transparent"
         android:contentDescription="Cancel"
-        android:scaleType="fitCenter"
+
         app:layout_constraintBottom_toTopOf="@+id/back_button"
         app:layout_constraintEnd_toStartOf="@+id/v2"
         app:layout_constraintHorizontal_bias="0.5"

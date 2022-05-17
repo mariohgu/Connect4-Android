@@ -23,10 +23,11 @@
 
     <ImageButton
         android:id="@+id/pause_button"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:adjustViewBounds="true"
         android:background="@android:color/transparent"
-        android:keepScreenOn="true"
+        android:contentDescription="Save Settings"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/reload_game_button"
         app:layout_constraintEnd_toStartOf="@+id/v2"
@@ -40,10 +41,12 @@
 
     <ImageButton
         android:id="@+id/back_button"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:adjustViewBounds="true"
         android:background="@android:color/transparent"
+        android:contentDescription="Save Settings"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/v2"
         app:layout_constraintHorizontal_bias="0.0"
@@ -54,9 +57,12 @@
 
     <ImageButton
         android:id="@+id/settings_button"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:adjustViewBounds="true"
         android:background="@android:color/transparent"
+        android:contentDescription="Save Settings"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/back_button"
         app:layout_constraintEnd_toStartOf="@+id/v2"
         app:layout_constraintHorizontal_bias="0.0"
@@ -67,9 +73,12 @@
 
     <ImageButton
         android:id="@+id/reload_game_button"
-        android:layout_width="95dp"
+        android:layout_width="60dp"
         android:layout_height="95dp"
+        android:adjustViewBounds="true"
         android:background="@android:color/transparent"
+        android:contentDescription="Save Settings"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/settings_button"
         app:layout_constraintEnd_toStartOf="@+id/v2"
         app:layout_constraintHorizontal_bias="0.0"
@@ -79,8 +88,8 @@
 
     <ImageView
         android:id="@+id/time"
-        android:layout_width="250dp"
-        android:layout_height="140dp"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@+id/h2"
 
@@ -99,7 +108,7 @@
         android:fontFamily="@font/babycake"
         android:text="00:20"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/time"
         app:layout_constraintEnd_toEndOf="@+id/time"
         app:layout_constraintHorizontal_bias="0.618"
@@ -108,8 +117,8 @@
 
     <ImageView
         android:id="@+id/player_turn"
-        android:layout_width="250dp"
-        android:layout_height="140dp"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
 
@@ -129,7 +138,7 @@
         android:fontFamily="@font/babycake"
         android:text="Player_1 moving"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="8sp"
         app:layout_constraintBottom_toBottomOf="@+id/player_turn"
         app:layout_constraintEnd_toEndOf="@+id/player_turn"
         app:layout_constraintHorizontal_bias="0.836"
