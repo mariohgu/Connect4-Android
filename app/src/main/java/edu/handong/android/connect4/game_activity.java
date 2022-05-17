@@ -111,6 +111,7 @@ public class game_activity extends AppCompatActivity implements Runnable{
             {6,13,20,27},
             {13,20,27,34},
             {20,27,34,41},
+            {29,22,15,8},
 
             // diagonally
             {3,9,15,21},
