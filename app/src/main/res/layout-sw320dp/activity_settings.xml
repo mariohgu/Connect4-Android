@@ -9,27 +9,29 @@
     android:orientation="horizontal"
     tools:context=".SettingsActivity">
 
+
     <ImageView
         android:id="@+id/imgSettings"
-        android:layout_width="780dp"
-        android:layout_height="500dp"
+        android:layout_width="480dp"
+        android:layout_height="300dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/v4"
+        app:layout_constraintHorizontal_bias="0.655"
         app:layout_constraintStart_toStartOf="@+id/v3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389"
 
+        app:layout_constraintVertical_bias="0.504"
         app:srcCompat="@drawable/settings_board" />
 
 
     <ToggleButton
         android:id="@+id/toggle_sounds"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="260dp"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="108dp"
         android:autoText="false"
         android:background="@drawable/green_button"
         android:checked="true"
@@ -41,16 +43,16 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.558"
         app:layout_constraintStart_toEndOf="@+id/txtSounds"
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
-        app:layout_constraintVertical_bias="0.846" />
+        app:layout_constraintVertical_bias="0.82" />
 
     <ToggleButton
         android:id="@+id/toggle_music"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="260dp"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="108dp"
         android:autoText="false"
         android:background="@drawable/green_button"
         android:checked="true"
@@ -62,10 +64,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.752"
         app:layout_constraintStart_toEndOf="@+id/txtMusic"
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.588" />
 
     <TextView
         android:id="@+id/txtLanguage"
@@ -75,14 +77,13 @@
 
         android:text="@string/txtLanguage"
         android:textColor="#000000"
-        android:textSize="40sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
-        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="@+id/imgSettings"
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
-        app:layout_constraintVertical_bias="0.198" />
-
+        app:layout_constraintVertical_bias="0.182" />
 
     <TextView
         android:id="@+id/player_name"
@@ -92,28 +93,30 @@
 
         android:text="@string/player_name"
         android:textColor="#000000"
-        android:textSize="40sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
-        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="@+id/imgSettings"
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
-        app:layout_constraintVertical_bias="0.401" />
+        app:layout_constraintVertical_bias="0.402" />
 
     <EditText
         android:id="@+id/playerName"
-        android:layout_width="300sp"
-        android:layout_height="68sp"
-        android:layout_marginEnd="108dp"
+        android:layout_width="180sp"
+        android:layout_height="48sp"
+        android:layout_marginEnd="44dp"
         android:editable="true"
         android:ems="10"
         android:fontFamily="@font/babycake"
         android:inputType="textPersonName"
-        android:textSize="34sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
+        app:layout_constraintHorizontal_bias="0.948"
+        app:layout_constraintStart_toEndOf="@+id/player_name"
         app:layout_constraintTop_toBottomOf="@+id/spLanguage"
-        app:layout_constraintVertical_bias="0.088" />
+        app:layout_constraintVertical_bias="0.08" />
 
     <TextView
         android:id="@+id/txtMusic"
@@ -123,14 +126,13 @@
 
         android:text="@string/txtMusic"
         android:textColor="#000000"
-        android:textSize="40sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
-        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="@+id/imgSettings"
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
-        app:layout_constraintVertical_bias="0.589" />
-
+        app:layout_constraintVertical_bias="0.615" />
 
     <TextView
         android:id="@+id/txtSounds"
@@ -140,31 +142,33 @@
 
         android:text="@string/txtSounds"
         android:textColor="#000000"
-        android:textSize="40sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
-        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="@+id/imgSettings"
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
-        app:layout_constraintVertical_bias="0.812" />
+        app:layout_constraintVertical_bias="0.828" />
 
     <Spinner
         android:id="@+id/spLanguage"
         android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="260dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="80dp"
         android:entries="@array/Spinlanguage"
         android:gravity="center"
         android:spinnerMode="dropdown"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
+        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintStart_toEndOf="@+id/txtLanguage"
         app:layout_constraintTop_toTopOf="@+id/imgSettings" />
 
     <ImageButton
         android:id="@+id/btnSaveSettings"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:contentDescription="Save Settings"
@@ -179,11 +183,10 @@
 
     <ImageButton
         android:id="@+id/btnCancelSettings"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
-        android:contentDescription="Cancel"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/back_button"
         app:layout_constraintEnd_toStartOf="@+id/v2"
@@ -195,16 +198,18 @@
 
     <ImageButton
         android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:adjustViewBounds="true"
         android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/v2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/v1"
         app:layout_constraintTop_toBottomOf="@+id/btnCancelSettings"
         app:layout_constraintVertical_bias="0.347"
-        app:srcCompat="@drawable/back_arrow" />
+        app:srcCompat="@drawable/back_button" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/v1"

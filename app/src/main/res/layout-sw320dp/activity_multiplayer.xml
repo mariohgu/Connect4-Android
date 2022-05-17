@@ -10,96 +10,96 @@
 
     <ImageView
         android:id="@+id/load_game_board"
-        android:layout_width="780dp"
-        android:layout_height="500dp"
+        android:layout_width="580dp"
+        android:layout_height="300dp"
         android:background="@android:color/transparent"
-
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/v4"
         app:layout_constraintStart_toStartOf="@+id/v3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.394"
+        app:layout_constraintVertical_bias="0.389"
         app:srcCompat="@drawable/settings_board" />
 
     <ImageButton
         android:id="@+id/newgamehome"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:adjustViewBounds="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:background="@android:color/transparent"
-        android:contentDescription="Save Settings"
+        android:contentDescription="@string/app_name"
         android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/launchgame"
         app:layout_constraintEnd_toStartOf="@+id/v2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/v1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/launchgame"
         app:srcCompat="@drawable/cross" />
 
     <ImageButton
         android:id="@+id/launchgame"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:adjustViewBounds="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:background="@android:color/transparent"
-        android:contentDescription="Save Settings"
+        android:contentDescription="@string/app_name"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/v1"
         app:layout_constraintEnd_toStartOf="@+id/v2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/v1"
         app:layout_constraintTop_toBottomOf="@+id/newgamehome"
-        app:layout_constraintVertical_bias="0.225"
         app:srcCompat="@drawable/play" />
 
     <TextView
-        android:id="@+id/ball_shape"
+        android:id="@+id/player_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/babycake"
-        android:text="@string/ball_shape"
+        android:text="@string/player_name"
         android:textColor="#0B0B0B"
-        android:textSize="40sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
         app:layout_constraintEnd_toEndOf="@+id/load_game_board"
-        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="@+id/load_game_board"
         app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.194" />
+        app:layout_constraintVertical_bias="0.208" />
 
     <TextView
-        android:id="@+id/game_sounds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/playerName"
+        android:layout_width="300sp"
+        android:layout_height="68sp"
+        android:ems="10"
         android:fontFamily="@font/babycake"
-        android:text="@string/game_sounds"
-        android:textColor="#0B0B0B"
-        android:textSize="48sp"
+        android:inputType="textPersonName"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
         app:layout_constraintEnd_toEndOf="@+id/load_game_board"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toStartOf="@+id/load_game_board"
-        app:layout_constraintTop_toTopOf="@+id/load_game_board" />
-
-
-    <TextView
-        android:id="@+id/elapsed_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/babycake"
-        android:text="@string/elapsed_time"
-        android:textColor="#0B0B0B"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
-        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintStart_toStartOf="@+id/load_game_board"
+        app:layout_constraintHorizontal_bias="0.604"
+        app:layout_constraintStart_toEndOf="@+id/player_name"
         app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.794" />
+        app:layout_constraintVertical_bias="0.163" />
+
+    <TextView
+        android:id="@+id/activate_bluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/babycake"
+        android:text="@string/activate_bluetooth"
+        android:textColor="#090909"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
+        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
+        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintStart_toStartOf="@+id/load_game_board"
+        app:layout_constraintTop_toBottomOf="@+id/player_name"
+        app:layout_constraintVertical_bias="0.216" />
 
     <ToggleButton
-        android:id="@+id/ingame_sound_toggleButton"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="112dp"
+        android:id="@+id/bluetooth_toggleButton"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="120dp"
         android:autoText="false"
         android:background="@drawable/green_button"
         android:checked="true"
@@ -111,39 +111,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
         app:layout_constraintEnd_toEndOf="@+id/load_game_board"
+        app:layout_constraintHorizontal_bias="0.965"
+        app:layout_constraintStart_toEndOf="@+id/activate_bluetooth"
         app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.49" />
-
-    <ToggleButton
-        android:id="@+id/elapsed_time_toggleButton2"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="120dp"
-        android:background="@drawable/green_button"
-        android:fontFamily="@font/babycake"
-        android:text="ToggleButton"
-        android:textOff="@string/toggle_off"
-        android:textOn="@string/toggle_on"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
-        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
-        app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.805" />
-
-    <Spinner
-        android:id="@+id/ballShape_spinner"
-        android:layout_width="370dp"
-        android:layout_height="45sp"
-        android:entries="@array/balls"
-        android:scrollbarSize="50dp"
-        android:soundEffectsEnabled="true"
-        android:spinnerMode="dialog"
-        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
-        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
-        app:layout_constraintHorizontal_bias="0.588"
-        app:layout_constraintStart_toEndOf="@+id/ball_shape"
-        app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.206" />
+        app:layout_constraintVertical_bias="0.464" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/v1"
@@ -172,4 +143,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.9" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,9 +21,8 @@
         app:layout_constraintStart_toStartOf="@+id/v3"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.389"
-
+        
         app:srcCompat="@drawable/settings_board" />
-
 
     <ToggleButton
         android:id="@+id/toggle_sounds"
@@ -41,10 +40,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/txtSounds"
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
-        app:layout_constraintVertical_bias="0.846" />
+        app:layout_constraintVertical_bias="0.784" />
 
     <ToggleButton
         android:id="@+id/toggle_music"
@@ -62,18 +59,18 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/txtMusic"
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.607" />
+
 
     <TextView
         android:id="@+id/txtLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/txtLanguage"
         android:fontFamily="@font/babycake"
 
-        android:text="@string/txtLanguage"
+
         android:textColor="#000000"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
@@ -143,10 +140,10 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgSettings"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
-        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintHorizontal_bias="0.063"
         app:layout_constraintStart_toStartOf="@+id/imgSettings"
         app:layout_constraintTop_toTopOf="@+id/imgSettings"
-        app:layout_constraintVertical_bias="0.812" />
+        app:layout_constraintVertical_bias="0.759" />
 
     <Spinner
         android:id="@+id/spLanguage"
