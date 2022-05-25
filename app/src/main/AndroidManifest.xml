@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SplashScreenTheme">
+        <service
+            android:name=".BackgroundSoundService"
+            android:enabled="true"
+            android:exported="false"></service>
+
         <activity
             android:name=".multiplayer"
             android:exported="false" />

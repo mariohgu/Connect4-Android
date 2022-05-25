@@ -62,7 +62,8 @@ public class SettingsActivity extends AppCompatActivity {
         ImageButton save_Button = findViewById(R.id.btnSaveSettings);
         save_Button.setOnClickListener(view -> {
                 savePref();
-                onBackPressed();
+                loadPref();
+                //onBackPressed();
 
             }
         );
@@ -71,13 +72,10 @@ public class SettingsActivity extends AppCompatActivity {
         cancel_Button.setOnClickListener(view -> {
                 //Make a Pop-up to prompt the user if he is sure to cancel the changes
                 Toast.makeText(SettingsActivity.this,"Cancelling the changes",Toast.LENGTH_SHORT).show();
+
                 }
         );
         loadPref();
-
-
-
-
     }
 
     //Load saved preferences from SharedPreferences object instance
@@ -95,6 +93,7 @@ public class SettingsActivity extends AppCompatActivity {
                 Configuration config = getBaseContext().getResources().getConfiguration();
                 config.locale = locale;
                 getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                language.setSelection(1);
 
             }
             else if (lang.equals("Spanish")){
@@ -102,25 +101,28 @@ public class SettingsActivity extends AppCompatActivity {
                 Configuration config = getBaseContext().getResources().getConfiguration();
                 config.locale = locale;
                 getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+                language.setSelection(2);
             }
             else{
                 locale = new Locale("en");
                 Configuration config = getBaseContext().getResources().getConfiguration();
                 config.locale = locale;
                 getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+                language.setSelection(0);
             }
 
         }
-        /*if (preferences.contains("player")){
-            player = preferences.getString("player", "");
-            Toast.makeText(SettingsActivity.this,player,Toast.LENGTH_SHORT).show();
-            EditText player_name = (EditText) findViewById(R.id.edit_playerName);
-            player_name.setText(player);
-        } */
         player = preferences.getString(TEXT, "");
         player_name.setText(player);
+
+        music.setChecked(preferences.getBoolean(MUSIC,false));
+        //Checking if the music option sets the music ON or OFF
+        if(preferences.contains(MUSIC)){
+
+            Intent intent = new Intent(SettingsActivity.this, BackgroundSoundService.class);
+            startService(intent);
+
+        }
 
     }
 
@@ -131,12 +133,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences(PREF, MODE_PRIVATE);
         SharedPreferences.Editor editor= preferences.edit();
-
-
         editor.putBoolean(MUSIC,music.isChecked());
         editor.putBoolean(SOUNDS,sounds.isChecked());
         editor.putString(TEXT,player_name.getText().toString());
         editor.putString(PREF_LANG, language.getSelectedItem().toString());
+
+
         //editor.commit();
         editor.apply();
         Toast.makeText(SettingsActivity.this,"Settings saved successfully",Toast.LENGTH_SHORT).show();

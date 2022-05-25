@@ -57,13 +57,15 @@
         android:layout_width="95dp"
         android:layout_height="95dp"
         android:background="@android:color/transparent"
+        android:keepScreenOn="true"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/back_button"
         app:layout_constraintEnd_toStartOf="@+id/v2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/v1"
         app:layout_constraintTop_toBottomOf="@+id/reload_game_button"
 
-        app:srcCompat="@drawable/options" />
+        app:srcCompat="@drawable/sound__1_" />
 
     <ImageButton
         android:id="@+id/reload_game_button"
