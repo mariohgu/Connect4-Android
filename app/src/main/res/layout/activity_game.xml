@@ -11,11 +11,10 @@
 
     <edu.handong.android.connect4.Connect4View
         android:id="@+id/boardview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/h1"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/v4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

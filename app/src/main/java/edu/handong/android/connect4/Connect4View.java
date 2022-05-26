@@ -8,6 +8,7 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Our code is based in:
@@ -29,8 +30,8 @@ public class Connect4View extends View {
     private float radius;
     private float distance;
     //Margin of the board(constants)
-    private static final float MARGINX = 450.0f;
-    private static final float MARGINY = 140.0f;
+    private static final float MARGINX = 420;
+    private static final float MARGINY = 170;
 
     public Connect4View(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -70,10 +71,10 @@ public class Connect4View extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(cBitmap, 0, 0, CanvasPaint);
-        cWidth = 75.0f;
+        cWidth = (canvas.getWidth() - 2*MARGINX) / 7; //75
         endY = canvas.getHeight()-MARGINY;
-        endX = canvas.getWidth()-MARGINX+140.0f;
-        radius= 20.0f;
+        endX = canvas.getWidth()-MARGINX;
+        radius= cWidth/3;
         distance = 2.0f;
         // create the vertical lines of the board
         for (int i=0; i<8; i++) {
@@ -174,11 +175,15 @@ public class Connect4View extends View {
                 if (y < MARGINY || x < MARGINX || y > endY || x > endX) return true;
                 int column = (int)((x-MARGINX)/cWidth);
                 for (int i=0; i<6; i++)
-                    if (gActivity.getBoard()[35+column-7*i] == 0) {
-                        gActivity.getBoard()[35+column-7*i] = game_activity.HUMAN_PIECE;
-                        gActivity.getHumanMoves().add(35+column-7*i);
+                    if (gActivity.getBoard()[35 + column - 7 * i] == 0) {
+                        gActivity.getBoard()[35 + column - 7 * i] = game_activity.HUMAN_PIECE;
+                        gActivity.getHumanMoves().add(35 + column - 7 * i);
                         break;
+
                     }
+
+
+
                 //Invalidate the whole view.
                 invalidate();
                 /**
