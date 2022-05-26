@@ -9,10 +9,16 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 
 import android.content.res.Configuration;
+import android.media.MediaPlayer;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.Locale;
 
@@ -22,7 +28,13 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout r1;
     Context context;
     SharedPreferences preferences;
-    private static final String PREF = "PlayerPref";
+
+    public static final String PREF = "PlayerPref";
+    public static final String TEXT = "player1";
+    public static final String MUSIC = "music";
+    public static final String SOUNDS = "sounds";
+    public static final String PREF_LANG = "pref_lang";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,53 +42,57 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setTheme(R.style.Theme_Connect4);
         setContentView(R.layout.activity_main);
+        //loadPref();
 
         ImageButton New_Game_Button = (ImageButton)findViewById(R.id.newgame);
-        //Binding the button to a listener
         New_Game_Button.setOnClickListener(view -> {
             Intent intent = new Intent(this, NewGame_Settings.class);
             startActivity(intent);}
         );
-        /*ImageButton Load_Game_Button = (ImageButton)findViewById(R.id.loadgame);
-        //Binding the button to a listener
-
-        Load_Game_Button.setOnClickListener(view -> {
-            Intent intent = new Intent(this, load_game.class);
-            startActivity(intent);}
-        );*/
 
         ImageButton Settings_Button = (ImageButton)findViewById(R.id.settings);
-        //Binding the button to a listener
         Settings_Button.setOnClickListener(view -> {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);}
         );
 
         ImageButton Ranking_buttons = (ImageButton)findViewById(R.id.rankings);
-        //Binding the button to a listener
         Ranking_buttons.setOnClickListener(view -> {
             Intent intent = new Intent(this, RankingActivity.class);
             startActivity(intent);}
         );
 
         ImageButton bluetooth_button = (ImageButton)findViewById(R.id.multiplayer);
-        //Binding the button to a listener
         bluetooth_button.setOnClickListener(view -> {
             Intent intent = new Intent(this, multiplayer.class);
             startActivity(intent);}
         );
 
+        //Loading the preferences of the application. If nothing set, then default settings are used
+        //loadPref();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadPref();
+        //loadPref();
     }
 
-    private void loadPref(){
-        // Fetching the stored data from the SharedPreference
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        //loadPref();
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        //loadPref();
+    }
+
+    /*private void loadPref(){
+
         SharedPreferences preferences = getSharedPreferences(PREF, MODE_PRIVATE);
         String lang,player;
         Locale locale;
@@ -107,14 +123,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        /*if (preferences.contains("player")){
-            player = preferences.getString("player", "");
-            Toast.makeText(SettingsActivity.this,player,Toast.LENGTH_SHORT).show();
-            EditText player_name = (EditText) findViewById(R.id.edit_playerName);
-            player_name.setText(player);
-        }*/
+        //Checking if the music option sets the music ON or OFF
+        if(preferences.contains("music")){
+                Intent intent = new Intent(MainActivity.this, BackgroundSoundService.class);
+                startService(intent);
+        }
 
-
-
-    }
+    }*/
 }
