@@ -6,33 +6,19 @@ import static android.view.View.VISIBLE;
 
 import static edu.handong.android.connect4.Connect4Controller.COLS;
 import static edu.handong.android.connect4.Connect4Controller.ROWS;
-import edu.handong.android.connect4.Connect4Controller;
-import edu.handong.android.connect4.R;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.content.res.AssetManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Vector;
-import static java.lang.Math.exp;
+
 import static java.lang.Math.max;
 
 /**
@@ -43,9 +29,9 @@ import static java.lang.Math.max;
  *          URL: https://medium.com/applied-data-science/how-to-build-your-own-alphazero-ai-using-python-and-keras-7f664945c188
  */
 
-public class game_activity extends AppCompatActivity{
+public class Connect4GameActivity extends AppCompatActivity{
     private View connBoardView;
-    static game_activity boardView;
+    static Connect4GameActivity boardView;
     private Connect4Controller mGameController;
     private Connect4Controller mListener;
     private View connBoardFrontView;
@@ -124,35 +110,6 @@ public class game_activity extends AppCompatActivity{
     }
 
     public void buildCells() {
-        //Not tested when this was added
-        if(firstTurnStatic==1) {
-            ImageView imageView1=(ImageView) findViewById(R.id.player1_disc);
-            imageView1.setImageResource(discColorPlayer1);
-            ImageView imageView2=(ImageView) findViewById(R.id.player2_disc);
-            imageView2.setImageResource(discColorPlayer2);
-            ProgressBar progressBar1=(ProgressBar) findViewById(R.id.player1_indicator);
-            progressBar1.setVisibility(VISIBLE);
-            ProgressBar progressBar2=(ProgressBar) findViewById(R.id.player2_indicator);
-            progressBar2.setVisibility(INVISIBLE);
-         /**   TextView textView1=(TextView) findViewById(R.id.player1_name);
-            textView1.setText(player1Name);
-            TextView textView2=(TextView) findViewById(R.id.player2_name);
-            textView2.setText(player2Name); **/
-        }else {
-            ImageView imageView1=(ImageView) findViewById(R.id.player1_disc);
-            imageView1.setImageResource(discColorPlayer1);
-            ImageView imageView2=(ImageView) findViewById(R.id.player2_disc);
-            imageView2.setImageResource(discColorPlayer2);
-            ProgressBar progressBar1=(ProgressBar) findViewById(R.id.player1_indicator);
-            progressBar1.setVisibility(INVISIBLE);
-            ProgressBar progressBar2=(ProgressBar) findViewById(R.id.player2_indicator);
-            progressBar2.setVisibility(VISIBLE);
-         /**   TextView textView1=(TextView) findViewById(R.id.player1_name);
-            textView1.setText(player1Name);
-            TextView textView2=(TextView) findViewById(R.id.player2_name);
-            textView2.setText(player2Name); **/
-        }
-        //till here
      /**   connWinnerView = (TextView) findViewById(R.id.winner_text);
         connWinnerView.setVisibility(INVISIBLE); */
         connCells = new ImageView[ROWS][COLS];
@@ -163,9 +120,7 @@ public class game_activity extends AppCompatActivity{
             for (int c = 0; c < 7; c++){
                 ImageView imageView = (ImageView) row.getChildAt(c);
                 ImageView imageView1 = (ImageView) row1.getChildAt(c);
-//                imageView.setY(1000);
                 imageView1.setBackgroundResource(R.color.transparenttwo);
-//                imageView.animate().translationY(0).setInterpolator(new BounceInterpolator()).start();
                 imageView.setImageResource(R.color.white);
                 imageView.setOnClickListener(new Connect4Controller());
                 connCells[r][c] = imageView;
@@ -193,7 +148,7 @@ public class game_activity extends AppCompatActivity{
             return 6;
         return col;
     }
-    public static game_activity getInstance(){
+    public static Connect4GameActivity getInstance(){
         return   boardView;
     }
 
@@ -213,11 +168,11 @@ public class game_activity extends AppCompatActivity{
         }
     }
 
-    public void showWinStatus(ConnectLogic.Outcome outcome, ArrayList<ImageView> winDiscs) {
+    public void showWinStatus(Connect4Logic.Outcome outcome, ArrayList<ImageView> winDiscs) {
         if (BuildConfig.DEBUG) {
             Log.e(TAG, outcome.name());
         }
-        if (outcome != ConnectLogic.Outcome.NOTHING) {
+        if (outcome != Connect4Logic.Outcome.NOTHING) {
             System.out.println("Hello inside ouytcome");
         //    connWinnerView.setVisibility(VISIBLE);
             ProgressBar progressBar1=(ProgressBar) findViewById(R.id.player1_indicator);

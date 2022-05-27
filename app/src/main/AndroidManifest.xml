@@ -24,7 +24,7 @@
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".game_activity"
+            android:name=".Connect4GameActivity"
             android:exported="false" />
         <activity
             android:name=".NewGame_Settings"

@@ -1,8 +1,7 @@
 package edu.handong.android.connect4;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.res.Configuration;
-import java.util.Locale;
+
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -30,7 +29,7 @@ public class NewGame_Settings extends AppCompatActivity {
         //Advance to the actual game activity
         ImageButton game_Button = (ImageButton)findViewById(R.id.launchgame);
         game_Button.setOnClickListener(view -> {
-            Intent intent = new Intent(this, game_activity.class);
+            Intent intent = new Intent(this, Connect4GameActivity.class);
             startActivity(intent);}
         );
     }

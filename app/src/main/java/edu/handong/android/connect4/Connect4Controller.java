@@ -2,10 +2,7 @@ package edu.handong.android.connect4;
 
 import static android.content.ContentValues.TAG;
 
-import edu.handong.android.connect4.ConnectLogic;
-import edu.handong.android.connect4.ConnectLogic.Outcome;
-import edu.handong.android.connect4.BuildConfig;
-import edu.handong.android.connect4.game_activity;
+import edu.handong.android.connect4.Connect4Logic.Outcome;
 
 import android.util.Log;
 import android.view.View;
@@ -34,7 +31,7 @@ public class Connect4Controller implements View.OnClickListener {
     /**
      * board mBoardLogic (winning check)
      */
-    private final ConnectLogic connBoardLogic = new ConnectLogic(connGrid, spFree);
+    private final Connect4Logic connBoardLogic = new Connect4Logic(connGrid, spFree);
     /**
      * player turn
      */
@@ -54,7 +51,7 @@ public class Connect4Controller implements View.OnClickListener {
 
     private void initialize() {
 
-        connPlayerTurn = game_activity.firstTurnStatic;
+        connPlayerTurn = Connect4GameActivity.firstTurnStatic;
         mFinished = false;
         for (int j = 0; j < COLS; ++j) {
             for (int i = 0; i < ROWS; ++i) {
@@ -69,7 +66,7 @@ public class Connect4Controller implements View.OnClickListener {
     public void onClick(View v) {
         Log.d("aa",v.toString());
         System.out.println("Vgetx"+v.getX());
-        int col = game_activity.getInstance().colAtX(v.getX());
+        int col = Connect4GameActivity.getInstance().colAtX(v.getX());
         System.out.println(col);
         selectColumn(col);
     }
@@ -85,8 +82,8 @@ public class Connect4Controller implements View.OnClickListener {
         connBoardLogic.placeMove(column, connPlayerTurn);
         System.out.println(spFree[column]);
         // put disc
-        game_activity.getInstance().dropDisc(spFree[column], column, connPlayerTurn);
-        game_activity.getInstance().progressBarSwap(connPlayerTurn);
+        Connect4GameActivity.getInstance().dropDisc(spFree[column], column, connPlayerTurn);
+        Connect4GameActivity.getInstance().progressBarSwap(connPlayerTurn);
 
         togglePlayer(connPlayerTurn);
         connBoardLogic.displayBoard();
@@ -108,8 +105,8 @@ public class Connect4Controller implements View.OnClickListener {
         System.out.println("Hello");
         if (connOutcome != Outcome.NOTHING) {
             mFinished = true;
-            ArrayList<ImageView> winDiscs = connBoardLogic.getWinDiscs(game_activity.getInstance().getCells());
-            game_activity.getInstance().showWinStatus(connOutcome, winDiscs);
+            ArrayList<ImageView> winDiscs = connBoardLogic.getWinDiscs(Connect4GameActivity.getInstance().getCells());
+            Connect4GameActivity.getInstance().showWinStatus(connOutcome, winDiscs);
 
         } else {
 //            togglePlayer(mPlayerTurn);

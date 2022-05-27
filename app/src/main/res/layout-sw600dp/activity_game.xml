@@ -7,7 +7,7 @@
 
     android:background="@drawable/background"
     android:focusable="auto"
-    tools:context=".game_activity">
+    tools:context=".Connect4GameActivity">
 
 
     <ImageButton

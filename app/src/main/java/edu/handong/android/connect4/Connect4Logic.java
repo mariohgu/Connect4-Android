@@ -2,14 +2,14 @@ package edu.handong.android.connect4;
 
 //This class is used to store a set of values that the ContentResolver can process.
 import static android.content.ContentValues.TAG;
-import static edu.handong.android.connect4.game_activity.connPlayer1;
+import static edu.handong.android.connect4.Connect4GameActivity.connPlayer1;
 
 import android.util.Log;
 import android.widget.ImageView;
 import java.util.ArrayList;
 
 
-public class ConnectLogic {
+public class Connect4Logic {
     /**
      * Reference to player win
      */
@@ -57,7 +57,7 @@ public class ConnectLogic {
      * @param free reference to column height
      */
 
-    public ConnectLogic(int[][] grid, int[] free) {
+    public Connect4Logic(int[][] grid, int[] free) {
         pGrid = grid;
         numRows = grid.length;
         numCols = grid[0].length;
