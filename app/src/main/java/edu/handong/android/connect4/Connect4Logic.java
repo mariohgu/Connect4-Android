@@ -76,7 +76,7 @@ public class Connect4Logic {
     }
 
     /**
-     * Create the Board
+     * Create the Board in the console
      */
 
     public void displayBoard() {

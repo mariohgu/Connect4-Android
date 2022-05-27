@@ -3,12 +3,14 @@ package edu.handong.android.connect4;
 import static android.content.ContentValues.TAG;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import android.content.Context;
 
 import static edu.handong.android.connect4.Connect4Controller.COLS;
 import static edu.handong.android.connect4.Connect4Controller.ROWS;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,8 @@ import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 import static java.lang.Math.max;
@@ -55,6 +59,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        loadPref();
         boardView = this;
         connBoardView = findViewById(R.id.gameBoard);
         connBoardFrontView = findViewById(R.id.game_board_front);
@@ -139,9 +144,9 @@ public class Connect4GameActivity extends AppCompatActivity{
 
     public int colAtX(float x) {
         float colWidth = connCells[0][0].getWidth();
-        System.out.println("Col width"+colWidth);
+        System.out.println("Col width "+colWidth); //send the width of the column
         int col = (int) x / (int) colWidth;
-        System.out.println("Column"+col);
+        System.out.println("Column "+col); //number of the column choose
         if (col < 0)
             return 0;
         if (col > 6)
@@ -173,7 +178,7 @@ public class Connect4GameActivity extends AppCompatActivity{
             Log.e(TAG, outcome.name());
         }
         if (outcome != Connect4Logic.Outcome.NOTHING) {
-            System.out.println("Hello inside ouytcome");
+            System.out.println("Hello inside outcome");
         //    connWinnerView.setVisibility(VISIBLE);
             ProgressBar progressBar1=(ProgressBar) findViewById(R.id.player1_indicator);
             progressBar1.setVisibility(INVISIBLE);
@@ -240,11 +245,18 @@ public class Connect4GameActivity extends AppCompatActivity{
         } else {
          //   connWinnerView.setVisibility(INVISIBLE);
         }
+
+
     }
 
 
+    private void loadPref(){
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("PlayerPref", Context.MODE_PRIVATE);
+        String player = preferences.getString("player1", "");
+        TextView player_name = findViewById(R.id.player_turn_label);
+        player_name.setText(player);
 
-
+    }
 
 
 

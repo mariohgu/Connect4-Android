@@ -43,7 +43,7 @@ public class Connect4Controller implements View.OnClickListener {
     /**
      * if the game is mFinished
      */
-    private boolean mFinished = true;
+    private boolean connFinished = true;
 
     public Connect4Controller(){
         initialize();
@@ -52,7 +52,7 @@ public class Connect4Controller implements View.OnClickListener {
     private void initialize() {
 
         connPlayerTurn = Connect4GameActivity.firstTurnStatic;
-        mFinished = false;
+        connFinished = false;
         for (int j = 0; j < COLS; ++j) {
             for (int i = 0; i < ROWS; ++i) {
                 connGrid[i][j] = 0;
@@ -71,16 +71,16 @@ public class Connect4Controller implements View.OnClickListener {
         selectColumn(col);
     }
     private void selectColumn(int column) {
-        System.out.println("MFree column"+ spFree[column]);
+        System.out.println("Free column"+ spFree[column]);
         if (spFree[column] == 0) {
-            System.out.println(spFree[column]);
+            System.out.println("No more space in this column");
             if (BuildConfig.DEBUG) {
-                Log.e(TAG, "full column or game is mFinished");
+                Log.e(TAG, "full column or game is Finished");
             }
             return;
         }
         connBoardLogic.placeMove(column, connPlayerTurn);
-        System.out.println(spFree[column]);
+        System.out.println("Row "+spFree[column]);
         // put disc
         Connect4GameActivity.getInstance().dropDisc(spFree[column], column, connPlayerTurn);
         Connect4GameActivity.getInstance().progressBarSwap(connPlayerTurn);
@@ -102,10 +102,11 @@ public class Connect4Controller implements View.OnClickListener {
 
     private void checkForWin() {
         connOutcome = connBoardLogic.checkWin(connGrid);
-        System.out.println("Hello");
+        System.out.println("Checking");
         if (connOutcome != Outcome.NOTHING) {
-            mFinished = true;
-            ArrayList<ImageView> winDiscs = connBoardLogic.getWinDiscs(Connect4GameActivity.getInstance().getCells());
+            connFinished = true;
+            ArrayList<ImageView> winDiscs =
+                    connBoardLogic.getWinDiscs(Connect4GameActivity.getInstance().getCells());
             Connect4GameActivity.getInstance().showWinStatus(connOutcome, winDiscs);
 
         } else {
