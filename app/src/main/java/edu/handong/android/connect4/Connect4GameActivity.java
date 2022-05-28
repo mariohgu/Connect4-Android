@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import android.content.Context;
+import android.content.res.AssetManager;
 
 import static edu.handong.android.connect4.Connect4Controller.COLS;
 import static edu.handong.android.connect4.Connect4Controller.ROWS;
@@ -20,6 +21,7 @@ import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 
 import java.util.ArrayList;
 
@@ -53,6 +55,16 @@ public class Connect4GameActivity extends AppCompatActivity{
         return connCells;
     }
 
+    private static final String MODEL_FILE =
+            "file:///android_asset/alphazero19.pb";
+
+    static {
+        System.loadLibrary("tensorflow_inference");
+    }
+
+
+    static public TensorFlowInferenceInterface tf;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +77,8 @@ public class Connect4GameActivity extends AppCompatActivity{
         connBoardFrontView = findViewById(R.id.game_board_front);
         Intent intent=getIntent();
         Bundle extras=intent.getExtras();
+        AssetManager assetManager = getAssets();
+        tf = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
    //     player1Name=extras.getString("Player1Name");
    //     player2Name=extras.getString("Player2Name");
         String firstTurn="Player1Turn"; //extras.getString("FirstTurn");

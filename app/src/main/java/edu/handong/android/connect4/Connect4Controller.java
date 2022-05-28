@@ -2,8 +2,11 @@ package edu.handong.android.connect4;
 
 import static android.content.ContentValues.TAG;
 
+import static java.lang.Thread.sleep;
+
 import edu.handong.android.connect4.Connect4Logic.Outcome;
 
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -44,6 +47,11 @@ public class Connect4Controller implements View.OnClickListener {
      * if the game is mFinished
      */
     private boolean connFinished = true;
+    //////////////
+    private Connect4AiPlayer connAiPlayer;
+    private boolean mAiTurn;
+    private int elegir = 3;
+    /////////
 
     public Connect4Controller(){
         initialize();
@@ -59,6 +67,14 @@ public class Connect4Controller implements View.OnClickListener {
             }
             spFree[j] = ROWS;
         }
+        if (elegir==3) {
+            connAiPlayer = new Connect4AiPlayer(connBoardLogic);
+            connAiPlayer.setDifficulty(0);
+        } else {
+            connAiPlayer = null;
+        }
+
+
     }
 
 
@@ -66,6 +82,7 @@ public class Connect4Controller implements View.OnClickListener {
     public void onClick(View v) {
         Log.d("aa",v.toString());
         System.out.println("Vgetx"+v.getX());
+        if (connFinished || mAiTurn) return;
         int col = Connect4GameActivity.getInstance().colAtX(v.getX());
         System.out.println(col);
         selectColumn(col);
@@ -88,6 +105,14 @@ public class Connect4Controller implements View.OnClickListener {
         togglePlayer(connPlayerTurn);
         connBoardLogic.displayBoard();
         checkForWin();
+        mAiTurn = false;
+        if (connPlayerTurn == 2 && connAiPlayer != null) aiTurn();
+    }
+
+    private void aiTurn() {
+
+        if (connFinished) return;
+        new AiTask().execute();
     }
 
     public void togglePlayer(int playerTurn) {
@@ -113,4 +138,40 @@ public class Connect4Controller implements View.OnClickListener {
 //            togglePlayer(mPlayerTurn);
         }
     }
+
+    class AiTask extends AsyncTask<Void, Void, Integer> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mAiTurn = true;
+        }
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+
+            try {
+                Thread.currentThread();
+                sleep(100);
+            } catch (InterruptedException e) {
+                if (BuildConfig.DEBUG) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            if (BuildConfig.DEBUG) {
+                Log.e(TAG, "mAiPlayer " + connAiPlayer.getColumn());
+            }
+
+            return connAiPlayer.getColumn();
+
+        }
+        @Override
+        protected void onPostExecute(Integer integer) {
+            selectColumn(integer);
+        }
+    }
+
+
+
 }
