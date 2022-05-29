@@ -56,6 +56,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     public static String player1Name;
     public String player1DiscColor;
     public static String player2Name;
+    public static String firstTurn;
     public ImageView[][] getCells() {
         return connCells;
     }
@@ -85,7 +86,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         connMode = extras.getInt("Mode");
      //     player1Name=extras.getString("Player1Name");
    //     player2Name=extras.getString("Player2Name");
-        String firstTurn="Player1Turn"; //extras.getString("FirstTurn");
+        firstTurn="Player1Turn"; //extras.getString("FirstTurn");
         player1DiscColor="Red"; //extras.getString("Player1DiscColor");
         if(firstTurn.equals("Player1Turn")) {
             firstTurnStatic= connPlayer1;
@@ -169,8 +170,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
                             case DialogInterface.BUTTON_POSITIVE:
-
-                                initialize();
+                                resetBoard();
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -252,6 +252,32 @@ public class Connect4GameActivity extends AppCompatActivity{
         }
 
     }
+
+    public void resetBoard() {
+
+        initialize();
+        for (ImageView[] cell : connCells) {
+            for (ImageView imageView : cell) {
+                imageView.setImageResource(android.R.color.transparent);
+            }
+        }
+        //      mGameController.togglePlayer(firstTurnStatic);
+        if(firstTurn.equals("Player1Turn")) {
+            firstTurnStatic= connPlayer1;
+        }else {
+            firstTurnStatic= connPlayer2;
+        }
+        if(player1DiscColor.equals("Red")) {
+            discColorPlayer1=R.drawable.red_disc_image_round;
+            discColorPlayer2=R.drawable.yellow_disc_image_round;
+        }else {
+            discColorPlayer1=R.drawable.yellow_disc_image_round;
+            discColorPlayer2=R.drawable.red_disc_image_round;
+        }
+        turn();
+        showWinStatus(Connect4Logic.Outcome.NOTHING, null);
+    }
+
 
 
 
