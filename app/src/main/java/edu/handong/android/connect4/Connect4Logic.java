@@ -1,7 +1,7 @@
 package edu.handong.android.connect4;
 
-//This class is used to store a set of values that the ContentResolver can process.
-import static android.content.ContentValues.TAG;
+
+import static android.content.ContentValues.TAG; //This class is used to store a set of values that the ContentResolver can process.
 import static edu.handong.android.connect4.Connect4GameActivity.connPlayer1;
 
 import android.util.Log;

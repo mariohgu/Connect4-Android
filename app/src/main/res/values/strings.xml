@@ -10,6 +10,7 @@
     <string name="elapsed_time">Elapsed time</string>
     <string name="toggle_on">ON</string>
     <string name="toggle_off">OFF</string>
+    <string name="guess">Name Guess</string>
     <!--activity_settings-->
     <string name="txtLanguage">Language</string>
     <string name="txtdark">Dark Mode</string>

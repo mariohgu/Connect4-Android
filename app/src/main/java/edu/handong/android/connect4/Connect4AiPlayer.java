@@ -40,21 +40,6 @@ public class Connect4AiPlayer {
         return new_arr;
     }
 
-    public void setDifficulty(int depth) {
-        if(depth == 0)
-        {
-            mPath = "alphazero19.pb";
-        }
-        else if(depth == 1)
-        {
-            mPath = "tf_model20.pb";
-        }
-        else if(depth == 2)
-        {
-            mPath = "tf_model42.pb";
-        }
-    }
-
     public static int[][] ListToArray(int[] arr)
     {
         int[][] new_arr;

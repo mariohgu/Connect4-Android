@@ -50,7 +50,7 @@ public class Connect4Controller implements View.OnClickListener {
     //////////////
     private Connect4AiPlayer connAiPlayer;
     private boolean mAiTurn;
-    private int elegir = 3;
+    public static int mode;
     /////////
 
     public Connect4Controller(){
@@ -60,6 +60,7 @@ public class Connect4Controller implements View.OnClickListener {
     private void initialize() {
 
         connPlayerTurn = Connect4GameActivity.firstTurnStatic;
+        mode = Connect4GameActivity.connMode;
         connFinished = false;
         for (int j = 0; j < COLS; ++j) {
             for (int i = 0; i < ROWS; ++i) {
@@ -67,9 +68,9 @@ public class Connect4Controller implements View.OnClickListener {
             }
             spFree[j] = ROWS;
         }
-        if (elegir==3) {
+        if (mode==1) {
             connAiPlayer = new Connect4AiPlayer(connBoardLogic);
-            connAiPlayer.setDifficulty(0);
+
         } else {
             connAiPlayer = null;
         }

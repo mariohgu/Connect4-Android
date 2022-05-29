@@ -45,6 +45,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     public static int connPlayer1 =1;
     public static int connPlayer2 =2;
     public static int firstTurnStatic;
+    public static int connMode;
     public static int discColorPlayer1;
     public static int discColorPlayer2;
  //   private TextView connWinnerView;
@@ -61,10 +62,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     static {
         System.loadLibrary("tensorflow_inference");
     }
-
-
     static public TensorFlowInferenceInterface tf;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +73,13 @@ public class Connect4GameActivity extends AppCompatActivity{
         boardView = this;
         connBoardView = findViewById(R.id.gameBoard);
         connBoardFrontView = findViewById(R.id.game_board_front);
+        TextView clock = findViewById(R.id.player_time);
         Intent intent=getIntent();
         Bundle extras=intent.getExtras();
         AssetManager assetManager = getAssets();
         tf = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
-   //     player1Name=extras.getString("Player1Name");
+        connMode = extras.getInt("Mode");
+     //     player1Name=extras.getString("Player1Name");
    //     player2Name=extras.getString("Player2Name");
         String firstTurn="Player1Turn"; //extras.getString("FirstTurn");
         player1DiscColor="Red"; //extras.getString("Player1DiscColor");
@@ -175,14 +175,14 @@ public class Connect4GameActivity extends AppCompatActivity{
     {
         if(playerTurn==1)
         {
-            ProgressBar progressBar1=(ProgressBar) findViewById(R.id.player1_indicator);
+            ProgressBar progressBar1= findViewById(R.id.player1_indicator);
             progressBar1.setVisibility(INVISIBLE);
-            ProgressBar progressBar2=(ProgressBar) findViewById(R.id.player2_indicator);
+            ProgressBar progressBar2=findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(VISIBLE);
         }else {
-            ProgressBar progressBar1=(ProgressBar) findViewById(R.id.player1_indicator);
+            ProgressBar progressBar1= findViewById(R.id.player1_indicator);
             progressBar1.setVisibility(VISIBLE);
-            ProgressBar progressBar2=(ProgressBar) findViewById(R.id.player2_indicator);
+            ProgressBar progressBar2= findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
         }
     }
@@ -194,9 +194,9 @@ public class Connect4GameActivity extends AppCompatActivity{
         if (outcome != Connect4Logic.Outcome.NOTHING) {
             System.out.println("Hello inside outcome");
         //    connWinnerView.setVisibility(VISIBLE);
-            ProgressBar progressBar1=(ProgressBar) findViewById(R.id.player1_indicator);
+            ProgressBar progressBar1=findViewById(R.id.player1_indicator);
             progressBar1.setVisibility(INVISIBLE);
-            ProgressBar progressBar2=(ProgressBar) findViewById(R.id.player2_indicator);
+            ProgressBar progressBar2=findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
             switch (outcome) {
                 case DRAW:
@@ -259,10 +259,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         } else {
          //   connWinnerView.setVisibility(INVISIBLE);
         }
-
-
     }
-
 
     private void loadPref(){
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("PlayerPref", Context.MODE_PRIVATE);
