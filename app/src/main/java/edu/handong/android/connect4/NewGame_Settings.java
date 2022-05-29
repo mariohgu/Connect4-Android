@@ -26,7 +26,7 @@ public class NewGame_Settings extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_new_game_settings);
         ToggleButton multiplayer = findViewById(R.id.multiplayer_toggleButton);
-        TextView txtGuess = findViewById(R.id.txtGuess_name);
+        TextView txtGuess = findViewById(R.id.txtGuest_name);
         EditText guess = findViewById(R.id.edtGuess);
         multiplayer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

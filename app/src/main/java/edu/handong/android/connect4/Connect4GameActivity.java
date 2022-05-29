@@ -3,7 +3,10 @@ package edu.handong.android.connect4;
 import static android.content.ContentValues.TAG;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.AssetManager;
 
 import static edu.handong.android.connect4.Connect4Controller.COLS;
@@ -18,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -96,32 +100,99 @@ public class Connect4GameActivity extends AppCompatActivity{
             discColorPlayer2=R.drawable.red_disc_image_round;
         }
         if(firstTurnStatic==1) {
-            ImageView imageView1=(ImageView) findViewById(R.id.player1_disc);
+            ImageView imageView1=findViewById(R.id.player1_disc);
             imageView1.setImageResource(discColorPlayer1);
-            ImageView imageView2=(ImageView) findViewById(R.id.player2_disc);
+            ImageView imageView2=findViewById(R.id.player2_disc);
             imageView2.setImageResource(discColorPlayer2);
-            ProgressBar progressBar1=(ProgressBar) findViewById(R.id.player1_indicator);
+            ProgressBar progressBar1=findViewById(R.id.player1_indicator);
             progressBar1.setVisibility(VISIBLE);
-            ProgressBar progressBar2=(ProgressBar) findViewById(R.id.player2_indicator);
+            ProgressBar progressBar2=findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
           //  TextView textView1=(TextView) findViewById(R.id.player1_name);
          //   textView1.setText(player1Name);
         //    TextView textView2=(TextView) findViewById(R.id.player2_name);
          //   textView2.setText(player2Name);
         }else {
-            ImageView imageView1=(ImageView) findViewById(R.id.player1_disc);
+            ImageView imageView1=findViewById(R.id.player1_disc);
             imageView1.setImageResource(discColorPlayer1);
-            ImageView imageView2=(ImageView) findViewById(R.id.player2_disc);
+            ImageView imageView2=findViewById(R.id.player2_disc);
             imageView2.setImageResource(discColorPlayer2);
-            ProgressBar progressBar1=(ProgressBar) findViewById(R.id.player1_indicator);
+            ProgressBar progressBar1= findViewById(R.id.player1_indicator);
             progressBar1.setVisibility(INVISIBLE);
-            ProgressBar progressBar2=(ProgressBar) findViewById(R.id.player2_indicator);
+            ProgressBar progressBar2=findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(VISIBLE);
          //   TextView textView1=(TextView) findViewById(R.id.player1_name);
          //   textView1.setText(player1Name);
          //   TextView textView2=(TextView) findViewById(R.id.player2_name);
          //   textView2.setText(player2Name);
         }
+ //--------------------------------------------BUTTONS-------------------------------------------
+        //---------------------------------CLOSE BUTTON---------------------------------------------
+        ImageButton close = findViewById(R.id.back_button);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                Intent i= new Intent(getApplicationContext(),NewGame_Settings.class);
+                                startActivity(i);
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Connect4GameActivity.this);
+                builder.setMessage("BACK TO MENU?").setPositiveButton("YES", dialogClickListener)
+                        .setTitle("CONNECT 4 - HANDONG")
+                        .setNegativeButton("NO", dialogClickListener).show();
+
+            }
+        });
+
+// ------------------------------------END CLOSE ---------------------------------------------------
+
+                    //-------------------------RESET BUTTON----------------------------------------
+
+        ImageButton reset = findViewById(R.id.reload_game_button);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                initialize();
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Connect4GameActivity.this);
+                builder.setMessage("RESET BOARD?").setPositiveButton("YES", dialogClickListener)
+                        .setTitle("CONNECT 4 - HANDONG")
+                        .setNegativeButton("NO", dialogClickListener).show();
+            }
+
+        });
+                    //---------------------END RESET BUTTON ----------------------------------------
+
+
+
+        //---------------------------------------END---BUTTONS------------------------------------------
+
+
         initialize();
     }
     public void initialize(){
@@ -129,6 +200,34 @@ public class Connect4GameActivity extends AppCompatActivity{
     }
 
     public void buildCells() {
+        if(firstTurnStatic==1) {
+            ImageView imageView1=findViewById(R.id.player1_disc);
+            imageView1.setImageResource(discColorPlayer1);
+            ImageView imageView2=findViewById(R.id.player2_disc);
+            imageView2.setImageResource(discColorPlayer2);
+            ProgressBar progressBar1=findViewById(R.id.player1_indicator);
+            progressBar1.setVisibility(VISIBLE);
+            ProgressBar progressBar2=findViewById(R.id.player2_indicator);
+            progressBar2.setVisibility(INVISIBLE);
+            //  TextView textView1=(TextView) findViewById(R.id.player1_name);
+            //   textView1.setText(player1Name);
+            //    TextView textView2=(TextView) findViewById(R.id.player2_name);
+            //   textView2.setText(player2Name);
+        }else {
+            ImageView imageView1 = findViewById(R.id.player1_disc);
+            imageView1.setImageResource(discColorPlayer1);
+            ImageView imageView2 = findViewById(R.id.player2_disc);
+            imageView2.setImageResource(discColorPlayer2);
+            ProgressBar progressBar1 = findViewById(R.id.player1_indicator);
+            progressBar1.setVisibility(INVISIBLE);
+            ProgressBar progressBar2 = findViewById(R.id.player2_indicator);
+            progressBar2.setVisibility(VISIBLE);
+            //   TextView textView1=(TextView) findViewById(R.id.player1_name);
+            //   textView1.setText(player1Name);
+            //   TextView textView2=(TextView) findViewById(R.id.player2_name);
+            //   textView2.setText(player2Name);
+        }
+
      /**   connWinnerView = (TextView) findViewById(R.id.winner_text);
         connWinnerView.setVisibility(INVISIBLE); */
         connCells = new ImageView[ROWS][COLS];
@@ -147,6 +246,8 @@ public class Connect4GameActivity extends AppCompatActivity{
             }
         }
     }
+
+
 
     public void dropDisc(int row, int col,int playerTurn) {
         final ImageView cell = connCells[row][col];

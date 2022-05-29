@@ -10,7 +10,7 @@
     <string name="elapsed_time">Temps imparti</string>
     <string name="toggle_on">OUI</string>
     <string name="toggle_off">NON</string>
-    <string name="guess">FR: Name Guess</string>
+    <string name="guest">FR: Name Guess</string>
     <string name="txtLanguage">Langue</string>
     <string name="txtdark">Mode nuit</string>
     <string name="txtMusic">Musique</string>

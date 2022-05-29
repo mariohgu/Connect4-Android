@@ -9,6 +9,55 @@
     android:focusable="auto"
     tools:context=".Connect4GameActivity">
 
+    <!-- region GAMEBOARD-->
+    <LinearLayout
+        android:id="@+id/gameBoard"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        tools:ignore="MissingConstraints"
+        android:layout_below="@+id/player_info"
+        android:clipChildren="false"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:paddingBottom="200dp"
+        android:paddingLeft="350dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+
+        >
+
+        <include layout="@layout/conn4board_row" />
+        <include layout="@layout/conn4board_row" />
+        <include layout="@layout/conn4board_row" />
+        <include layout="@layout/conn4board_row" />
+        <include layout="@layout/conn4board_row" />
+        <include layout="@layout/conn4board_row" />
+
+    </LinearLayout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/game_board_front"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:clipChildren="false"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:paddingBottom="200dp"
+        android:paddingLeft="350dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp">
+
+        <include layout="@layout/conn4board_front" />
+        <include layout="@layout/conn4board_front" />
+        <include layout="@layout/conn4board_front" />
+        <include layout="@layout/conn4board_front" />
+        <include layout="@layout/conn4board_front" />
+        <include layout="@layout/conn4board_front" />
+    </LinearLayout>
+
+    <!-- endregion-->
+
 
     <ImageButton
         android:id="@+id/pause_button"
@@ -136,54 +185,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.06" />
 
-    <!-- region GAMEBOARD-->
-    <LinearLayout
-        android:id="@+id/gameBoard"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        tools:ignore="MissingConstraints"
-        android:layout_below="@+id/player_info"
-        android:clipChildren="false"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:paddingBottom="200dp"
-        android:paddingLeft="350dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp"
 
-        >
-
-        <include layout="@layout/conn4board_row" />
-        <include layout="@layout/conn4board_row" />
-        <include layout="@layout/conn4board_row" />
-        <include layout="@layout/conn4board_row" />
-        <include layout="@layout/conn4board_row" />
-        <include layout="@layout/conn4board_row" />
-
-    </LinearLayout>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/game_board_front"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:clipChildren="false"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:paddingBottom="200dp"
-        android:paddingLeft="350dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp">
-
-        <include layout="@layout/conn4board_front" />
-        <include layout="@layout/conn4board_front" />
-        <include layout="@layout/conn4board_front" />
-        <include layout="@layout/conn4board_front" />
-        <include layout="@layout/conn4board_front" />
-        <include layout="@layout/conn4board_front" />
-    </LinearLayout>
-
-    <!-- endregion-->
 
     <!-- region PIECES-->
     <ImageView
