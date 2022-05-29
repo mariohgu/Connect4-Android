@@ -62,7 +62,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     }
 
     private static final String MODEL_FILE =
-            "file:///android_asset/3_hard.pb";
+            "file:///android_asset/2_medium.pb";
 
     static {
         System.loadLibrary("tensorflow_inference");
@@ -82,8 +82,12 @@ public class Connect4GameActivity extends AppCompatActivity{
         Intent intent=getIntent();
         Bundle extras=intent.getExtras();
         AssetManager assetManager = getAssets();
-        tf = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
         connMode = extras.getInt("Mode");
+        if (connMode==4) {
+            tf = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
+
+        }
+
      //     player1Name=extras.getString("Player1Name");
    //     player2Name=extras.getString("Player2Name");
         firstTurn="Player1Turn"; //extras.getString("FirstTurn");

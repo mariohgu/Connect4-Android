@@ -104,9 +104,14 @@ public class Connect4Controller implements View.OnClickListener {
         Connect4GameActivity.getInstance().progressBarSwap(connPlayerTurn);
 
         togglePlayer(connPlayerTurn);
-        connBoardLogic.displayBoard();
+
         checkForWin();
         mAiTurn = false;
+
+        if (BuildConfig.DEBUG) {
+            connBoardLogic.displayBoard();
+            Log.e(TAG, "Turn: " + connPlayerTurn);
+        }
         if (connPlayerTurn == 2 && connAiPlayer != null) aiTurn();
     }
 
