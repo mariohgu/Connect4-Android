@@ -61,7 +61,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     }
 
     private static final String MODEL_FILE =
-            "file:///android_asset/alphazero19.pb";
+            "file:///android_asset/3_hard.pb";
 
     static {
         System.loadLibrary("tensorflow_inference");
@@ -169,6 +169,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
                             case DialogInterface.BUTTON_POSITIVE:
+
                                 initialize();
                                 break;
 
@@ -200,33 +201,6 @@ public class Connect4GameActivity extends AppCompatActivity{
     }
 
     public void buildCells() {
-        if(firstTurnStatic==1) {
-            ImageView imageView1=findViewById(R.id.player1_disc);
-            imageView1.setImageResource(discColorPlayer1);
-            ImageView imageView2=findViewById(R.id.player2_disc);
-            imageView2.setImageResource(discColorPlayer2);
-            ProgressBar progressBar1=findViewById(R.id.player1_indicator);
-            progressBar1.setVisibility(VISIBLE);
-            ProgressBar progressBar2=findViewById(R.id.player2_indicator);
-            progressBar2.setVisibility(INVISIBLE);
-            //  TextView textView1=(TextView) findViewById(R.id.player1_name);
-            //   textView1.setText(player1Name);
-            //    TextView textView2=(TextView) findViewById(R.id.player2_name);
-            //   textView2.setText(player2Name);
-        }else {
-            ImageView imageView1 = findViewById(R.id.player1_disc);
-            imageView1.setImageResource(discColorPlayer1);
-            ImageView imageView2 = findViewById(R.id.player2_disc);
-            imageView2.setImageResource(discColorPlayer2);
-            ProgressBar progressBar1 = findViewById(R.id.player1_indicator);
-            progressBar1.setVisibility(INVISIBLE);
-            ProgressBar progressBar2 = findViewById(R.id.player2_indicator);
-            progressBar2.setVisibility(VISIBLE);
-            //   TextView textView1=(TextView) findViewById(R.id.player1_name);
-            //   textView1.setText(player1Name);
-            //   TextView textView2=(TextView) findViewById(R.id.player2_name);
-            //   textView2.setText(player2Name);
-        }
 
      /**   connWinnerView = (TextView) findViewById(R.id.winner_text);
         connWinnerView.setVisibility(INVISIBLE); */
@@ -245,6 +219,38 @@ public class Connect4GameActivity extends AppCompatActivity{
                 Log.d("comp",imageView.toString());
             }
         }
+    }
+
+    public void turn(){
+
+        if(firstTurnStatic==1) {
+            ImageView imageView1=findViewById(R.id.player1_disc);
+            imageView1.setImageResource(discColorPlayer1);
+            ImageView imageView2=findViewById(R.id.player2_disc);
+            imageView2.setImageResource(discColorPlayer2);
+            ProgressBar progressBar1=findViewById(R.id.player1_indicator);
+            progressBar1.setVisibility(VISIBLE);
+            ProgressBar progressBar2=findViewById(R.id.player2_indicator);
+            progressBar2.setVisibility(INVISIBLE);
+            //  TextView textView1=(TextView) findViewById(R.id.player1_name);
+            //   textView1.setText(player1Name);
+            //    TextView textView2=(TextView) findViewById(R.id.player2_name);
+            //   textView2.setText(player2Name);
+        }else {
+            ImageView imageView1=findViewById(R.id.player1_disc);
+            imageView1.setImageResource(discColorPlayer1);
+            ImageView imageView2=findViewById(R.id.player2_disc);
+            imageView2.setImageResource(discColorPlayer2);
+            ProgressBar progressBar1= findViewById(R.id.player1_indicator);
+            progressBar1.setVisibility(INVISIBLE);
+            ProgressBar progressBar2=findViewById(R.id.player2_indicator);
+            progressBar2.setVisibility(VISIBLE);
+            //   TextView textView1=(TextView) findViewById(R.id.player1_name);
+            //   textView1.setText(player1Name);
+            //   TextView textView2=(TextView) findViewById(R.id.player2_name);
+            //   textView2.setText(player2Name);
+        }
+
     }
 
 

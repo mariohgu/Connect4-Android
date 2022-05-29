@@ -54,9 +54,9 @@ public class NewGame_Settings extends AppCompatActivity {
         game_Button.setOnClickListener(view -> {
             Intent intent = new Intent(this, Connect4GameActivity.class);
             if(multiplayer.isChecked())
-                intent.putExtra("Mode",2);
+                intent.putExtra("Mode",5);
             else
-                intent.putExtra("Mode",1);
+                intent.putExtra("Mode",4);
 
 
             startActivity(intent);}

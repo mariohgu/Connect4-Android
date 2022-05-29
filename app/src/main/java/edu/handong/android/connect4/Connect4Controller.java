@@ -68,7 +68,7 @@ public class Connect4Controller implements View.OnClickListener {
             }
             spFree[j] = ROWS;
         }
-        if (mode==1) {
+        if (mode==4) {
             connAiPlayer = new Connect4AiPlayer(connBoardLogic);
 
         } else {
