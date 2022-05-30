@@ -18,6 +18,16 @@ public class Connect4AiPlayer {
     }
 
     //PATH TO OUR MODEL FILE AND NAMES OF THE INPUT AND OUTPUT NODES
+    /**
+     * Page 289
+     * The book "Intelligent Mobile Projects with TensorFlow" by Jeff Tang,
+     *  *          ISBN: 978-1-78883-454-4
+     * To find out the exact output node names (the input node name is specified as 'main_input'), we can add
+     * print(vh) and print(ph) in model.py; now running python play.py will output the following two lines:
+     * Tensor("value_head/Tanh:0",
+     * Tensor("policy_head/MatMul:0"
+     * We'll need them when freezing the TensorFlow checkpoint files and loading the model in mobile apps.
+     */
     private static String INPUT_NAME = "main_input";
     private static String OUTPUT_NAME_1 = "value_head/Tanh";
     private static String OUTPUT_NAME_2 = "policy_head/MatMul";
