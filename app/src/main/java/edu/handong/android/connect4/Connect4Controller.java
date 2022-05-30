@@ -51,6 +51,7 @@ public class Connect4Controller implements View.OnClickListener {
     private Connect4AiPlayer connAiPlayer;
     private boolean mAiTurn;
     public static int mode;
+    public static int First_Player;
     /////////
 
     public Connect4Controller(){
@@ -60,8 +61,10 @@ public class Connect4Controller implements View.OnClickListener {
     private void initialize() {
 
         connPlayerTurn = Connect4GameActivity.firstTurnStatic;
+        First_Player = connPlayerTurn;
         mode = Connect4GameActivity.connMode;
         connFinished = false;
+        connOutcome = Outcome.NOTHING;
         for (int j = 0; j < COLS; ++j) {
             for (int i = 0; i < ROWS; ++i) {
                 connGrid[i][j] = 0;
@@ -75,19 +78,19 @@ public class Connect4Controller implements View.OnClickListener {
             connAiPlayer = null;
         }
 
+        if (First_Player == 2 && connAiPlayer != null) aiTurn();
+
 
     }
 
+    private void aiTurn() {
 
-    @Override
-    public void onClick(View v) {
-        Log.d("aa",v.toString());
-        System.out.println("Vgetx"+v.getX());
-        if (connFinished || mAiTurn) return;
-        int col = Connect4GameActivity.getInstance().colAtX(v.getX());
-        System.out.println(col);
-        selectColumn(col);
+        if (connFinished) return;
+        new AiTask().execute();
     }
+
+
+
     private void selectColumn(int column) {
         System.out.println("Free column"+ spFree[column]);
         if (spFree[column] == 0) {
@@ -115,19 +118,16 @@ public class Connect4Controller implements View.OnClickListener {
         if (connPlayerTurn == 2 && connAiPlayer != null) aiTurn();
     }
 
-    private void aiTurn() {
-
-        if (connFinished) return;
-        new AiTask().execute();
-    }
 
     public void togglePlayer(int playerTurn) {
         if(playerTurn==1)
         {
             connPlayerTurn =2;
 
+
         }else {
             connPlayerTurn =1;
+
         }
     }
 
@@ -143,6 +143,16 @@ public class Connect4Controller implements View.OnClickListener {
         } else {
 //            togglePlayer(mPlayerTurn);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Log.d("aa",v.toString());
+        System.out.println("Vgetx"+v.getX());
+        if (connFinished || mAiTurn) return;
+        int col = Connect4GameActivity.getInstance().colAtX(v.getX());
+        System.out.println(col);
+        selectColumn(col);
     }
 
     class AiTask extends AsyncTask<Void, Void, Integer> {

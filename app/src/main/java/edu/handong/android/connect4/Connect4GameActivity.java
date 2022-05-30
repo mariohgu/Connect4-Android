@@ -40,8 +40,8 @@ import static java.lang.Math.max;
  */
 
 public class Connect4GameActivity extends AppCompatActivity{
-    private View connBoardView;
-    static Connect4GameActivity boardView;
+    private View connBoardGame;
+    static Connect4GameActivity connBoardView;
     private Connect4Controller mGameController;
     private Connect4Controller mListener;
     private View connBoardFrontView;
@@ -75,8 +75,8 @@ public class Connect4GameActivity extends AppCompatActivity{
         setContentView(R.layout.activity_game);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         loadPref();
-        boardView = this;
-        connBoardView = findViewById(R.id.gameBoard);
+        connBoardView = this;
+        connBoardGame = findViewById(R.id.gameBoard);
         connBoardFrontView = findViewById(R.id.game_board_front);
         TextView clock = findViewById(R.id.player_time);
         Intent intent=getIntent();
@@ -210,7 +210,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         connWinnerView.setVisibility(INVISIBLE); */
         connCells = new ImageView[ROWS][COLS];
         for(int r = 0; r < 6; r++){
-            ViewGroup row = (ViewGroup) ((ViewGroup) connBoardView).getChildAt(r);
+            ViewGroup row = (ViewGroup) ((ViewGroup) connBoardGame).getChildAt(r);
             ViewGroup row1 = (ViewGroup) ((ViewGroup) connBoardFrontView).getChildAt(r);
             row.setClipChildren(false);
             for (int c = 0; c < 7; c++){
@@ -305,7 +305,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         return col;
     }
     public static Connect4GameActivity getInstance(){
-        return   boardView;
+        return connBoardView;
     }
 
     public void progressBarSwap(int playerTurn)
@@ -339,7 +339,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                 case DRAW:
                   //  connWinnerView.setText("DRAW");
                     for(int r = 0; r < 6; r++){
-                        ViewGroup row = (ViewGroup) ((ViewGroup) connBoardView).getChildAt(r);
+                        ViewGroup row = (ViewGroup) ((ViewGroup) connBoardGame).getChildAt(r);
                         row.setClipChildren(false);
                         for (int c = 0; c < 7; c++){
                             ImageView imageView = (ImageView) row.getChildAt(c);
@@ -361,7 +361,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                     }
 
                     for(int r = 0; r < 6; r++){
-                        ViewGroup row = (ViewGroup) ((ViewGroup) connBoardView).getChildAt(r);
+                        ViewGroup row = (ViewGroup) ((ViewGroup) connBoardGame).getChildAt(r);
                         row.setClipChildren(false);
                         for (int c = 0; c < 7; c++){
                             ImageView imageView = (ImageView) row.getChildAt(c);
@@ -382,7 +382,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                     }
 
                     for(int r = 0; r < 6; r++){
-                        ViewGroup row = (ViewGroup) ((ViewGroup) connBoardView).getChildAt(r);
+                        ViewGroup row = (ViewGroup) ((ViewGroup) connBoardGame).getChildAt(r);
                         row.setClipChildren(false);
                         for (int c = 0; c < 7; c++){
                             ImageView imageView = (ImageView) row.getChildAt(c);
