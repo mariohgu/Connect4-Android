@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
@@ -282,6 +283,24 @@ public class Connect4GameActivity extends AppCompatActivity{
         showWinStatus(Connect4Logic.Outcome.NOTHING, null);
     }
 
+    public void BoardClick(boolean value){
+        if(connMode==4){
+            LinearLayout myLayout = findViewById(R.id.game_board_front);
+            for( int i = 0; i < myLayout.getChildCount();  i++ ) {
+                View view = myLayout.getChildAt(i);
+                view.setClickable(value);
+                //  view.setVisibility(VISIBLE); // Or whatever you want to do with the view.
+            }
+
+            LinearLayout myLayout2 = findViewById(R.id.gameBoard);
+            for( int i = 0; i < myLayout2.getChildCount();  i++ ) {
+                View view = myLayout2.getChildAt(i);
+                view.setClickable(value);
+                //  view.setVisibility(VISIBLE);
+            }
+        }
+
+    }
 
 
 
@@ -316,11 +335,13 @@ public class Connect4GameActivity extends AppCompatActivity{
             progressBar1.setVisibility(INVISIBLE);
             ProgressBar progressBar2=findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(VISIBLE);
+            BoardClick(true);
         }else {
             ProgressBar progressBar1= findViewById(R.id.player1_indicator);
             progressBar1.setVisibility(VISIBLE);
             ProgressBar progressBar2= findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
+            BoardClick(false);
         }
     }
 
