@@ -224,7 +224,7 @@
         app:layout_constraintGuide_percent="0.9" />
 
     <EditText
-        android:id="@+id/edtGuess"
+        android:id="@+id/edtGuest"
         android:layout_width="447dp"
         android:layout_height="48dp"
         android:ems="10"

@@ -90,7 +90,8 @@ public class Connect4GameActivity extends AppCompatActivity{
         }
 
      //     player1Name=extras.getString("Player1Name");
-   //     player2Name=extras.getString("Player2Name");
+        if(connMode==4) player2Name="ROBOCOP";
+        else player2Name=extras.getString("Player2Name");
         firstTurn="Player1Turn"; //extras.getString("FirstTurn");
         player1DiscColor="Red"; //extras.getString("Player1DiscColor");
         if(firstTurn.equals("Player1Turn")) {
@@ -116,8 +117,8 @@ public class Connect4GameActivity extends AppCompatActivity{
             progressBar2.setVisibility(INVISIBLE);
           //  TextView textView1=(TextView) findViewById(R.id.player1_name);
          //   textView1.setText(player1Name);
-        //    TextView textView2=(TextView) findViewById(R.id.player2_name);
-         //   textView2.setText(player2Name);
+            TextView name2=findViewById(R.id.player2_turn_label);
+            name2.setText(player2Name);
         }else {
             ImageView imageView1=findViewById(R.id.player1_disc);
             imageView1.setImageResource(discColorPlayer1);
@@ -129,8 +130,8 @@ public class Connect4GameActivity extends AppCompatActivity{
             progressBar2.setVisibility(VISIBLE);
          //   TextView textView1=(TextView) findViewById(R.id.player1_name);
          //   textView1.setText(player1Name);
-         //   TextView textView2=(TextView) findViewById(R.id.player2_name);
-         //   textView2.setText(player2Name);
+            TextView name2=findViewById(R.id.player2_turn_label);
+            name2.setText(player2Name);
         }
  //--------------------------------------------BUTTONS-------------------------------------------
         //---------------------------------CLOSE BUTTON---------------------------------------------
@@ -193,8 +194,6 @@ public class Connect4GameActivity extends AppCompatActivity{
 
         });
                     //---------------------END RESET BUTTON ----------------------------------------
-
-
 
         //---------------------------------------END---BUTTONS------------------------------------------
 
@@ -289,21 +288,18 @@ public class Connect4GameActivity extends AppCompatActivity{
             for( int i = 0; i < myLayout.getChildCount();  i++ ) {
                 View view = myLayout.getChildAt(i);
                 view.setClickable(value);
-                //  view.setVisibility(VISIBLE); // Or whatever you want to do with the view.
+
             }
 
             LinearLayout myLayout2 = findViewById(R.id.gameBoard);
             for( int i = 0; i < myLayout2.getChildCount();  i++ ) {
                 View view = myLayout2.getChildAt(i);
                 view.setClickable(value);
-                //  view.setVisibility(VISIBLE);
+
             }
         }
 
     }
-
-
-
     public void dropDisc(int row, int col,int playerTurn) {
         final ImageView cell = connCells[row][col];
         float move = -(cell.getHeight() * row + cell.getHeight() + 15);
@@ -422,7 +418,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     private void loadPref(){
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("PlayerPref", Context.MODE_PRIVATE);
         String player = preferences.getString("player1", "");
-        TextView player_name = findViewById(R.id.player_turn_label);
+        TextView player_name = findViewById(R.id.player1_turn_label);
         player_name.setText(player);
 
     }

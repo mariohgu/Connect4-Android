@@ -26,17 +26,18 @@ public class NewGame_Settings extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_new_game_settings);
         ToggleButton multiplayer = findViewById(R.id.multiplayer_toggleButton);
-        TextView txtGuess = findViewById(R.id.txtGuest_name);
-        EditText guess = findViewById(R.id.edtGuess);
+        TextView txtGuest = findViewById(R.id.txtGuest_name);
+        EditText guest = findViewById(R.id.edtGuest);
+
         multiplayer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (multiplayer.isChecked()) {
-                    txtGuess.setVisibility(View.VISIBLE);
-                    guess.setVisibility(View.VISIBLE);
+                    txtGuest.setVisibility(View.VISIBLE);
+                    guest.setVisibility(View.VISIBLE);
                 } else {
-                    txtGuess.setVisibility(View.INVISIBLE);
-                    guess.setVisibility(View.INVISIBLE);
+                    txtGuest.setVisibility(View.INVISIBLE);
+                    guest.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -52,7 +53,9 @@ public class NewGame_Settings extends AppCompatActivity {
         //Advance to the actual game activity
         ImageButton game_Button = findViewById(R.id.launchgame);
         game_Button.setOnClickListener(view -> {
+            String name2 = guest.getText().toString();
             Intent intent = new Intent(this, Connect4GameActivity.class);
+            intent.putExtra("Player2Name",name2);
             if(multiplayer.isChecked())
                 intent.putExtra("Mode",5);
             else
