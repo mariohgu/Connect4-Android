@@ -19,5 +19,7 @@
     <string name="txtSounds">Sons</string>
     <string name="activate_bluetooth">Activer bluetooth</string>
     <string name="guest">invités</string>
+    <string name="draw">DRAW!!!!</string>
+    <string name="wins">WINS!!!!</string>
 
 </resources>

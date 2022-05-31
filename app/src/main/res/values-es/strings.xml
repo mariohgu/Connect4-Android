@@ -17,4 +17,6 @@
     <string name="activate_bluetooth">Activar Bluetooth</string>
     <string name="guest">Visitante</string>
     <string name="alert_back">POR FAVOR, UTILICE LOS BOTONES DE ATRAS DE LA APP</string>
+    <string name="wins">GANO!!!!</string>
+    <string name="draw">EMPATE!!!!</string>
 </resources>

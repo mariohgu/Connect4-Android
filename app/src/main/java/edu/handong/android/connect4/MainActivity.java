@@ -98,7 +98,9 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         counter++;
         if(counter==2) {
-            MainActivity.this.finish();
+           MainActivity.this.finish();
+         //   Toast.makeText(this, R.string.alert_back, Toast.LENGTH_LONG).show();
+            moveTaskToBack(true);
         }
     }
 

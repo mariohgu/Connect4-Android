@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -56,7 +57,9 @@ public class Connect4GameActivity extends AppCompatActivity{
     public static int connMode;
     public static int discColorPlayer1;
     public static int discColorPlayer2;
- //   private TextView connWinnerView;
+    private TextView connWinnerView;
+    public String draw;
+    public String wins;
     public static String player1Name;
     public String player1DiscColor;
     public String modelPiecePlayer1;
@@ -92,11 +95,15 @@ public class Connect4GameActivity extends AppCompatActivity{
         modelPiecePlayer1 = extras.getString("ModelPiece");
         if (connMode==4) tf = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
 
-     //     player1Name=extras.getString("Player1Name");
+        TextView name1 = findViewById(R.id.player1_turn_label);
+        player1Name = name1.getText().toString();
         if(connMode==4) player2Name="ROBOCOP";
         else player2Name=extras.getString("Player2Name");
         firstTurn="Player1Turn"; //extras.getString("FirstTurn");
         player1DiscColor="Red"; //extras.getString("Player1DiscColor");
+
+        draw = getResources().getString(R.string.draw);
+        wins = getResources().getString(R.string.wins);
 
 
         if(firstTurn.equals("Player1Turn")) {
@@ -115,32 +122,26 @@ public class Connect4GameActivity extends AppCompatActivity{
  //--------------------------------------------BUTTONS-------------------------------------------
         //---------------------------------CLOSE BUTTON---------------------------------------------
         ImageButton close = findViewById(R.id.back_button);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
-                            case DialogInterface.BUTTON_POSITIVE:
-                                Connect4GameActivity.this.finish();
-                                Intent i= new Intent(getApplicationContext(),NewGame_Settings.class);
-                                startActivity(i);
-                                break;
+        close.setOnClickListener(view -> {
+            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        Connect4GameActivity.this.finish();
+                        Intent i= new Intent(getApplicationContext(),NewGame_Settings.class);
+                        startActivity(i);
+                        break;
 
-                            case DialogInterface.BUTTON_NEGATIVE:
+                    case DialogInterface.BUTTON_NEGATIVE:
 
-                                break;
-                        }
-                    }
-                };
+                        break;
+                }
+            };
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(Connect4GameActivity.this);
-                builder.setMessage("BACK TO MENU?").setPositiveButton("YES", dialogClickListener)
-                        .setTitle("CONNECT 4 - HANDONG")
-                        .setNegativeButton("NO", dialogClickListener).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(Connect4GameActivity.this);
+            builder.setMessage("BACK TO MENU?").setPositiveButton("YES", dialogClickListener)
+                    .setTitle("CONNECT 4 - HANDONG")
+                    .setNegativeButton("NO", dialogClickListener).show();
 
-            }
         });
 
 // ------------------------------------END CLOSE ---------------------------------------------------
@@ -148,30 +149,23 @@ public class Connect4GameActivity extends AppCompatActivity{
                     //-------------------------RESET BUTTON----------------------------------------
 
         ImageButton reset = findViewById(R.id.reload_game_button);
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
-                            case DialogInterface.BUTTON_POSITIVE:
-                                resetBoard();
-                                break;
+        reset.setOnClickListener(view -> {
+            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        resetBoard();
+                        break;
 
-                            case DialogInterface.BUTTON_NEGATIVE:
+                    case DialogInterface.BUTTON_NEGATIVE:
 
-                                break;
-                        }
-                    }
-                };
+                        break;
+                }
+            };
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(Connect4GameActivity.this);
-                builder.setMessage("RESET BOARD?").setPositiveButton("YES", dialogClickListener)
-                        .setTitle("CONNECT 4 - HANDONG")
-                        .setNegativeButton("NO", dialogClickListener).show();
-            }
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(Connect4GameActivity.this);
+            builder.setMessage("RESET BOARD?").setPositiveButton("YES", dialogClickListener)
+                    .setTitle("CONNECT 4 - HANDONG")
+                    .setNegativeButton("NO", dialogClickListener).show();
         });
                     //---------------------END RESET BUTTON ----------------------------------------
 
@@ -186,8 +180,8 @@ public class Connect4GameActivity extends AppCompatActivity{
 
     public void buildCells() {
 
-     /**   connWinnerView = (TextView) findViewById(R.id.winner_text);
-        connWinnerView.setVisibility(INVISIBLE); */
+        connWinnerView = findViewById(R.id.final_message);
+        connWinnerView.setVisibility(INVISIBLE);
         connCells = new ImageView[ROWS][COLS];
         for(int r = 0; r < 6; r++){
             ViewGroup row = (ViewGroup) ((ViewGroup) connBoardGame).getChildAt(r);
@@ -345,19 +339,21 @@ public class Connect4GameActivity extends AppCompatActivity{
         }
     }
 
+    @SuppressLint("SetTextI18n")
     public void showWinStatus(Connect4Logic.Outcome outcome, ArrayList<ImageView> winDiscs) {
         if (BuildConfig.DEBUG) {
             Log.e(TAG, outcome.name());
         }
         if (outcome != Connect4Logic.Outcome.NOTHING) {
             System.out.println("Hello inside outcome");
-        //    connWinnerView.setVisibility(VISIBLE);
+            connWinnerView.setVisibility(VISIBLE);
             ProgressBar progressBar1=findViewById(R.id.player1_indicator);
             progressBar1.setVisibility(INVISIBLE);
             ProgressBar progressBar2=findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
             switch (outcome) {
                 case DRAW:
+                    connWinnerView.setText(draw);
                   //  connWinnerView.setText("DRAW");
                     for(int r = 0; r < 6; r++){
                         ViewGroup row = (ViewGroup) ((ViewGroup) connBoardGame).getChildAt(r);
@@ -370,6 +366,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                     break;
                 case PLAYER1_WINS:
                     System.out.println("Hello inside player1");
+                    connWinnerView.setText(player1Name+" "+wins);
                  //   connWinnerView.setText(player1Name+" WINS!");
                     for (ImageView winDisc : winDiscs) {
                         if(player1DiscColor.equals("Red"))
@@ -392,7 +389,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                     break;
                 case PLAYER2_WINS:
 
-              //      connWinnerView.setText(player2Name+" WINS!");
+                    connWinnerView.setText(player2Name+" "+wins);
                     for (ImageView winDisc : winDiscs) {
                         if(player1DiscColor.equals("Red"))
                         {
