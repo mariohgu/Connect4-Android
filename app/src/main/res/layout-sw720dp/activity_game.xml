@@ -19,8 +19,8 @@
         android:clipChildren="false"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:paddingBottom="190dp"
-        android:paddingLeft="350dp"
+        android:paddingBottom="100dp"
+        android:paddingLeft="240dp"
         android:paddingRight="16dp"
         android:paddingTop="16dp"
 
@@ -43,8 +43,8 @@
         android:clipChildren="false"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:paddingBottom="190dp"
-        android:paddingLeft="350dp"
+        android:paddingBottom="100dp"
+        android:paddingLeft="240dp"
         android:paddingRight="16dp"
         android:paddingTop="16dp">
 
@@ -112,18 +112,17 @@
 
     <ImageView
         android:id="@+id/time"
-        android:layout_width="250dp"
-        android:layout_height="140dp"
+        android:layout_width="400dp"
+        android:layout_height="80dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/h2"
-
-        app:layout_constraintEnd_toStartOf="@+id/player1_turn"
+        app:layout_constraintDimensionRatio="1:1"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@+id/player2_turn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/back_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/h1"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/time" />
+        app:layout_constraintVertical_bias="15.0"
+        android:layout_margin="20dp"
+        app:srcCompat="@drawable/wooden" />
 
     <TextView
         android:id="@+id/player_time"
@@ -131,11 +130,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/babycake"
         android:text="00:20"
-        android:textColor="#000000"
-        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/time"
         app:layout_constraintEnd_toEndOf="@+id/time"
-        app:layout_constraintHorizontal_bias="0.618"
+        app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="@+id/time"
         app:layout_constraintTop_toTopOf="@+id/time" />
 
@@ -175,10 +174,10 @@
         android:fontFamily="@font/babycake"
         android:text="Player_1 moving"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/player1_turn"
         app:layout_constraintEnd_toEndOf="@+id/player1_turn"
-        app:layout_constraintHorizontal_bias="0.36"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="@+id/player1_turn"
         app:layout_constraintTop_toTopOf="@+id/player1_turn"
         app:layout_constraintVertical_bias="0.447" />
@@ -190,29 +189,44 @@
         android:fontFamily="@font/babycake"
         android:text="ROBOCOP"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/player2_turn"
         app:layout_constraintEnd_toEndOf="@+id/player2_turn"
-        app:layout_constraintHorizontal_bias="0.36"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="@+id/player2_turn"
         app:layout_constraintTop_toTopOf="@+id/player2_turn"
         app:layout_constraintVertical_bias="0.447" />
 
     <TextView
-        android:id="@+id/textview"
+        android:id="@+id/final_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="45sp"
         android:textStyle="bold"
+        android:fontFamily="@font/mickey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/v2"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.06" />
+
+    <ImageView
+        android:id="@+id/clock_timer"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/clock_timer"
+        app:layout_constraintBottom_toBottomOf="@+id/time"
+        app:layout_constraintEnd_toEndOf="@+id/time"
+        app:layout_constraintHorizontal_bias="0.100"
+        app:layout_constraintStart_toStartOf="@+id/time"
+        app:layout_constraintTop_toTopOf="@+id/time"
+        app:layout_constraintVertical_bias="0.447"
+        />
 
 
 

@@ -378,6 +378,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                     }
                     break;
                 case PLAYER2_WINS:
+
               //      connWinnerView.setText(player2Name+" WINS!");
                     for (ImageView winDisc : winDiscs) {
                         if(player1DiscColor.equals("Red"))

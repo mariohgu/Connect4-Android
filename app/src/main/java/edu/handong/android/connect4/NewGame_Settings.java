@@ -31,6 +31,17 @@ public class NewGame_Settings extends AppCompatActivity {
         EditText guest = findViewById(R.id.edtGuest);
         Spinner pieces = findViewById(R.id.ballShape_spinner);
 
+        multiplayer.setOnClickListener(view -> {
+            if (multiplayer.isChecked()) {
+                txtGuest.setVisibility(View.VISIBLE);
+                guest.setVisibility(View.VISIBLE);
+            } else {
+                txtGuest.setVisibility(View.INVISIBLE);
+                guest.setVisibility(View.INVISIBLE);
+            }
+
+        });
+/**
         multiplayer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -44,7 +55,7 @@ public class NewGame_Settings extends AppCompatActivity {
 
             }
         });
-
+*/
 
         //Go back to home page
         ImageButton home_Button = findViewById(R.id.newgamehome);

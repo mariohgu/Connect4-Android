@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">4 en línea</string>
+    <string name="player_name">Nombre</string>
+    <string name="single_player">Un jugador</string>
+    <string name="multi_player">Multijugador</string>
+    <string name="ball_shape">Tipo de ficha</string>
+    <string name="game_sounds">Sonidos</string>
+    <string name="elapsed_time">Tiempo</string>
+    <string name="toggle_on">ON</string>
+    <string name="toggle_off">OFF</string>
+    <string name="guest_name">Invitado</string>
+    <string name="txtLanguage">Idioma</string>
+    <string name="txtdark">Modo Noche</string>
+    <string name="txtMusic">Musica</string>
+    <string name="txtSounds">Sonidos</string>
+    <string name="activate_bluetooth">Activar Bluetooth</string>
+    <string name="guest">Visitante</string>
+</resources>

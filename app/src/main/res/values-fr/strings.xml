@@ -10,12 +10,13 @@
     <string name="elapsed_time">Temps imparti</string>
     <string name="toggle_on">OUI</string>
     <string name="toggle_off">NON</string>
-    <string name="guest">FR: Name Guess</string>
+    <string name="guest_name">FR: Name Guess</string>
     <string name="txtLanguage">Langue</string>
     <string name="txtdark">Mode nuit</string>
     <string name="txtMusic">Musique</string>
 
     <string name="txtSounds">Sons</string>
     <string name="activate_bluetooth">Activer bluetooth</string>
+    <string name="guest">invités</string>
 
 </resources>
