@@ -57,14 +57,12 @@ public class Connect4GameActivity extends AppCompatActivity{
     public static String player1Name;
     public String player1DiscColor;
     public String modelPiecePlayer1;
-    public String modeldiscPlayer2;
+ //   public String modeldiscPlayer2;
     public static String player2Name;
     public static String firstTurn;
     public ImageView[][] getCells() {
         return connCells;
     }
-
-
 
     private static final String MODEL_FILE =
             "file:///android_asset/2_medium.pb";
@@ -89,10 +87,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         AssetManager assetManager = getAssets();
         connMode = extras.getInt("Mode");
         modelPiecePlayer1 = extras.getString("ModelPiece");
-        if (connMode==4) {
-            tf = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
-
-        }
+        if (connMode==4) tf = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
 
      //     player1Name=extras.getString("Player1Name");
         if(connMode==4) player2Name="ROBOCOP";
@@ -108,45 +103,12 @@ public class Connect4GameActivity extends AppCompatActivity{
         }
 
         //------------------------------------------GAME PIECE -----------------------------
-        /**if(player1DiscColor.equals("Red")) {
-            discColorPlayer1=R.drawable.red_disc_image_round;
-            discColorPlayer2=R.drawable.yellow_disc_image_round;
-        }else {
-            discColorPlayer1=R.drawable.yellow_disc_image_round;
-            discColorPlayer2=R.drawable.red_disc_image_round;
-        }
-         */
-        choosePiece("Red",modelPiecePlayer1);
+        choosePiece(player1DiscColor,modelPiecePlayer1);
+        //--------------------------------------------END GAME PIECE -------------------------
 
-
-        //--------------------------------------------EN GAME PIECE -------------------------
-        if(firstTurnStatic==1) {
-            ImageView imageView1=findViewById(R.id.player1_disc);
-            imageView1.setImageResource(discColorPlayer1);
-            ImageView imageView2=findViewById(R.id.player2_disc);
-            imageView2.setImageResource(discColorPlayer2);
-            ProgressBar progressBar1=findViewById(R.id.player1_indicator);
-            progressBar1.setVisibility(VISIBLE);
-            ProgressBar progressBar2=findViewById(R.id.player2_indicator);
-            progressBar2.setVisibility(INVISIBLE);
-          //  TextView textView1=(TextView) findViewById(R.id.player1_name);
-         //   textView1.setText(player1Name);
-            TextView name2=findViewById(R.id.player2_turn_label);
-            name2.setText(player2Name);
-        }else {
-            ImageView imageView1=findViewById(R.id.player1_disc);
-            imageView1.setImageResource(discColorPlayer1);
-            ImageView imageView2=findViewById(R.id.player2_disc);
-            imageView2.setImageResource(discColorPlayer2);
-            ProgressBar progressBar1= findViewById(R.id.player1_indicator);
-            progressBar1.setVisibility(INVISIBLE);
-            ProgressBar progressBar2=findViewById(R.id.player2_indicator);
-            progressBar2.setVisibility(VISIBLE);
-         //   TextView textView1=(TextView) findViewById(R.id.player1_name);
-         //   textView1.setText(player1Name);
-            TextView name2=findViewById(R.id.player2_turn_label);
-            name2.setText(player2Name);
-        }
+        //-------------------------------------NAMES BOARD---------------------------------
+        turn();
+        //--------------------------------------------------------------------
  //--------------------------------------------BUTTONS-------------------------------------------
         //---------------------------------CLOSE BUTTON---------------------------------------------
         ImageButton close = findViewById(R.id.back_button);
@@ -252,8 +214,8 @@ public class Connect4GameActivity extends AppCompatActivity{
             progressBar2.setVisibility(INVISIBLE);
             //  TextView textView1=(TextView) findViewById(R.id.player1_name);
             //   textView1.setText(player1Name);
-            //    TextView textView2=(TextView) findViewById(R.id.player2_name);
-            //   textView2.setText(player2Name);
+            TextView name2=findViewById(R.id.player2_turn_label);
+            name2.setText(player2Name);
         }else {
             ImageView imageView1=findViewById(R.id.player1_disc);
             imageView1.setImageResource(discColorPlayer1);
@@ -265,27 +227,25 @@ public class Connect4GameActivity extends AppCompatActivity{
             progressBar2.setVisibility(VISIBLE);
             //   TextView textView1=(TextView) findViewById(R.id.player1_name);
             //   textView1.setText(player1Name);
-            //   TextView textView2=(TextView) findViewById(R.id.player2_name);
-            //   textView2.setText(player2Name);
+            TextView name2=findViewById(R.id.player2_turn_label);
+            name2.setText(player2Name);
         }
 
     }
 
     public void resetBoard() {
-
         initialize();
         for (ImageView[] cell : connCells) {
             for (ImageView imageView : cell) {
                 imageView.setImageResource(android.R.color.transparent);
             }
         }
-        //      mGameController.togglePlayer(firstTurnStatic);
         if(firstTurn.equals("Player1Turn")) {
             firstTurnStatic= connPlayer1;
         }else {
             firstTurnStatic= connPlayer2;
         }
-        choosePiece("Red",modelPiecePlayer1);
+        choosePiece(player1DiscColor,modelPiecePlayer1);
         turn();
         showWinStatus(Connect4Logic.Outcome.NOTHING, null);
     }
@@ -296,18 +256,14 @@ public class Connect4GameActivity extends AppCompatActivity{
             for( int i = 0; i < myLayout.getChildCount();  i++ ) {
                 View view = myLayout.getChildAt(i);
                 view.setClickable(value);
-
             }
-
             LinearLayout myLayout2 = findViewById(R.id.gameBoard);
             for( int i = 0; i < myLayout2.getChildCount();  i++ ) {
                 View view = myLayout2.getChildAt(i);
                 view.setClickable(value);
-
-            }
-        }
-
+            }    }
     }
+
     public void dropDisc(int row, int col,int playerTurn) {
         final ImageView cell = connCells[row][col];
         float move = -(cell.getHeight() * row + cell.getHeight() + 15);
@@ -327,6 +283,7 @@ public class Connect4GameActivity extends AppCompatActivity{
             return 6;
         return col;
     }
+
     public static Connect4GameActivity getInstance(){
         return connBoardView;
     }
@@ -360,9 +317,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                     discColorPlayer1=R.drawable.red_disc_image_round_poker;
                     discColorPlayer2=R.drawable.yellow_disc_image_round_poker;
                     break;
-
             }
-
         }else {
             switch (model){
                 case("Classic"):
@@ -373,9 +328,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                     discColorPlayer1=R.drawable.yellow_disc_image_round_poker;
                     discColorPlayer2=R.drawable.red_disc_image_round_poker;
                     break;
-
             }
-
         }
     }
 

@@ -56,8 +56,8 @@
         android:id="@+id/ball_shape"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/babycake"
         android:text="@string/ball_shape"
+        android:fontFamily="@font/babycake"
         android:textColor="#0B0B0B"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
@@ -182,18 +182,37 @@
 
     <Spinner
         android:id="@+id/ballShape_spinner"
-        android:layout_width="370dp"
+        android:layout_width="280dp"
         android:layout_height="45sp"
         android:entries="@array/balls"
         android:scrollbarSize="50dp"
         android:soundEffectsEnabled="true"
-        android:spinnerMode="dialog"
+        android:spinnerMode="dropdown"
+        android:theme="@style/SpinnerTheme"
         app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
         app:layout_constraintEnd_toEndOf="@+id/load_game_board"
         app:layout_constraintHorizontal_bias="0.588"
         app:layout_constraintStart_toEndOf="@+id/ball_shape"
         app:layout_constraintTop_toTopOf="@+id/load_game_board"
         app:layout_constraintVertical_bias="0.19" />
+
+    <EditText
+        android:id="@+id/edtGuest"
+        android:layout_width="447dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="GUEST"
+        android:visibility="invisible"
+        android:fontFamily="@font/babycake"
+        android:textColor="#0B0B0B"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
+        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
+        app:layout_constraintHorizontal_bias="0.726"
+        app:layout_constraintStart_toEndOf="@+id/ball_shape"
+        app:layout_constraintTop_toTopOf="@+id/load_game_board"
+        app:layout_constraintVertical_bias="0.826" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/v1"
@@ -223,18 +242,5 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.9" />
 
-    <EditText
-        android:id="@+id/edtGuest"
-        android:layout_width="447dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="GUEST"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/load_game_board"
-        app:layout_constraintEnd_toEndOf="@+id/load_game_board"
-        app:layout_constraintHorizontal_bias="0.726"
-        app:layout_constraintStart_toEndOf="@+id/ball_shape"
-        app:layout_constraintTop_toTopOf="@+id/load_game_board"
-        app:layout_constraintVertical_bias="0.826" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

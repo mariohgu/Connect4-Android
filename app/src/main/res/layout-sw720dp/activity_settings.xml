@@ -146,7 +146,7 @@
 
     <Spinner
         android:id="@+id/spLanguage"
-        android:layout_width="150dp"
+        android:layout_width="250dp"
         android:layout_height="70dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="260dp"
@@ -154,6 +154,7 @@
         android:gravity="center"
         android:spinnerMode="dropdown"
         android:textAlignment="center"
+        android:theme="@style/SpinnerTheme"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
         app:layout_constraintTop_toTopOf="@+id/imgSettings" />
 

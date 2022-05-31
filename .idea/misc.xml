@@ -52,9 +52,10 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout-sw320dp/activity_game.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout-sw480dp/activity_game.xml" value="0.61" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout-sw600dp/activity_game.xml" value="0.4765625" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout-sw720dp/activity_game.xml" value="0.536" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout-sw720dp/activity_game.xml" value="0.1" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout-sw720dp/activity_main.xml" value="0.190625" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout-sw720dp/activity_new_game_settings.xml" value="0.6" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout-sw720dp/activity_new_game_settings.xml" value="0.1" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout-sw720dp/activity_settings.xml" value="0.190625" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout/activity_game.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Connect4/app/src/main/res/layout/activity_new_game_settings.xml" value="0.25416666666666665" />
