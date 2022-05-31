@@ -20,6 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
     private EditText player_name;
     private Spinner language;
     private ToggleButton music;
+    boolean launchService;
     private ToggleButton sounds;
     private String player;
 
@@ -56,6 +57,7 @@ public class SettingsActivity extends AppCompatActivity {
         ImageButton back_Button = findViewById(R.id.back_button);
         back_Button.setOnClickListener(view -> {
             onBackPressed();
+            loadPref();
         }
         );
 
@@ -63,7 +65,7 @@ public class SettingsActivity extends AppCompatActivity {
         save_Button.setOnClickListener(view -> {
                 savePref();
                 loadPref();
-                //onBackPressed();
+                onBackPressed();
 
             }
         );
@@ -116,12 +118,11 @@ public class SettingsActivity extends AppCompatActivity {
         player_name.setText(player);
 
         music.setChecked(preferences.getBoolean(MUSIC,false));
+        launchService=preferences.getBoolean(MUSIC,false);
         //Checking if the music option sets the music ON or OFF
         if(preferences.contains(MUSIC)){
-
             Intent intent = new Intent(SettingsActivity.this, BackgroundSoundService.class);
             startService(intent);
-
         }
 
     }

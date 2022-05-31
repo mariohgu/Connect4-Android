@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout r1;
     Context context;
     SharedPreferences preferences;
+    boolean launchService;
+    MediaPlayer mediaPlayer;
 
     public static final String PREF = "PlayerPref";
     public static final String TEXT = "player1";
@@ -69,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
         );
 
         //Loading the preferences of the application. If nothing set, then default settings are used
-        //loadPref();
+        loadPref();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //loadPref();
+        loadPref();
     }
 
     @Override
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         //loadPref();
     }
 
-    /*private void loadPref(){
+    private void loadPref(){
 
         SharedPreferences preferences = getSharedPreferences(PREF, MODE_PRIVATE);
         String lang,player;
@@ -125,9 +127,12 @@ public class MainActivity extends AppCompatActivity {
         }
         //Checking if the music option sets the music ON or OFF
         if(preferences.contains("music")){
+            launchService=preferences.getBoolean(MUSIC,false);
+            if (launchService){
                 Intent intent = new Intent(MainActivity.this, BackgroundSoundService.class);
                 startService(intent);
+            }
         }
 
-    }*/
+    }
 }

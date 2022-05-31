@@ -15,11 +15,11 @@ import android.widget.Toast;
 public class BackgroundSoundService extends IntentService {
     public static final String PREF = "PlayerPref";
     public static final String MUSIC = "music";
+    protected MediaPlayer mediaPlayer;
 
-    MediaPlayer mediaPlayer;
+
     public BackgroundSoundService() {
         super("BackgroundSoundService");
-
     }
 
     @Override
@@ -32,26 +32,18 @@ public class BackgroundSoundService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         SharedPreferences preferences = getSharedPreferences(PREF, MODE_PRIVATE);
         boolean music = preferences.getBoolean(MUSIC, false);
-
-
-        Toast.makeText(BackgroundSoundService.this,"inside service",Toast.LENGTH_SHORT).show();
-
         if (intent != null) {
-            if (music && (this.mediaPlayer.isPlaying()==false)){
+            if ((music==true) && (this.mediaPlayer.isPlaying()==false)){
                 Toast.makeText(BackgroundSoundService.this,"music ON and player was OFF",Toast.LENGTH_SHORT).show();
                 this.mediaPlayer.setLooping(true); // Set looping
                 this.mediaPlayer.setVolume(100, 100);
                 this.mediaPlayer.start();
             }
-            else if (music && this.mediaPlayer.isPlaying()){
-                Toast.makeText(BackgroundSoundService.this,"music ON and player was ON",Toast.LENGTH_SHORT).show();
-
-            }
-            else if ((music==false)&&this.mediaPlayer.isPlaying()){
+            else if ((music==false) && (this.mediaPlayer.isPlaying()==true)){
                 Toast.makeText(BackgroundSoundService.this,"music OFF and player was ON",Toast.LENGTH_SHORT).show();
                 this.mediaPlayer.stop();
             }
-            else{
+            else if ((music==false)&& (this.mediaPlayer.isPlaying()==false)){
                 if (!music)Toast.makeText(BackgroundSoundService.this,"music OFF and mediaPlayer was OFF",Toast.LENGTH_SHORT).show();
                 this.mediaPlayer.stop();
             }
