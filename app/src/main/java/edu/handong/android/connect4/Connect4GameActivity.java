@@ -357,6 +357,8 @@ public class Connect4GameActivity extends AppCompatActivity{
                     discColorPlayer2=R.drawable.yellow_disc_image_round;
                     break;
                 case ("Poker"):
+                    discColorPlayer1=R.drawable.red_disc_image_round_poker;
+                    discColorPlayer2=R.drawable.yellow_disc_image_round_poker;
                     break;
 
             }
@@ -368,6 +370,8 @@ public class Connect4GameActivity extends AppCompatActivity{
                     discColorPlayer2=R.drawable.red_disc_image_round;
                     break;
                 case ("Poker"):
+                    discColorPlayer1=R.drawable.yellow_disc_image_round_poker;
+                    discColorPlayer2=R.drawable.red_disc_image_round_poker;
                     break;
 
             }
