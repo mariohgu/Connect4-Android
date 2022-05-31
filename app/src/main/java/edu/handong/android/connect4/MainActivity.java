@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     boolean launchService;
     MediaPlayer mediaPlayer;
+    public int counter;
 
     public static final String PREF = "PlayerPref";
     public static final String TEXT = "player1";
@@ -91,6 +92,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         //loadPref();
+    }
+
+    @Override
+    public void onBackPressed() {
+        counter++;
+        if(counter==2) {
+            MainActivity.this.finish();
+        }
     }
 
     private void loadPref(){

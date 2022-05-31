@@ -12,6 +12,7 @@
     <string name="toggle_off">OFF</string>
     <string name="guest_name">Guest Name</string>
     <string name="guest">Guest Name</string>
+    <string name="alert_back">PLEASE, USE THE APP BACK BUTTONS</string>
     <!--activity_settings-->
     <string name="txtLanguage">Language</string>
     <string name="txtdark">Dark Mode</string>

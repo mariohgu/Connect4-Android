@@ -14,6 +14,7 @@
     <string name="txtLanguage">Langue</string>
     <string name="txtdark">Mode nuit</string>
     <string name="txtMusic">Musique</string>
+    <string name="alert_back">SIL VOUS PLAIT, UTILISEZ LES BOUTONS DE RETOUR DE LAPPLI</string>
 
     <string name="txtSounds">Sons</string>
     <string name="activate_bluetooth">Activer bluetooth</string>

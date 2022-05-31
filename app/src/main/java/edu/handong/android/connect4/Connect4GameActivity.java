@@ -26,6 +26,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 
 import java.util.ArrayList;
@@ -47,6 +49,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     private Connect4Controller mListener;
     private View connBoardFrontView;
     private ImageView[][] connCells;
+    public int counter;
     public static int connPlayer1 =1;
     public static int connPlayer2 =2;
     public static int firstTurnStatic;
@@ -120,6 +123,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
                             case DialogInterface.BUTTON_POSITIVE:
+                                Connect4GameActivity.this.finish();
                                 Intent i= new Intent(getApplicationContext(),NewGame_Settings.class);
                                 startActivity(i);
                                 break;
@@ -329,6 +333,15 @@ public class Connect4GameActivity extends AppCompatActivity{
                     discColorPlayer2=R.drawable.red_disc_image_round_poker;
                     break;
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        counter++;
+        if(counter==3) {
+            Toast.makeText(this, R.string.alert_back, Toast.LENGTH_LONG).show();
+            counter=0;
         }
     }
 

@@ -24,6 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
     private ToggleButton sounds;
     private String player;
 
+
     SharedPreferences preferences;
     public static final String PREF = "PlayerPref";
     public static final String TEXT = "player1";
@@ -146,6 +147,10 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
 
 
 

@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 public class RankingActivity extends AppCompatActivity {
+    public int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +24,14 @@ public class RankingActivity extends AppCompatActivity {
             startActivity(intent);}
         );
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        counter++;
+        if(counter==3) {
+            Toast.makeText(this, R.string.alert_back, Toast.LENGTH_LONG).show();
+            counter=0;
+        }
     }
 }

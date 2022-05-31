@@ -11,9 +11,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class NewGame_Settings extends AppCompatActivity {
+    public int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,5 +81,14 @@ public class NewGame_Settings extends AppCompatActivity {
 
             startActivity(intent);}
         );
+    }
+
+    @Override
+    public void onBackPressed() {
+        counter++;
+        if(counter==3) {
+            Toast.makeText(this, R.string.alert_back, Toast.LENGTH_LONG).show();
+            counter=0;
+        }
     }
 }
