@@ -56,11 +56,15 @@ public class Connect4GameActivity extends AppCompatActivity{
  //   private TextView connWinnerView;
     public static String player1Name;
     public String player1DiscColor;
+    public String modelPiecePlayer1;
+    public String modeldiscPlayer2;
     public static String player2Name;
     public static String firstTurn;
     public ImageView[][] getCells() {
         return connCells;
     }
+
+
 
     private static final String MODEL_FILE =
             "file:///android_asset/2_medium.pb";
@@ -84,6 +88,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         Bundle extras=intent.getExtras();
         AssetManager assetManager = getAssets();
         connMode = extras.getInt("Mode");
+        modelPiecePlayer1 = extras.getString("ModelPiece");
         if (connMode==4) {
             tf = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
 
@@ -94,18 +99,27 @@ public class Connect4GameActivity extends AppCompatActivity{
         else player2Name=extras.getString("Player2Name");
         firstTurn="Player1Turn"; //extras.getString("FirstTurn");
         player1DiscColor="Red"; //extras.getString("Player1DiscColor");
+
+
         if(firstTurn.equals("Player1Turn")) {
             firstTurnStatic= connPlayer1;
         }else {
             firstTurnStatic= connPlayer2;
         }
-        if(player1DiscColor.equals("Red")) {
+
+        //------------------------------------------GAME PIECE -----------------------------
+        /**if(player1DiscColor.equals("Red")) {
             discColorPlayer1=R.drawable.red_disc_image_round;
             discColorPlayer2=R.drawable.yellow_disc_image_round;
         }else {
             discColorPlayer1=R.drawable.yellow_disc_image_round;
             discColorPlayer2=R.drawable.red_disc_image_round;
         }
+         */
+        choosePiece("Red",modelPiecePlayer1);
+
+
+        //--------------------------------------------EN GAME PIECE -------------------------
         if(firstTurnStatic==1) {
             ImageView imageView1=findViewById(R.id.player1_disc);
             imageView1.setImageResource(discColorPlayer1);
@@ -271,13 +285,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         }else {
             firstTurnStatic= connPlayer2;
         }
-        if(player1DiscColor.equals("Red")) {
-            discColorPlayer1=R.drawable.red_disc_image_round;
-            discColorPlayer2=R.drawable.yellow_disc_image_round;
-        }else {
-            discColorPlayer1=R.drawable.yellow_disc_image_round;
-            discColorPlayer2=R.drawable.red_disc_image_round;
-        }
+        choosePiece("Red",modelPiecePlayer1);
         turn();
         showWinStatus(Connect4Logic.Outcome.NOTHING, null);
     }
@@ -338,6 +346,32 @@ public class Connect4GameActivity extends AppCompatActivity{
             ProgressBar progressBar2= findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
             BoardClick(false);
+        }
+    }
+
+    public void choosePiece(String color, String model){
+        if(color.equals("Red")) {
+            switch (model){
+                case("Classic"):
+                    discColorPlayer1=R.drawable.red_disc_image_round;
+                    discColorPlayer2=R.drawable.yellow_disc_image_round;
+                    break;
+                case ("Poker"):
+                    break;
+
+            }
+
+        }else {
+            switch (model){
+                case("Classic"):
+                    discColorPlayer1=R.drawable.yellow_disc_image_round;
+                    discColorPlayer2=R.drawable.red_disc_image_round;
+                    break;
+                case ("Poker"):
+                    break;
+
+            }
+
         }
     }
 

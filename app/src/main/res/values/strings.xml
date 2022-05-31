@@ -24,9 +24,9 @@
     </string-array>
 
     <string-array name="balls">
-        <item name="En">soccer ball</item>
-        <item name="Fr">tennis ball</item>
-        <item name="Sp">snooker ball</item>
+        <item name="En">Classic</item>
+        <item name="Fr">Poker</item>
+
 
     </string-array>
     <!--activity_multiplayer-->

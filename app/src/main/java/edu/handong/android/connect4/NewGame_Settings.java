@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -28,6 +29,7 @@ public class NewGame_Settings extends AppCompatActivity {
         ToggleButton multiplayer = findViewById(R.id.multiplayer_toggleButton);
         TextView txtGuest = findViewById(R.id.txtGuest_name);
         EditText guest = findViewById(R.id.edtGuest);
+        Spinner pieces = findViewById(R.id.ballShape_spinner);
 
         multiplayer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -54,8 +56,10 @@ public class NewGame_Settings extends AppCompatActivity {
         ImageButton game_Button = findViewById(R.id.launchgame);
         game_Button.setOnClickListener(view -> {
             String name2 = guest.getText().toString();
+            String piece = pieces.getSelectedItem().toString();
             Intent intent = new Intent(this, Connect4GameActivity.class);
             intent.putExtra("Player2Name",name2);
+            intent.putExtra("ModelPiece",piece);
             if(multiplayer.isChecked())
                 intent.putExtra("Mode",5);
             else
