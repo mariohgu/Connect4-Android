@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
             else if (lang.equals("Spanish")){
-                locale = new Locale("sp");
+                locale = new Locale("es");
                 Configuration config = getBaseContext().getResources().getConfiguration();
                 config.locale = locale;
                 getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());

@@ -413,7 +413,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                     break;
             }
         } else {
-         //   connWinnerView.setVisibility(INVISIBLE);
+            connWinnerView.setVisibility(INVISIBLE);
         }
     }
 
