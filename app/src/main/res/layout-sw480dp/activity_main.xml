@@ -137,4 +137,79 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.33" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/h7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.99" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/h6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.92" />
+
+    <ImageButton
+        android:id="@+id/exit_button"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="216dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="Save Settings"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/h7"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="@+id/h6"
+        app:layout_constraintTop_toBottomOf="@+id/music"
+        app:layout_constraintVertical_bias="0.037"
+        app:srcCompat="@drawable/exit_" />
+
+    <ImageButton
+        android:id="@+id/facebook"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="Save Settings"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/h7"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="@+id/h6"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/facebook_" />
+
+    <ImageButton
+        android:id="@+id/twitter"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="Save Settings"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/h7"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="@+id/h6"
+        app:layout_constraintTop_toBottomOf="@+id/facebook"
+        app:srcCompat="@drawable/twitter_" />
+
+    <ImageButton
+        android:id="@+id/music_button"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="Save Settings"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/h7"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="@+id/h6"
+        app:layout_constraintTop_toBottomOf="@+id/twitter"
+        app:srcCompat="@drawable/sound__2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
