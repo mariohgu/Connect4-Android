@@ -43,7 +43,7 @@ public class NewGame_Settings extends AppCompatActivity {
             }
 
         });
-/**
+
         multiplayer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -57,7 +57,6 @@ public class NewGame_Settings extends AppCompatActivity {
 
             }
         });
-*/
 
         //Go back to home page
         ImageButton home_Button = findViewById(R.id.newgamehome);
