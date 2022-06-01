@@ -97,7 +97,7 @@ public class Connect4GameActivity extends AppCompatActivity{
 
         TextView name1 = findViewById(R.id.player1_turn_label);
         player1Name = name1.getText().toString();
-        if(connMode==4) player2Name="ROBOCOP";
+        if(connMode==4) player2Name="Computer";
         else player2Name=extras.getString("Player2Name");
         firstTurn="Player1Turn"; //extras.getString("FirstTurn");
         player1DiscColor="Red"; //extras.getString("Player1DiscColor");
@@ -138,8 +138,8 @@ public class Connect4GameActivity extends AppCompatActivity{
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(Connect4GameActivity.this);
-            builder.setMessage("BACK TO MENU?").setPositiveButton("YES", dialogClickListener)
-                    .setTitle("CONNECT 4 - HANDONG")
+            builder.setMessage("Back to menu?").setPositiveButton("YES", dialogClickListener)
+                    .setTitle("CONNECT 4")
                     .setNegativeButton("NO", dialogClickListener).show();
 
         });
@@ -163,8 +163,8 @@ public class Connect4GameActivity extends AppCompatActivity{
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(Connect4GameActivity.this);
-            builder.setMessage("RESET BOARD?").setPositiveButton("YES", dialogClickListener)
-                    .setTitle("CONNECT 4 - HANDONG")
+            builder.setMessage("Reset the game ?").setPositiveButton("YES", dialogClickListener)
+                    .setTitle("CONNECT 4")
                     .setNegativeButton("NO", dialogClickListener).show();
         });
                     //---------------------END RESET BUTTON ----------------------------------------

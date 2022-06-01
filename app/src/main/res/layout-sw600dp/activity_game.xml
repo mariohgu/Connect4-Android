@@ -9,6 +9,55 @@
     android:focusable="auto"
     tools:context=".Connect4GameActivity">
 
+    <!-- region GAMEBOARD-->
+    <LinearLayout
+        android:id="@+id/gameBoard"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        tools:ignore="MissingConstraints"
+        android:layout_below="@+id/player_info"
+        android:clipChildren="false"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:paddingBottom="40dp"
+        android:paddingLeft="200dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+
+        >
+
+        <include layout="@layout/conn4board_row" />
+        <include layout="@layout/conn4board_row" />
+        <include layout="@layout/conn4board_row" />
+        <include layout="@layout/conn4board_row" />
+        <include layout="@layout/conn4board_row" />
+        <include layout="@layout/conn4board_row" />
+
+    </LinearLayout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/game_board_front"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:clipChildren="false"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:paddingBottom="40dp"
+        android:paddingLeft="200dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp">
+
+        <include layout="@layout/conn4board_front" />
+        <include layout="@layout/conn4board_front" />
+        <include layout="@layout/conn4board_front" />
+        <include layout="@layout/conn4board_front" />
+        <include layout="@layout/conn4board_front" />
+        <include layout="@layout/conn4board_front" />
+    </LinearLayout>
+
+    <!-- endregion-->
+    <!-- Buttons-->
 
     <ImageButton
         android:id="@+id/pause_button"
@@ -65,21 +114,73 @@
         app:layout_constraintStart_toStartOf="@+id/v1"
         app:layout_constraintTop_toBottomOf="@+id/pause_button"
         app:srcCompat="@drawable/reload_game" />
+    <!-- Buttons-->
+    <ImageButton
+        android:id="@+id/pause_button"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:background="@android:color/transparent"
+        android:keepScreenOn="true"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/reload_game_button"
+        app:layout_constraintEnd_toStartOf="@+id/v2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/v1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:srcCompat="@drawable/pause_game" />
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/v2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/v1"
+        app:layout_constraintTop_toBottomOf="@+id/settings_button"
+        app:srcCompat="@drawable/back_arrow" />
+
+    <ImageButton
+        android:id="@+id/settings_button"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/back_button"
+        app:layout_constraintEnd_toStartOf="@+id/v2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/v1"
+        app:layout_constraintTop_toBottomOf="@+id/reload_game_button"
+        app:srcCompat="@drawable/options" />
+
+    <ImageButton
+        android:id="@+id/reload_game_button"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/settings_button"
+        app:layout_constraintEnd_toStartOf="@+id/v2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/v1"
+        app:layout_constraintTop_toBottomOf="@+id/pause_button"
+        app:srcCompat="@drawable/reload_game" />
+
+    <!-- endButtons-->
 
     <ImageView
         android:id="@+id/time"
-        android:layout_width="250dp"
-        android:layout_height="140dp"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/h2"
-
-        app:layout_constraintEnd_toStartOf="@+id/player1_turn"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/back_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/h1"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/time" />
+        app:layout_constraintTop_toBottomOf="@+id/player2_turn"
+        app:layout_constraintVertical_bias="15.0"
+        app:srcCompat="@drawable/wooden" />
 
     <TextView
         android:id="@+id/player_time"
@@ -87,28 +188,40 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/babycake"
         android:text="00:20"
-        android:textColor="#000000"
-        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/time"
         app:layout_constraintEnd_toEndOf="@+id/time"
-        app:layout_constraintHorizontal_bias="0.618"
+        app:layout_constraintHorizontal_bias="0.646"
         app:layout_constraintStart_toStartOf="@+id/time"
-        app:layout_constraintTop_toTopOf="@+id/time" />
+        app:layout_constraintTop_toTopOf="@+id/time"
+        app:layout_constraintVertical_bias="0.555" />
 
     <ImageView
         android:id="@+id/player1_turn"
-        android:layout_width="250dp"
-        android:layout_height="140dp"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="20dp"
         android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/wooden" />
 
-        app:layout_constraintBottom_toTopOf="@+id/h2"
+    <ImageView
+        android:id="@+id/player2_turn"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/time"
-        app:layout_constraintTop_toTopOf="@+id/h1"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/player_turn" />
+        app:layout_constraintTop_toBottomOf="@+id/player1_turn"
+        app:layout_constraintVertical_bias="15.0"
+        app:srcCompat="@drawable/wooden" />
 
 
     <TextView
@@ -117,30 +230,116 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/babycake"
         android:text="Player_1 moving"
-        android:textColor="#000000"
-        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/player1_turn"
         app:layout_constraintEnd_toEndOf="@+id/player1_turn"
-        app:layout_constraintHorizontal_bias="0.836"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="@+id/player1_turn"
+        app:layout_constraintTop_toTopOf="@+id/player1_turn"
+        app:layout_constraintVertical_bias="0.629" />
+
+    <TextView
+        android:id="@+id/player2_turn_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/babycake"
+        android:text="Computer"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/player2_turn"
+        app:layout_constraintEnd_toEndOf="@+id/player2_turn"
+        app:layout_constraintHorizontal_bias="0.767"
+        app:layout_constraintStart_toStartOf="@+id/player2_turn"
+        app:layout_constraintTop_toTopOf="@+id/player2_turn"
+        app:layout_constraintVertical_bias="0.629" />
+
+    <TextView
+        android:id="@+id/final_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/babycake"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintLeft_toLeftOf="@id/v2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.06" />
+
+    <ImageView
+        android:id="@+id/clock_timer"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/clock_timer"
+        app:layout_constraintBottom_toBottomOf="@+id/time"
+        app:layout_constraintEnd_toEndOf="@+id/time"
+        app:layout_constraintHorizontal_bias="0.100"
+        app:layout_constraintStart_toStartOf="@+id/time"
+        app:layout_constraintTop_toTopOf="@+id/time"
+        app:layout_constraintVertical_bias="0.447" />
+
+
+    <!-- region PIECES-->
+    <ImageView
+        android:id="@+id/player1_disc"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/red_disc"
+        app:layout_constraintBottom_toBottomOf="@+id/player1_turn"
+        app:layout_constraintEnd_toEndOf="@+id/player1_turn"
+        app:layout_constraintHorizontal_bias="0.100"
         app:layout_constraintStart_toStartOf="@+id/player1_turn"
         app:layout_constraintTop_toTopOf="@+id/player1_turn"
         app:layout_constraintVertical_bias="0.447" />
 
-    <TextView
-        android:id="@+id/textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.06" />
+    <ProgressBar
+        android:id="@+id/player1_indicator"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:theme="@style/AppTheme.WhiteAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/player1_turn"
+        app:layout_constraintEnd_toEndOf="@+id/player1_turn"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="@+id/player1_turn"
+        app:layout_constraintTop_toTopOf="@+id/player1_turn"
+        app:layout_constraintVertical_bias="0.447" />
+
+    <ImageView
+        android:id="@+id/player2_disc"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/red_disc"
+        app:layout_constraintBottom_toBottomOf="@+id/player2_turn"
+        app:layout_constraintEnd_toEndOf="@+id/player2_turn"
+        app:layout_constraintHorizontal_bias="0.100"
+        app:layout_constraintStart_toStartOf="@+id/player2_turn"
+        app:layout_constraintTop_toTopOf="@+id/player2_turn"
+        app:layout_constraintVertical_bias="0.447" />
+
+    <ProgressBar
+        android:id="@+id/player2_indicator"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerInParent="true"
+        android:theme="@style/AppTheme.WhiteAccent"
+        app:layout_constraintBottom_toBottomOf="@+id/player2_turn"
+        app:layout_constraintEnd_toEndOf="@+id/player2_turn"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="@+id/player2_turn"
+        app:layout_constraintTop_toTopOf="@+id/player2_turn"
+        app:layout_constraintVertical_bias="0.447" />
+
+    <!-- endregion-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/v1"
