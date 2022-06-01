@@ -82,6 +82,8 @@ public class Connect4GameActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        SoundEffect clickSound=new SoundEffect(this);
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         loadPref();
         connBoardView = this;
@@ -123,6 +125,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         //---------------------------------CLOSE BUTTON---------------------------------------------
         ImageButton close = findViewById(R.id.back_button);
         close.setOnClickListener(view -> {
+            clickSound.playSound();
             DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
@@ -150,6 +153,7 @@ public class Connect4GameActivity extends AppCompatActivity{
 
         ImageButton reset = findViewById(R.id.reload_game_button);
         reset.setOnClickListener(view -> {
+            clickSound.playSound();
             DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
@@ -169,8 +173,26 @@ public class Connect4GameActivity extends AppCompatActivity{
         });
                     //---------------------END RESET BUTTON ----------------------------------------
 
-        //---------------------------------------END---BUTTONS------------------------------------------
+        //-------------------------PAUSE BUTTON----------------------------------------
 
+        ImageButton pause = findViewById(R.id.pause_button);
+        pause.setOnClickListener(view -> {
+            clickSound.playSound();
+            //Write code to pause game
+        });
+        //---------------------END PAUSE BUTTON ----------------------------------------
+
+        //-------------------------SETTINGS BUTTON----------------------------------------
+
+        ImageButton settings = findViewById(R.id.settings_button);
+        settings.setOnClickListener(view -> {
+            clickSound.playSound();
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+        });
+        //---------------------END PAUSE BUTTON ----------------------------------------
+
+        //---------------------------------------END---BUTTONS------------------------------------------
 
         initialize();
     }

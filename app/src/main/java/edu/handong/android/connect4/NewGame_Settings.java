@@ -28,6 +28,8 @@ public class NewGame_Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_new_game_settings);
+        SoundEffect clickSound=new SoundEffect(this);
+
         ToggleButton multiplayer = findViewById(R.id.multiplayer_toggleButton);
         TextView txtGuest = findViewById(R.id.txtGuest_name);
         EditText guest = findViewById(R.id.edtGuest);
@@ -61,12 +63,14 @@ public class NewGame_Settings extends AppCompatActivity {
         //Go back to home page
         ImageButton home_Button = findViewById(R.id.newgamehome);
         home_Button.setOnClickListener(view -> {
+            clickSound.playSound();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);}
         );
         //Advance to the actual game activity
         ImageButton game_Button = findViewById(R.id.launchgame);
         game_Button.setOnClickListener(view -> {
+            clickSound.playSound();
             String name2 = guest.getText().toString();
             String piece = pieces.getSelectedItem().toString();
             Intent intent = new Intent(this, Connect4GameActivity.class);

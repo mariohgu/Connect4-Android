@@ -1,8 +1,11 @@
 package edu.handong.android.connect4;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
@@ -10,7 +13,9 @@ import android.content.pm.ActivityInfo;
 
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.media.audiofx.BassBoost;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     boolean launchService;
     MediaPlayer mediaPlayer;
+
     public int counter;
 
     public static final String PREF = "PlayerPref";
@@ -39,36 +45,91 @@ public class MainActivity extends AppCompatActivity {
     public static final String PREF_LANG = "pref_lang";
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setTheme(R.style.Theme_Connect4);
         setContentView(R.layout.activity_main);
+        SoundEffect clickSound=new SoundEffect(this);
+
         //loadPref();
 
         ImageButton New_Game_Button = (ImageButton)findViewById(R.id.newgame);
         New_Game_Button.setOnClickListener(view -> {
+            clickSound.playSound();
             Intent intent = new Intent(this, NewGame_Settings.class);
             startActivity(intent);}
         );
 
         ImageButton Settings_Button = (ImageButton)findViewById(R.id.settings);
         Settings_Button.setOnClickListener(view -> {
+            clickSound.playSound();
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);}
         );
 
         ImageButton Ranking_buttons = (ImageButton)findViewById(R.id.rankings);
         Ranking_buttons.setOnClickListener(view -> {
+            clickSound.playSound();
             Intent intent = new Intent(this, RankingActivity.class);
             startActivity(intent);}
         );
 
         ImageButton bluetooth_button = (ImageButton)findViewById(R.id.multiplayer);
         bluetooth_button.setOnClickListener(view -> {
+            clickSound.playSound();
             Intent intent = new Intent(this, multiplayer.class);
             startActivity(intent);}
+        );
+
+        ImageButton exit_button = (ImageButton)findViewById(R.id.exit_button);
+        exit_button.setOnClickListener(view -> {
+            clickSound.playSound();
+            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        if (mediaPlayer!=null)
+                        {
+                            mediaPlayer.stop();
+                            mediaPlayer.release();
+                            mediaPlayer=null;
+                        }
+                        MainActivity.this.finish();
+                        moveTaskToBack(true);;
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage("Exit the app?").setPositiveButton("YES", dialogClickListener)
+                    .setTitle("CONNECT 4")
+                    .setNegativeButton("NO", dialogClickListener).show();
+
+            }
+        );
+
+        ImageButton music_button = (ImageButton)findViewById(R.id.music_button);
+        music_button.setOnClickListener(view -> {
+            clickSound.playSound();
+            if(mediaPlayer==null){
+                mediaPlayer = MediaPlayer.create(this, R.raw.happy_lullaby);
+                mediaPlayer.setLooping(true); // Set looping
+                mediaPlayer.setVolume(100, 100);
+                mediaPlayer.start();
+            }
+            else{
+                mediaPlayer.stop();
+                mediaPlayer.release();
+                mediaPlayer=null;
+            }
+
+
+        }
         );
 
         //Loading the preferences of the application. If nothing set, then default settings are used
@@ -102,6 +163,13 @@ public class MainActivity extends AppCompatActivity {
          //   Toast.makeText(this, R.string.alert_back, Toast.LENGTH_LONG).show();
             moveTaskToBack(true);
         }
+        //clickSound.StopSound();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 
     private void loadPref(){

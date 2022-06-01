@@ -18,9 +18,20 @@ public class multiplayer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multiplayer);
+        SoundEffect clickSound=new SoundEffect(this);
+
         ImageButton home_Button = (ImageButton)findViewById(R.id.newgamehome);
         home_Button.setOnClickListener(view -> {
+            clickSound.playSound();
             Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);}
+        );
+
+        ImageButton multi_Button = (ImageButton)findViewById(R.id.launchgame);
+        multi_Button.setOnClickListener(view -> {
+            clickSound.playSound();
+
+            Intent intent = new Intent(this, Connect4GameActivity.class);
             startActivity(intent);}
         );
         loadPref();

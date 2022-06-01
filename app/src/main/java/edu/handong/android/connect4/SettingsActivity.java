@@ -49,6 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_settings);
+        SoundEffect clickSound=new SoundEffect(this);
 
         player_name = findViewById(R.id.playerName);
         language = findViewById(R.id.spLanguage);
@@ -57,6 +58,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         ImageButton back_Button = findViewById(R.id.back_button);
         back_Button.setOnClickListener(view -> {
+            clickSound.playSound();
             onBackPressed();
             loadPref();
         }
@@ -64,6 +66,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         ImageButton save_Button = findViewById(R.id.btnSaveSettings);
         save_Button.setOnClickListener(view -> {
+                clickSound.playSound();
                 savePref();
                 loadPref();
                 onBackPressed();
@@ -73,11 +76,18 @@ public class SettingsActivity extends AppCompatActivity {
 
         ImageButton cancel_Button = findViewById(R.id.btnCancelSettings);
         cancel_Button.setOnClickListener(view -> {
+                clickSound.playSound();
                 //Make a Pop-up to prompt the user if he is sure to cancel the changes
                 Toast.makeText(SettingsActivity.this,"Cancelling the changes",Toast.LENGTH_SHORT).show();
 
                 }
         );
+
+        sounds.setOnClickListener(view -> {
+                    clickSound.playSound();
+                    }
+        );
+
         loadPref();
     }
 

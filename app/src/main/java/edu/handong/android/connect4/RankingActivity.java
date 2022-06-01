@@ -18,8 +18,10 @@ public class RankingActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_ranking);
+        SoundEffect clickSound=new SoundEffect(this);
         ImageButton game_Button = (ImageButton)findViewById(R.id.back_button);
         game_Button.setOnClickListener(view -> {
+            clickSound.playSound();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);}
         );
