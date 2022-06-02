@@ -155,16 +155,16 @@
         android:id="@+id/exit_button"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="152dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:contentDescription="Save Settings"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/h1"
         app:layout_constraintEnd_toStartOf="@+id/h7"
         app:layout_constraintHorizontal_bias="0.588"
         app:layout_constraintStart_toStartOf="@+id/h6"
-        app:layout_constraintTop_toBottomOf="@+id/music"
+        app:layout_constraintTop_toBottomOf="@+id/music_button"
+        app:layout_constraintVertical_bias="0.193"
         app:srcCompat="@drawable/exit_" />
 
     <ImageButton
