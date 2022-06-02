@@ -19,8 +19,8 @@
         android:clipChildren="false"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:paddingBottom="100dp"
-        android:paddingLeft="240dp"
+        android:paddingBottom="70dp"
+        android:paddingLeft="200dp"
         android:paddingRight="16dp"
         android:paddingTop="16dp"
 
@@ -43,8 +43,8 @@
         android:clipChildren="false"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:paddingBottom="100dp"
-        android:paddingLeft="240dp"
+        android:paddingBottom="70dp"
+        android:paddingLeft="200dp"
         android:paddingRight="16dp"
         android:paddingTop="16dp">
 
@@ -113,7 +113,7 @@
 
     <ImageView
         android:id="@+id/time"
-        android:layout_width="400dp"
+        android:layout_width="300dp"
         android:layout_height="80dp"
         android:background="@android:color/transparent"
         app:layout_constraintDimensionRatio="1:1"
@@ -141,7 +141,7 @@
 
     <ImageView
         android:id="@+id/player1_turn"
-        android:layout_width="400dp"
+        android:layout_width="300dp"
         android:layout_height="80dp"
         android:background="@android:color/transparent"
         app:layout_constraintDimensionRatio="1:1"
@@ -155,7 +155,7 @@
 
     <ImageView
         android:id="@+id/player2_turn"
-        android:layout_width="400dp"
+        android:layout_width="300dp"
         android:layout_height="80dp"
         android:background="@android:color/transparent"
         app:layout_constraintDimensionRatio="1:1"
