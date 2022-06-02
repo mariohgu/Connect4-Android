@@ -123,6 +123,7 @@
         android:gravity="center"
         android:spinnerMode="dropdown"
         android:textAlignment="center"
+        android:theme="@style/SpinnerTheme"
         app:layout_constraintEnd_toEndOf="@+id/imgSettings"
         app:layout_constraintHorizontal_bias="0.97"
         app:layout_constraintStart_toEndOf="@+id/txtLanguage"

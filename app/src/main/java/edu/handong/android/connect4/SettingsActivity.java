@@ -128,13 +128,13 @@ public class SettingsActivity extends AppCompatActivity {
         player = preferences.getString(TEXT, "");
         player_name.setText(player);
 
-        music.setChecked(preferences.getBoolean(MUSIC,false));
+        /*music.setChecked(preferences.getBoolean(MUSIC,false));
         launchService=preferences.getBoolean(MUSIC,false);
-        //Checking if the music option sets the music ON or OFF
+        Checking if the music option sets the music ON or OFF
         if(preferences.contains(MUSIC)){
             Intent intent = new Intent(SettingsActivity.this, BackgroundSoundService.class);
             startService(intent);
-        }
+        }*/
 
     }
 
@@ -145,7 +145,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences(PREF, MODE_PRIVATE);
         SharedPreferences.Editor editor= preferences.edit();
-        editor.putBoolean(MUSIC,music.isChecked());
+        //editor.putBoolean(MUSIC,music.isChecked());
         editor.putBoolean(SOUNDS,sounds.isChecked());
         editor.putString(TEXT,player_name.getText().toString());
         editor.putString(PREF_LANG, language.getSelectedItem().toString());

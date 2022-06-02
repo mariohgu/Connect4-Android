@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public class multiplayer extends AppCompatActivity {
 
@@ -33,6 +34,12 @@ public class multiplayer extends AppCompatActivity {
 
             Intent intent = new Intent(this, Connect4GameActivity.class);
             startActivity(intent);}
+        );
+
+        ToggleButton bluetooth_Button = findViewById(R.id.bluetooth_toggleButton);
+        bluetooth_Button.setOnClickListener(view -> {
+            clickSound.playSound();
+            }
         );
         loadPref();
 
