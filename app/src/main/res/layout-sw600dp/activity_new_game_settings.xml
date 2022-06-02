@@ -107,6 +107,7 @@
         android:cursorVisible="false"
         android:fontFamily="@font/babycake"
         android:freezesText="false"
+        android:theme="@style/SpinnerTheme"
         android:textOff="@string/toggle_off"
         android:textOn="@string/toggle_on"
         android:textSize="20sp"

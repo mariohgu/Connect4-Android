@@ -20,7 +20,7 @@
         android:gravity="bottom"
         android:orientation="vertical"
         android:paddingBottom="45dp"
-        android:paddingLeft="240dp"
+        android:paddingLeft="170dp"
         android:paddingRight="16dp"
         android:paddingTop="16dp"
 
@@ -44,7 +44,7 @@
         android:gravity="bottom"
         android:orientation="vertical"
         android:paddingBottom="45dp"
-        android:paddingLeft="200dp"
+        android:paddingLeft="170dp"
         android:paddingRight="16dp"
         android:paddingTop="16dp">
 
@@ -126,7 +126,7 @@
 
     <ImageView
         android:id="@+id/time"
-        android:layout_width="250dp"
+        android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_margin="20dp"
         android:layout_marginTop="100dp"
@@ -155,7 +155,7 @@
 
     <ImageView
         android:id="@+id/player1_turn"
-        android:layout_width="250dp"
+        android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginTop="104dp"
         android:layout_marginEnd="20dp"
@@ -167,7 +167,7 @@
 
     <ImageView
         android:id="@+id/player2_turn"
-        android:layout_width="250dp"
+        android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_margin="20dp"
         android:background="@android:color/transparent"
@@ -187,7 +187,7 @@
         android:fontFamily="@font/babycake"
         android:text="Player_1 moving"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/player1_turn"
         app:layout_constraintEnd_toEndOf="@+id/player1_turn"
         app:layout_constraintHorizontal_bias="0.833"
@@ -202,7 +202,7 @@
         android:fontFamily="@font/babycake"
         android:text="Computer"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/player2_turn"
         app:layout_constraintEnd_toEndOf="@+id/player2_turn"
         app:layout_constraintHorizontal_bias="0.629"
