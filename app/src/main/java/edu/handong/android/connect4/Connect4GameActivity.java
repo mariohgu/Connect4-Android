@@ -376,7 +376,7 @@ public class Connect4GameActivity extends AppCompatActivity{
             switch (outcome) {
                 case DRAW:
                     connWinnerView.setText(draw);
-                  //  connWinnerView.setText("DRAW");
+                  
                     for(int r = 0; r < 6; r++){
                         ViewGroup row = (ViewGroup) ((ViewGroup) connBoardGame).getChildAt(r);
                         row.setClipChildren(false);
