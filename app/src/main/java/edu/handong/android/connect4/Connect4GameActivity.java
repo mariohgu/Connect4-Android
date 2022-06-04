@@ -385,8 +385,14 @@ public class Connect4GameActivity extends AppCompatActivity{
         @Override
         public void onFinish() {
             if(modeTimer && !connMultiplayer){
+                BoardClick(false);
             connect4Controller.togglePlayer(connPlayerTurn);
-            connect4Controller.aiTurn();}
+            connect4Controller.aiTurn();
+                BoardClick(true);
+            }
+
+
+
 
 
             //   textViewTimer.setText("0:000");
