@@ -1,6 +1,8 @@
 package edu.handong.android.connect4;
 
 import static android.content.ContentValues.TAG;
+import static edu.handong.android.connect4.Connect4GameActivity.connMultiplayer;
+
 
 import static java.lang.Thread.sleep;
 
@@ -50,7 +52,7 @@ public class Connect4Controller implements View.OnClickListener {
     //////////////
     private Connect4AiPlayer connAiPlayer;
     private boolean mAiTurn;
-    public static int mode;
+    public static boolean mode;
     public static int First_Player;
     /////////
 
@@ -62,7 +64,7 @@ public class Connect4Controller implements View.OnClickListener {
 
         connPlayerTurn = Connect4GameActivity.firstTurnStatic;
         First_Player = connPlayerTurn;
-        mode = Connect4GameActivity.connMode;
+        mode = connMultiplayer;
         connFinished = false;
         connOutcome = Outcome.NOTHING;
         for (int j = 0; j < COLS; ++j) {
@@ -71,7 +73,8 @@ public class Connect4Controller implements View.OnClickListener {
             }
             spFree[j] = ROWS;
         }
-        if (mode==4) {
+    //    connAiPlayer = new Connect4AiPlayer(connBoardLogic);
+       if (!connMultiplayer) {
             connAiPlayer = new Connect4AiPlayer(connBoardLogic);
 
         } else {
@@ -82,13 +85,6 @@ public class Connect4Controller implements View.OnClickListener {
 
 
     }
-
-    private void aiTurn() {
-
-        if (connFinished) return;
-        new AiTask().execute();
-    }
-
 
 
     private void selectColumn(int column) {
@@ -116,6 +112,13 @@ public class Connect4Controller implements View.OnClickListener {
             Log.e(TAG, "Turn: " + connPlayerTurn);
         }
         if (connPlayerTurn == 2 && connAiPlayer != null) aiTurn();
+        }
+
+
+    public void aiTurn() {
+
+        if (connFinished) return;
+        new AiTask().execute();
     }
 
 

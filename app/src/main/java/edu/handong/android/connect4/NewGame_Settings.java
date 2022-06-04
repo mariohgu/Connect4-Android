@@ -31,6 +31,7 @@ public class NewGame_Settings extends AppCompatActivity {
         SoundEffect clickSound=new SoundEffect(this);
 
         ToggleButton multiplayer = findViewById(R.id.multiplayer_toggleButton);
+        ToggleButton timer = findViewById(R.id.elapsed_time_toggleButton2);
         TextView txtGuest = findViewById(R.id.txtGuest_name);
         EditText guest = findViewById(R.id.edtGuest);
         Spinner pieces = findViewById(R.id.ballShape_spinner);
@@ -52,9 +53,11 @@ public class NewGame_Settings extends AppCompatActivity {
                 if (multiplayer.isChecked()) {
                     txtGuest.setVisibility(View.VISIBLE);
                     guest.setVisibility(View.VISIBLE);
+                    timer.setEnabled(false);
                 } else {
                     txtGuest.setVisibility(View.INVISIBLE);
                     guest.setVisibility(View.INVISIBLE);
+                    timer.setEnabled(true);
                 }
 
             }
@@ -77,10 +80,13 @@ public class NewGame_Settings extends AppCompatActivity {
             intent.putExtra("Player2Name",name2);
             intent.putExtra("ModelPiece",piece);
             if(multiplayer.isChecked())
-                intent.putExtra("Mode",5);
+                intent.putExtra("Mode",true);
             else
-                intent.putExtra("Mode",4);
-
+                intent.putExtra("Mode",false);
+            if(timer.isChecked())
+                intent.putExtra("Timer",true);
+            else
+                intent.putExtra("Timer",false);
 
             startActivity(intent);}
         );

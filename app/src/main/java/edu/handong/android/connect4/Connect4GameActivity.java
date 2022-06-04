@@ -12,12 +12,14 @@ import android.content.res.AssetManager;
 
 import static edu.handong.android.connect4.Connect4Controller.COLS;
 import static edu.handong.android.connect4.Connect4Controller.ROWS;
+import static edu.handong.android.connect4.Connect4Controller.connPlayerTurn;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,8 @@ import android.widget.Toast;
 
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import static java.lang.Math.max;
@@ -46,15 +50,16 @@ import static java.lang.Math.max;
 public class Connect4GameActivity extends AppCompatActivity{
     private View connBoardGame;
     static Connect4GameActivity connBoardView;
-    private Connect4Controller mGameController;
-    private Connect4Controller mListener;
+ //   private Connect4Controller mGameController;
+  //  private Connect4Controller mListener;
     private View connBoardFrontView;
     private ImageView[][] connCells;
     public int counter;
     public static int connPlayer1 =1;
     public static int connPlayer2 =2;
     public static int firstTurnStatic;
-    public static int connMode;
+
+    public static boolean connMultiplayer;
     public static int discColorPlayer1;
     public static int discColorPlayer2;
     private TextView connWinnerView;
@@ -66,6 +71,13 @@ public class Connect4GameActivity extends AppCompatActivity{
  //   public String modeldiscPlayer2;
     public static String player2Name;
     public static String firstTurn;
+    public boolean modeTimer;
+
+    public MyTimer connCrones;
+
+    Connect4Controller connect4Controller = new Connect4Controller();
+
+
     public ImageView[][] getCells() {
         return connCells;
     }
@@ -76,6 +88,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     static {
         System.loadLibrary("tensorflow_inference");
     }
+
     static public TensorFlowInferenceInterface tf;
 
     @Override
@@ -93,13 +106,14 @@ public class Connect4GameActivity extends AppCompatActivity{
         Intent intent=getIntent();
         Bundle extras=intent.getExtras();
         AssetManager assetManager = getAssets();
-        connMode = extras.getInt("Mode");
+        connMultiplayer = extras.getBoolean("Mode");
+        modeTimer = extras.getBoolean("Timer");
         modelPiecePlayer1 = extras.getString("ModelPiece");
-        if (connMode==4) tf = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
+        if (!connMultiplayer) tf = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
 
         TextView name1 = findViewById(R.id.player1_turn_label);
         player1Name = name1.getText().toString();
-        if(connMode==4) player2Name="Computer";
+        if(!connMultiplayer) player2Name="Computer";
         else player2Name=extras.getString("Player2Name");
         firstTurn="Player1Turn"; //extras.getString("FirstTurn");
         player1DiscColor="Red"; //extras.getString("Player1DiscColor");
@@ -271,7 +285,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     }
 
     public void BoardClick(boolean value){
-        if(connMode==4){
+        if(!connMultiplayer){
             LinearLayout myLayout = findViewById(R.id.game_board_front);
             for( int i = 0; i < myLayout.getChildCount();  i++ ) {
                 View view = myLayout.getChildAt(i);
@@ -317,12 +331,15 @@ public class Connect4GameActivity extends AppCompatActivity{
             ProgressBar progressBar2=findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(VISIBLE);
             BoardClick(true);
+            if(connCrones !=null) connCrones.cancel();
         }else {
             ProgressBar progressBar1= findViewById(R.id.player1_indicator);
             progressBar1.setVisibility(VISIBLE);
             ProgressBar progressBar2= findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
             BoardClick(false);
+            connCrones = new MyTimer(10000, 1000);
+            connCrones.start();
         }
     }
 
@@ -352,6 +369,51 @@ public class Connect4GameActivity extends AppCompatActivity{
         }
     }
 
+    //////////////////////////////
+    public class MyTimer extends CountDownTimer {
+        TextView clock = findViewById(R.id.player_time);
+
+
+        public MyTimer(long millisInFuture, long countDownInterval) {
+
+            super(millisInFuture, countDownInterval);
+
+
+        }
+
+
+        @Override
+        public void onFinish() {
+            if(modeTimer && !connMultiplayer){
+            connect4Controller.togglePlayer(connPlayerTurn);
+            connect4Controller.aiTurn();}
+
+
+            //   textViewTimer.setText("0:000");
+            //   timerProcessing[0] = false;
+
+        }
+
+        @SuppressLint("SetTextI18n")
+        @Override
+        public void onTick(long millisUntilFinished) {
+            if(modeTimer && !connMultiplayer) {
+                NumberFormat f = new DecimalFormat("00");
+
+                long min = (millisUntilFinished / 60000) % 60;
+                long sec = (millisUntilFinished / 1000) % 60;
+                System.out.println(f.format(sec));
+
+                clock.setText(f.format(min) + ":" + f.format(sec));
+            }
+
+        }
+    }
+    ///////////////////////////
+
+
+
+
     @Override
     public void onBackPressed() {
         counter++;
@@ -369,6 +431,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         if (outcome != Connect4Logic.Outcome.NOTHING) {
             System.out.println("Hello inside outcome");
             connWinnerView.setVisibility(VISIBLE);
+            if(connCrones !=null) connCrones.cancel();
             ProgressBar progressBar1=findViewById(R.id.player1_indicator);
             progressBar1.setVisibility(INVISIBLE);
             ProgressBar progressBar2=findViewById(R.id.player2_indicator);
@@ -438,6 +501,9 @@ public class Connect4GameActivity extends AppCompatActivity{
             connWinnerView.setVisibility(INVISIBLE);
         }
     }
+
+
+
 
     private void loadPref(){
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("PlayerPref", Context.MODE_PRIVATE);
