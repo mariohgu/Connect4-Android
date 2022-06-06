@@ -77,6 +77,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     public static String firstTurn;
     public boolean modeTimer;
     TextView clock;
+    ToggleButton pause;
 
     public MyTimer connCrones;
 
@@ -196,7 +197,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         //-------------------------PAUSE BUTTON----------------------------------------
 
 
-        ToggleButton pause = findViewById(R.id.pause_button);
+        pause = findViewById(R.id.pause_button);
         pause.setOnClickListener(view -> {
             if (pause.isChecked()){
                 clickSound.playSound();
@@ -351,6 +352,7 @@ public class Connect4GameActivity extends AppCompatActivity{
             progressBar1.setVisibility(INVISIBLE);
             ProgressBar progressBar2=findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(VISIBLE);
+            pause.setEnabled(false);
             BoardClick(true);
             if(connCrones !=null) connCrones.cancel();
         }else {
@@ -359,6 +361,7 @@ public class Connect4GameActivity extends AppCompatActivity{
             ProgressBar progressBar2= findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
             BoardClick(false);
+            pause.setEnabled(true);
             connCrones = new MyTimer(10000, 1000);
             connCrones.start();
         }
