@@ -208,7 +208,7 @@ public class Connect4GameActivity extends AppCompatActivity{
             }
             else {
                 resetTimer();
-                if(connPlayerTurn==1) BoardClick(false);
+                BoardClick(false);
 
             }
 
