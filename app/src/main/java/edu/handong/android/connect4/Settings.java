@@ -12,6 +12,7 @@ import android.content.pm.ActivityInfo;
 import java.util.Locale;
 
 public class Settings{
+    //
 
     /*public void loadPref(){
         // Fetching the stored data from the SharedPreference
