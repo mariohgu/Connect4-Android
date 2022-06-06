@@ -127,6 +127,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         firstTurn="Player1Turn"; //extras.getString("FirstTurn");
         player1DiscColor="Red"; //extras.getString("Player1DiscColor");
 
+
         draw = getResources().getString(R.string.draw);
         wins = getResources().getString(R.string.wins);
 
@@ -240,6 +241,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     }
 
     public void buildCells() {
+        pause.setEnabled(false);
 
         connWinnerView = findViewById(R.id.final_message);
         connWinnerView.setVisibility(INVISIBLE);
@@ -471,6 +473,7 @@ public class Connect4GameActivity extends AppCompatActivity{
             System.out.println("Hello inside outcome");
             connWinnerView.setVisibility(VISIBLE);
             if(connCrones !=null) connCrones.cancel();
+            pause.setEnabled(false);
             ProgressBar progressBar1=findViewById(R.id.player1_indicator);
             progressBar1.setVisibility(INVISIBLE);
             ProgressBar progressBar2=findViewById(R.id.player2_indicator);
