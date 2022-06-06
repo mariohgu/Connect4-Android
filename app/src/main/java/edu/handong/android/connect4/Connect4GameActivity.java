@@ -61,6 +61,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     public static int connPlayer2 =2;
     public static int firstTurnStatic;
     long sec, min;
+    String timeActual;
 
     public static boolean connMultiplayer;
     public static int discColorPlayer1;
@@ -100,7 +101,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         SoundEffect clickSound=new SoundEffect(this);
-        connCrones = new MyTimer(10000, 1000);
+
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         loadPref();
@@ -200,12 +201,14 @@ public class Connect4GameActivity extends AppCompatActivity{
             if (pause.isChecked()){
                 clickSound.playSound();
                 if(connCrones !=null) connCrones.cancel();
+                  BoardClick(true);
 
 
             }
             else {
-                updateCountDownText();
-                if(connCrones !=null) connCrones.start();
+                resetTimer();
+                if(connPlayerTurn==1) BoardClick(false);
+
             }
 
 
@@ -356,7 +359,7 @@ public class Connect4GameActivity extends AppCompatActivity{
             ProgressBar progressBar2= findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
             BoardClick(false);
-
+            connCrones = new MyTimer(10000, 1000);
             connCrones.start();
         }
     }
@@ -420,20 +423,24 @@ public class Connect4GameActivity extends AppCompatActivity{
                 min = (millisUntilFinished / 60000) % 60;
                 sec = (millisUntilFinished / 1000) % 60;
                 System.out.println(f.format(sec));
+                timeActual = f.format(min) + ":" + f.format(sec);
 
-                clock.setText(f.format(min) + ":" + f.format(sec));
+                clock.setText(timeActual);
             }
 
         }
     }
 
-    private void updateCountDownText() {
-   //     TextView clock = findViewById(R.id.player_time);
+    private void resetTimer() {
+        int seco = Integer.parseInt((timeActual.charAt(timeActual.length()-1)+"000"));
+        NumberFormat f = new DecimalFormat("00");
+        long minu = (seco / 60000) % 60;
+        long secon = (seco / 1000) % 60;
 
+        connCrones = new MyTimer(seco, 1000);
+        connCrones.start();
+        clock.setText(f.format(minu) + ":" + f.format(secon));
 
-        String timeLeft = String.format(Locale.getDefault(), "%02d:%02d", min, sec);
-
-        clock.setText(timeLeft);
     }
     ///////////////////////////
 
