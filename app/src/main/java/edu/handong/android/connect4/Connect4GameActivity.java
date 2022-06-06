@@ -30,12 +30,14 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static java.lang.Math.max;
 
@@ -58,6 +60,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     public static int connPlayer1 =1;
     public static int connPlayer2 =2;
     public static int firstTurnStatic;
+    long sec, min;
 
     public static boolean connMultiplayer;
     public static int discColorPlayer1;
@@ -72,6 +75,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     public static String player2Name;
     public static String firstTurn;
     public boolean modeTimer;
+    TextView clock;
 
     public MyTimer connCrones;
 
@@ -96,13 +100,14 @@ public class Connect4GameActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         SoundEffect clickSound=new SoundEffect(this);
+        connCrones = new MyTimer(10000, 1000);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         loadPref();
         connBoardView = this;
         connBoardGame = findViewById(R.id.gameBoard);
         connBoardFrontView = findViewById(R.id.game_board_front);
-        TextView clock = findViewById(R.id.player_time);
+        clock = findViewById(R.id.player_time);
         Intent intent=getIntent();
         Bundle extras=intent.getExtras();
         AssetManager assetManager = getAssets();
@@ -189,11 +194,24 @@ public class Connect4GameActivity extends AppCompatActivity{
 
         //-------------------------PAUSE BUTTON----------------------------------------
 
-        ImageButton pause = findViewById(R.id.pause_button);
+
+        ToggleButton pause = findViewById(R.id.pause_button);
         pause.setOnClickListener(view -> {
-            clickSound.playSound();
+            if (pause.isChecked()){
+                clickSound.playSound();
+                if(connCrones !=null) connCrones.cancel();
+
+
+            }
+            else {
+                updateCountDownText();
+                if(connCrones !=null) connCrones.start();
+            }
+
+
             //Write code to pause game
         });
+
         //---------------------END PAUSE BUTTON ----------------------------------------
 
         //-------------------------SETTINGS BUTTON----------------------------------------
@@ -338,7 +356,7 @@ public class Connect4GameActivity extends AppCompatActivity{
             ProgressBar progressBar2= findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
             BoardClick(false);
-            connCrones = new MyTimer(10000, 1000);
+
             connCrones.start();
         }
     }
@@ -371,7 +389,7 @@ public class Connect4GameActivity extends AppCompatActivity{
 
     //////////////////////////////
     public class MyTimer extends CountDownTimer {
-        TextView clock = findViewById(R.id.player_time);
+      //  TextView clock = findViewById(R.id.player_time);
 
 
         public MyTimer(long millisInFuture, long countDownInterval) {
@@ -391,13 +409,6 @@ public class Connect4GameActivity extends AppCompatActivity{
                 BoardClick(true);
             }
 
-
-
-
-
-            //   textViewTimer.setText("0:000");
-            //   timerProcessing[0] = false;
-
         }
 
         @SuppressLint("SetTextI18n")
@@ -406,14 +417,23 @@ public class Connect4GameActivity extends AppCompatActivity{
             if(modeTimer && !connMultiplayer) {
                 NumberFormat f = new DecimalFormat("00");
 
-                long min = (millisUntilFinished / 60000) % 60;
-                long sec = (millisUntilFinished / 1000) % 60;
+                min = (millisUntilFinished / 60000) % 60;
+                sec = (millisUntilFinished / 1000) % 60;
                 System.out.println(f.format(sec));
 
                 clock.setText(f.format(min) + ":" + f.format(sec));
             }
 
         }
+    }
+
+    private void updateCountDownText() {
+   //     TextView clock = findViewById(R.id.player_time);
+
+
+        String timeLeft = String.format(Locale.getDefault(), "%02d:%02d", min, sec);
+
+        clock.setText(timeLeft);
     }
     ///////////////////////////
 
