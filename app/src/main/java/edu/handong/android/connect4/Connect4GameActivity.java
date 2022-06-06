@@ -15,6 +15,7 @@ import static edu.handong.android.connect4.Connect4Controller.ROWS;
 import static edu.handong.android.connect4.Connect4Controller.connPlayerTurn;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -24,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -196,25 +198,26 @@ public class Connect4GameActivity extends AppCompatActivity{
 
         //-------------------------PAUSE BUTTON----------------------------------------
 
-
         pause = findViewById(R.id.pause_button);
-        pause.setOnClickListener(view -> {
-            if (pause.isChecked()){
-                clickSound.playSound();
-                if(connCrones !=null) connCrones.cancel();
-                  BoardClick(true);
+        pause.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (pause.isChecked()){
+                    clickSound.playSound();
+                    if(connCrones !=null) connCrones.cancel();
+                    BoardClick(true);
 
+
+                }
+                else {
+                    resetTimer();
+                    BoardClick(false);
+
+                }
 
             }
-            else {
-                resetTimer();
-                BoardClick(false);
-
-            }
-
-
-            //Write code to pause game
         });
+
 
         //---------------------END PAUSE BUTTON ----------------------------------------
 
