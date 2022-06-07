@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout r1;
     Context context;
     SharedPreferences preferences;
-    boolean launchService;
+    boolean launchSounds;
     MediaPlayer mediaPlayer;
 
     public int counter;
@@ -53,40 +53,49 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.Theme_Connect4);
         setContentView(R.layout.activity_main);
         SoundEffect clickSound=new SoundEffect(this);
-
+        SharedPreferences preferences = getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        launchSounds=preferences.getBoolean(SOUNDS,false);
         //loadPref();
 
         ImageButton New_Game_Button = (ImageButton)findViewById(R.id.newgame);
         New_Game_Button.setOnClickListener(view -> {
-            clickSound.playSound();
+            if(launchSounds){
+                clickSound.playSound();
+            }
             Intent intent = new Intent(this, NewGame_Settings.class);
             startActivity(intent);}
         );
 
         ImageButton Settings_Button = (ImageButton)findViewById(R.id.settings);
         Settings_Button.setOnClickListener(view -> {
-            clickSound.playSound();
+            if(launchSounds){
+                clickSound.playSound();
+            }
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);}
         );
 
         ImageButton Ranking_buttons = (ImageButton)findViewById(R.id.rankings);
         Ranking_buttons.setOnClickListener(view -> {
-            clickSound.playSound();
+            if(launchSounds){
+                clickSound.playSound();
+            }
             Intent intent = new Intent(this, RankingActivity.class);
             startActivity(intent);}
         );
 
-        ImageButton bluetooth_button = (ImageButton)findViewById(R.id.multiplayer);
+        /*ImageButton bluetooth_button = (ImageButton)findViewById(R.id.multiplayer);
         bluetooth_button.setOnClickListener(view -> {
             clickSound.playSound();
             Intent intent = new Intent(this, multiplayer.class);
             startActivity(intent);}
-        );
+        );*/
 
         ImageButton exit_button = (ImageButton)findViewById(R.id.exit_button);
         exit_button.setOnClickListener(view -> {
-            clickSound.playSound();
+            if(launchSounds){
+                clickSound.playSound();
+            }
             DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
@@ -115,7 +124,9 @@ public class MainActivity extends AppCompatActivity {
 
         ImageButton music_button = (ImageButton)findViewById(R.id.music_button);
         music_button.setOnClickListener(view -> {
-            clickSound.playSound();
+                    if(launchSounds){
+                        clickSound.playSound();
+                    }
             if(mediaPlayer==null){
                 mediaPlayer = MediaPlayer.create(this, R.raw.happy_lullaby);
                 mediaPlayer.setLooping(true); // Set looping
@@ -205,13 +216,13 @@ public class MainActivity extends AppCompatActivity {
 
         }
         //Checking if the music option sets the music ON or OFF
-        if(preferences.contains("music")){
+        /*if(preferences.contains("music")){
             launchService=preferences.getBoolean(MUSIC,false);
             if (launchService){
                 Intent intent = new Intent(MainActivity.this, BackgroundSoundService.class);
                 startService(intent);
             }
-        }
+        }*/
 
     }
 }

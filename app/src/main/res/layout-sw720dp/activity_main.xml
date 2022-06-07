@@ -19,7 +19,7 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/settings"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/multiplayer"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/h1"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/play_icon" />
@@ -92,7 +92,7 @@
         app:layout_constraintStart_toStartOf="@+id/h5"
         app:layout_constraintTop_toBottomOf="@+id/gametitle"
         app:layout_constraintVertical_bias="0.075" />
-
+<!--
     <ImageButton
         android:id="@+id/multiplayer"
         android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
         app:layout_constraintTop_toTopOf="@+id/h1"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/multiplayer__2_" />
-
+-->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/h2"
         android:layout_width="wrap_content"

@@ -64,6 +64,13 @@ public class Connect4GameActivity extends AppCompatActivity{
     public static int firstTurnStatic;
     long sec, min;
     String timeActual;
+    boolean launchSounds;
+    /**
+     * Name of the preferences object
+     */
+    public static final String PREF = "PlayerPref";
+    public static final String RANKINGS = "rankings";
+    public static final String SOUNDS = "sounds";
 
     public static boolean connMultiplayer;
     public static int discColorPlayer1;
@@ -105,7 +112,8 @@ public class Connect4GameActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         SoundEffect clickSound=new SoundEffect(this);
-
+        SharedPreferences preferences = getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        launchSounds=preferences.getBoolean(SOUNDS,false);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         loadPref();
@@ -150,7 +158,9 @@ public class Connect4GameActivity extends AppCompatActivity{
         //---------------------------------CLOSE BUTTON---------------------------------------------
         ImageButton close = findViewById(R.id.back_button);
         close.setOnClickListener(view -> {
-            clickSound.playSound();
+            if(launchSounds){
+                clickSound.playSound();
+            }
             DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
@@ -178,7 +188,9 @@ public class Connect4GameActivity extends AppCompatActivity{
 
         reset = findViewById(R.id.reload_game_button);
         reset.setOnClickListener(view -> {
-            clickSound.playSound();
+            if(launchSounds){
+                clickSound.playSound();
+            }
             DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
@@ -207,7 +219,9 @@ public class Connect4GameActivity extends AppCompatActivity{
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(!modeTimer || connMultiplayer) return;
                 if (pause.isChecked()){
-                    clickSound.playSound();
+                    if(launchSounds){
+                        clickSound.playSound();
+                    }
                     if(connCrones !=null) connCrones.cancel();
                     BoardClick(true);
                     connBoardGame.setVisibility(INVISIBLE);
@@ -234,7 +248,9 @@ public class Connect4GameActivity extends AppCompatActivity{
 
         ImageButton settings = findViewById(R.id.settings_button);
         settings.setOnClickListener(view -> {
-            clickSound.playSound();
+            if(launchSounds){
+                clickSound.playSound();
+            }
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
         });
@@ -491,6 +507,7 @@ public class Connect4GameActivity extends AppCompatActivity{
             progressBar1.setVisibility(INVISIBLE);
             ProgressBar progressBar2=findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
+            SharedPreferences preferences = getSharedPreferences(PREF, Context.MODE_PRIVATE);
             switch (outcome) {
                 case DRAW:
                     connWinnerView.setText(draw);

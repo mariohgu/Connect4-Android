@@ -2,7 +2,9 @@ package edu.handong.android.connect4;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -20,7 +22,7 @@ public class SettingsActivity extends AppCompatActivity {
     private EditText player_name;
     private Spinner language;
     private ToggleButton music;
-    boolean launchService;
+    boolean launchSounds;
     private ToggleButton sounds;
     private String player;
 
@@ -50,15 +52,20 @@ public class SettingsActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_settings);
         SoundEffect clickSound=new SoundEffect(this);
-
+        SharedPreferences preferences = getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        launchSounds=preferences.getBoolean(SOUNDS,false);
         player_name = findViewById(R.id.playerName);
         language = findViewById(R.id.spLanguage);
-        music =  findViewById(R.id.toggle_music);
+        //music =  findViewById(R.id.toggle_music);
         sounds =  findViewById(R.id.toggle_sounds);
-
+        launchSounds=preferences.getBoolean(SOUNDS,false);
         ImageButton back_Button = findViewById(R.id.back_button);
         back_Button.setOnClickListener(view -> {
-            clickSound.playSound();
+
+            //Checking if the sounds option is set ON or OFF
+            if(launchSounds){
+                clickSound.playSound();
+            }
             onBackPressed();
             loadPref();
         }
@@ -66,25 +73,57 @@ public class SettingsActivity extends AppCompatActivity {
 
         ImageButton save_Button = findViewById(R.id.btnSaveSettings);
         save_Button.setOnClickListener(view -> {
+            if(launchSounds){
                 clickSound.playSound();
-                savePref();
-                loadPref();
-                onBackPressed();
-
             }
-        );
+                DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            savePref();
+                            loadPref();
+                            onBackPressed();
+                            break;
 
-        ImageButton cancel_Button = findViewById(R.id.btnCancelSettings);
-        cancel_Button.setOnClickListener(view -> {
-                clickSound.playSound();
-                //Make a Pop-up to prompt the user if he is sure to cancel the changes
-                Toast.makeText(SettingsActivity.this,"Cancelling the changes",Toast.LENGTH_SHORT).show();
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                builder.setMessage("Save the changes?").setPositiveButton("YES", dialogClickListener)
+                        .setTitle("CONNECT 4")
+                        .setNegativeButton("NO", dialogClickListener).show();
+
 
                 }
         );
 
+        ImageButton cancel_Button = findViewById(R.id.btnCancelSettings);
+        cancel_Button.setOnClickListener(view -> {
+            if(launchSounds){
+                clickSound.playSound();
+            }
+                DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            Toast.makeText(SettingsActivity.this,"changes cancelled successfully",Toast.LENGTH_SHORT).show();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                builder.setMessage("Cancel the changes?").setPositiveButton("YES", dialogClickListener)
+                        .setTitle("CONNECT 4")
+                        .setNegativeButton("NO", dialogClickListener).show();
+
+                    }
+        );
+
         sounds.setOnClickListener(view -> {
-                    clickSound.playSound();
+            if(launchSounds){
+                clickSound.playSound();
+            }
                     }
         );
 
@@ -128,8 +167,8 @@ public class SettingsActivity extends AppCompatActivity {
         player = preferences.getString(TEXT, "");
         player_name.setText(player);
 
-        /*music.setChecked(preferences.getBoolean(MUSIC,false));
-        launchService=preferences.getBoolean(MUSIC,false);
+        sounds.setChecked(preferences.getBoolean(SOUNDS,false));
+        /*launchSounds=preferences.getBoolean(SOUNDS,false);
         Checking if the music option sets the music ON or OFF
         if(preferences.contains(MUSIC)){
             Intent intent = new Intent(SettingsActivity.this, BackgroundSoundService.class);
