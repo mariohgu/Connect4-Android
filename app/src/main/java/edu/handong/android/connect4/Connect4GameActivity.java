@@ -88,6 +88,8 @@ public class Connect4GameActivity extends AppCompatActivity{
     TextView clock;
     ToggleButton pause;
     ImageButton reset;
+    int poi1;
+    int poi2;
 
     public MyTimer connCrones;
 
@@ -221,6 +223,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                 if (pause.isChecked()){
                     if(launchSounds){
                         clickSound.playSound();
+
                     }
                     if(connCrones !=null) connCrones.cancel();
                     BoardClick(true);
@@ -257,9 +260,12 @@ public class Connect4GameActivity extends AppCompatActivity{
         //---------------------END PAUSE BUTTON ----------------------------------------
 
         //---------------------------------------END---BUTTONS------------------------------------------
-
+        //connect4Controller.setPointsPlayer1(1000);
+        //connect4Controller.setPointsPlayer2(1000);
         initialize();
     }
+
+
     public void initialize(){
         buildCells();
     }
@@ -358,6 +364,8 @@ public class Connect4GameActivity extends AppCompatActivity{
         cell.setY(move);
         cell.setImageResource(playerTurn == connPlayer1 ? discColorPlayer1 : discColorPlayer2);
         cell.animate().translationY(0).setInterpolator(new BounceInterpolator()).start();
+
+
     }
 
     public int colAtX(float x) {
@@ -445,7 +453,9 @@ public class Connect4GameActivity extends AppCompatActivity{
             if(modeTimer && !connMultiplayer){
                 BoardClick(false);
             connect4Controller.togglePlayer(connPlayerTurn);
+           // poi1=poi1-20;
             connect4Controller.aiTurn();
+            //poi2=poi2-20;
                 BoardClick(true);
             }
 
@@ -461,7 +471,6 @@ public class Connect4GameActivity extends AppCompatActivity{
                 sec = (millisUntilFinished / 1000) % 60;
                 System.out.println(f.format(sec));
                 timeActual = f.format(min) + ":" + f.format(sec);
-
                 clock.setText(timeActual);
             }
 
@@ -473,7 +482,6 @@ public class Connect4GameActivity extends AppCompatActivity{
         NumberFormat f = new DecimalFormat("00");
         long minu = (seco / 60000) % 60;
         long secon = (seco / 1000) % 60;
-
         connCrones = new MyTimer(seco, 1000);
         connCrones.start();
         clock.setText(f.format(minu) + ":" + f.format(secon));
@@ -495,6 +503,26 @@ public class Connect4GameActivity extends AppCompatActivity{
 
     @SuppressLint("SetTextI18n")
     public void showWinStatus(Connect4Logic.Outcome outcome, ArrayList<ImageView> winDiscs) {
+        SharedPreferences preferences = getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor= preferences.edit();
+        String score1=preferences.getString("P1","");
+        String score2=preferences.getString("P2","");
+
+        String [] s1=score1.split("-");
+        String [] s2=score2.split("-");
+
+        int p1=Integer.parseInt(s1[1]);
+        int p2=Integer.parseInt(s2[1]);
+        int p3;
+
+        if (preferences.contains("Multi")){
+            String scoreMulti=preferences.getString("Multi","");
+            String [] s3=scoreMulti.split("-");
+            p3=Integer.parseInt(s3[1]);
+        }
+        else p3=0;
+
+
         if (BuildConfig.DEBUG) {
             Log.e(TAG, outcome.name());
         }
@@ -507,7 +535,7 @@ public class Connect4GameActivity extends AppCompatActivity{
             progressBar1.setVisibility(INVISIBLE);
             ProgressBar progressBar2=findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
-            SharedPreferences preferences = getSharedPreferences(PREF, Context.MODE_PRIVATE);
+
             switch (outcome) {
                 case DRAW:
                     connWinnerView.setText(draw);
@@ -520,9 +548,11 @@ public class Connect4GameActivity extends AppCompatActivity{
                             imageView.setOnClickListener(null);
                         }
                     }
+
                     break;
                 case PLAYER1_WINS:
                     System.out.println("Hello inside player1");
+                    poi1=connect4Controller.getPointsPlayer1()+15;
                     connWinnerView.setText(player1Name+" "+wins);
                  //   connWinnerView.setText(player1Name+" WINS!");
                     for (ImageView winDisc : winDiscs) {
@@ -534,7 +564,16 @@ public class Connect4GameActivity extends AppCompatActivity{
                         }
 
                     }
-
+                    //Saving the PLAYER 1 scores into the preferences object
+                    if (p1< poi1) editor.putString("P1",player1Name+" - "+poi1);
+                    if (connMultiplayer){
+                            if (p3< connect4Controller.getPointsPlayer2()) editor.putString("Multi",player2Name+" - "+connect4Controller.getPointsPlayer2());
+                    }
+                    else {
+                        if (p2< connect4Controller.getPointsPlayer2())
+                            editor.putString("P2",player2Name+" - "+connect4Controller.getPointsPlayer2());
+                    }
+                    //End savings scores
                     for(int r = 0; r < 6; r++){
                         ViewGroup row = (ViewGroup) ((ViewGroup) connBoardGame).getChildAt(r);
                         row.setClipChildren(false);
@@ -545,7 +584,8 @@ public class Connect4GameActivity extends AppCompatActivity{
                     }
                     break;
                 case PLAYER2_WINS:
-
+                    //Either computer or the second player when in multiplayer mode
+                    poi2=connect4Controller.getPointsPlayer2()+15;
                     connWinnerView.setText(player2Name+" "+wins);
                     for (ImageView winDisc : winDiscs) {
                         if(player1DiscColor.equals("Red"))
@@ -556,6 +596,16 @@ public class Connect4GameActivity extends AppCompatActivity{
                         }
 
                     }
+                    //Saving the PLAYER 1 scores into the preferences object
+                    if (p1< poi1) editor.putString("P1",player1Name+" - "+connect4Controller.getPointsPlayer1());
+                    if (connMultiplayer){
+                        if (p3< poi2) editor.putString("Multi",player2Name+" - "+poi2);
+                    }
+                    else {
+                        if (p2< poi2)
+                            editor.putString("P2",player2Name+" - "+poi2);
+                    }
+                    //End savings scores
 
                     for(int r = 0; r < 6; r++){
                         ViewGroup row = (ViewGroup) ((ViewGroup) connBoardGame).getChildAt(r);
@@ -567,11 +617,13 @@ public class Connect4GameActivity extends AppCompatActivity{
                     }
                     break;
                 default:
+
                     break;
             }
         } else {
             connWinnerView.setVisibility(INVISIBLE);
         }
+        editor.apply();
     }
 
 
@@ -583,6 +635,22 @@ public class Connect4GameActivity extends AppCompatActivity{
         TextView player_name = findViewById(R.id.player1_turn_label);
         player_name.setText(player);
 
+    }
+
+    private int calculatePoints(int points, int time){
+        int newPoints=points;
+        if (time >=7 && time <10){
+            newPoints=points+90;
+        }
+        else if (time>=4 && time<7){
+            newPoints=points+60;
+        }
+        else if (time>=1 && time<4){
+            newPoints=points+30;
+        }
+        else newPoints=points-20;
+
+        return newPoints;
     }
 
 

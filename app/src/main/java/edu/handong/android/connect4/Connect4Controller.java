@@ -54,10 +54,13 @@ public class Connect4Controller implements View.OnClickListener {
     private boolean mAiTurn;
     public static boolean mode;
     public static int First_Player;
+    private static int pointsPlayer1=1000;
+    private static int pointsPlayer2=1000;
     /////////
 
     public Connect4Controller(){
         initialize();
+
     }
 
     private void initialize() {
@@ -101,7 +104,13 @@ public class Connect4Controller implements View.OnClickListener {
         // put disc
         Connect4GameActivity.getInstance().dropDisc(spFree[column], column, connPlayerTurn);
         Connect4GameActivity.getInstance().progressBarSwap(connPlayerTurn);
-
+        //compute the points
+        if (connPlayerTurn==1){
+            updateP1(-20);
+        }
+        else {
+            updateP2(-20);
+        }
         togglePlayer(connPlayerTurn);
 
         checkForWin();
@@ -110,6 +119,8 @@ public class Connect4Controller implements View.OnClickListener {
         if (BuildConfig.DEBUG) {
             connBoardLogic.displayBoard();
             Log.e(TAG, "Turn: " + connPlayerTurn);
+            Log.e(TAG, "Points Player: " + connPlayerTurn+" "+pointsPlayer2);
+            Log.e(TAG, "Points Player: " +pointsPlayer1);
         }
         if (connPlayerTurn == 2 && connAiPlayer != null) aiTurn();
         }
@@ -156,6 +167,30 @@ public class Connect4Controller implements View.OnClickListener {
         int col = Connect4GameActivity.getInstance().colAtX(v.getX());
         System.out.println(col);
         selectColumn(col);
+    }
+
+    public int getPointsPlayer2() {
+        return pointsPlayer2;
+    }
+
+    public void setPointsPlayer2(int pointsPlayer2) {
+        this.pointsPlayer2 = pointsPlayer2;
+    }
+
+    public int getPointsPlayer1() {
+        return pointsPlayer1;
+    }
+
+    public void setPointsPlayer1(int pointsPlayer1) {
+        this.pointsPlayer1 = pointsPlayer1;
+    }
+
+    public void updateP1(int p){
+        setPointsPlayer1(getPointsPlayer1()+p);
+    }
+
+    public void updateP2(int p){
+        setPointsPlayer2(getPointsPlayer2()+p);
     }
 
     class AiTask extends AsyncTask<Void, Void, Integer> {

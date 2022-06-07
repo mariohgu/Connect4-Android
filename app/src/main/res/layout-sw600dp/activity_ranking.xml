@@ -17,18 +17,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/v4"
+        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="@+id/v3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389"
+        app:layout_constraintVertical_bias="0.407"
         app:srcCompat="@drawable/settings_board"
         tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/txtRankone"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="39dp"
-        android:layout_marginEnd="436dp"
+        android:layout_marginEnd="264dp"
         android:layout_marginBottom="248dp"
         android:fontFamily="@font/babycake"
 
@@ -38,7 +39,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/imgRankingland"
         app:layout_constraintEnd_toEndOf="@+id/imgRankingland"
         app:layout_constraintTop_toTopOf="@+id/imgRankingland"
-        app:layout_constraintVertical_bias="0.275" />
+        app:layout_constraintVertical_bias="0.343" />
 
     <TextView
         android:id="@+id/txtRanktwo"
@@ -58,7 +59,7 @@
         android:id="@+id/txtRankthree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="400dp"
+        android:layout_marginEnd="264dp"
         android:fontFamily="@font/babycake"
         android:text="MESSI"
         android:textColor="#000000"
@@ -66,7 +67,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/imgRankingland"
         app:layout_constraintEnd_toEndOf="@+id/imgRankingland"
         app:layout_constraintTop_toTopOf="@+id/imgRankingland"
-        app:layout_constraintVertical_bias="0.782" />
+        app:layout_constraintVertical_bias="0.787" />
 
     <ImageButton
         android:id="@+id/back_button"
