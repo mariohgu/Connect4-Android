@@ -101,7 +101,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     }
 
     private static final String MODEL_FILE =
-            "file:///android_asset/2_medium.pb";
+            "file:///android_asset/3_hard.pb";
 
     static {
         System.loadLibrary("tensorflow_inference");
@@ -166,9 +166,12 @@ public class Connect4GameActivity extends AppCompatActivity{
             DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        Connect4GameActivity.this.finish();
+                    //    Connect4GameActivity.this.finish();
+                        if(connCrones!=null) connCrones.cancel();
                         Intent i= new Intent(getApplicationContext(),NewGame_Settings.class);
+                    //    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
+                        finish();
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
