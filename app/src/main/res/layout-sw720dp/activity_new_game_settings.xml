@@ -155,7 +155,6 @@
         android:layout_marginEnd="240dp"
         android:background="@drawable/green_button"
         android:fontFamily="@font/babycake"
-        android:text="ToggleButton"
         android:textOff="@string/toggle_off"
         android:textOn="@string/toggle_on"
         android:textSize="20sp"

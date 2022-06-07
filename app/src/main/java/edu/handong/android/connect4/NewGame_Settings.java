@@ -45,6 +45,7 @@ public class NewGame_Settings extends AppCompatActivity {
                     txtGuest.setVisibility(View.VISIBLE);
                     guest.setVisibility(View.VISIBLE);
                     timer.setEnabled(false);
+                    timer.setChecked(false);
                 } else {
                     txtGuest.setVisibility(View.INVISIBLE);
                     guest.setVisibility(View.INVISIBLE);
