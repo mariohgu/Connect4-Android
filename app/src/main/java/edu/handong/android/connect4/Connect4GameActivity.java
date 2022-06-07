@@ -92,7 +92,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     }
 
     private static final String MODEL_FILE =
-            "file:///android_asset/2_medium.pb";
+            "file:///android_asset/3_hard.pb";
 
     static {
         System.loadLibrary("tensorflow_inference");
