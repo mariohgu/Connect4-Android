@@ -87,6 +87,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     public boolean modeTimer;
     TextView clock;
     ToggleButton pause;
+    ImageButton reset;
 
     public MyTimer connCrones;
 
@@ -185,7 +186,7 @@ public class Connect4GameActivity extends AppCompatActivity{
 
                     //-------------------------RESET BUTTON----------------------------------------
 
-        ImageButton reset = findViewById(R.id.reload_game_button);
+        reset = findViewById(R.id.reload_game_button);
         reset.setOnClickListener(view -> {
             if(launchSounds){
                 clickSound.playSound();
@@ -213,20 +214,27 @@ public class Connect4GameActivity extends AppCompatActivity{
 
         pause = findViewById(R.id.pause_button);
         pause.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!modeTimer || connMultiplayer) return;
                 if (pause.isChecked()){
                     if(launchSounds){
                         clickSound.playSound();
                     }
                     if(connCrones !=null) connCrones.cancel();
                     BoardClick(true);
+                    connBoardGame.setVisibility(INVISIBLE);
+                    connBoardFrontView.setVisibility(INVISIBLE);
+
 
 
                 }
                 else {
-                    resetTimer();
+                    resumeTimer();
                     BoardClick(false);
+                    connBoardGame.setVisibility(VISIBLE);
+                    connBoardFrontView.setVisibility(VISIBLE);
 
                 }
 
@@ -322,6 +330,9 @@ public class Connect4GameActivity extends AppCompatActivity{
         }else {
             firstTurnStatic= connPlayer2;
         }
+        connBoardGame.setVisibility(VISIBLE);
+        connBoardFrontView.setVisibility(VISIBLE);
+        pause.setChecked(false);
         choosePiece(player1DiscColor,modelPiecePlayer1);
         turn();
         showWinStatus(Connect4Logic.Outcome.NOTHING, null);
@@ -375,6 +386,7 @@ public class Connect4GameActivity extends AppCompatActivity{
             progressBar2.setVisibility(VISIBLE);
             pause.setEnabled(false);
             BoardClick(true);
+            if(!connMultiplayer) reset.setEnabled(false);
             if(connCrones !=null) connCrones.cancel();
         }else {
             ProgressBar progressBar1= findViewById(R.id.player1_indicator);
@@ -382,7 +394,8 @@ public class Connect4GameActivity extends AppCompatActivity{
             ProgressBar progressBar2= findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
             BoardClick(false);
-            pause.setEnabled(true);
+            if(!connMultiplayer) reset.setEnabled(true);
+            if(modeTimer) pause.setEnabled(true);
             connCrones = new MyTimer(10000, 1000);
             connCrones.start();
         }
@@ -455,7 +468,7 @@ public class Connect4GameActivity extends AppCompatActivity{
         }
     }
 
-    private void resetTimer() {
+    private void resumeTimer() {
         int seco = Integer.parseInt((timeActual.charAt(timeActual.length()-1)+"000"));
         NumberFormat f = new DecimalFormat("00");
         long minu = (seco / 60000) % 60;

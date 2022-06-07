@@ -9,6 +9,23 @@
     android:focusable="auto"
     tools:context=".Connect4GameActivity">
 
+    <TextView
+        android:id="@+id/pause_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PAUSED"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="90sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/mickey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintLeft_toLeftOf="@id/v2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
     <!-- region GAMEBOARD-->
     <LinearLayout
         android:id="@+id/gameBoard"
@@ -126,6 +143,24 @@
         app:layout_constraintVertical_bias="15.0"
         android:layout_margin="20dp"
         app:srcCompat="@drawable/wooden" />
+
+
+    <TextView
+        android:id="@+id/final_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/babycake"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintLeft_toLeftOf="@id/v2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01" />
 
     <TextView
         android:id="@+id/player_time"
