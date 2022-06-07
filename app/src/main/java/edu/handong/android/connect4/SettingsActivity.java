@@ -2,7 +2,9 @@ package edu.handong.android.connect4;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -67,20 +69,46 @@ public class SettingsActivity extends AppCompatActivity {
         ImageButton save_Button = findViewById(R.id.btnSaveSettings);
         save_Button.setOnClickListener(view -> {
                 clickSound.playSound();
-                savePref();
-                loadPref();
-                onBackPressed();
+                DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            savePref();
+                            loadPref();
+                            onBackPressed();
+                            break;
 
-            }
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                builder.setMessage("Save the changes?").setPositiveButton("YES", dialogClickListener)
+                        .setTitle("CONNECT 4")
+                        .setNegativeButton("NO", dialogClickListener).show();
+
+
+                }
         );
 
         ImageButton cancel_Button = findViewById(R.id.btnCancelSettings);
         cancel_Button.setOnClickListener(view -> {
                 clickSound.playSound();
-                //Make a Pop-up to prompt the user if he is sure to cancel the changes
-                Toast.makeText(SettingsActivity.this,"Cancelling the changes",Toast.LENGTH_SHORT).show();
+                DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            Toast.makeText(SettingsActivity.this,"changes cancelled successfully",Toast.LENGTH_SHORT).show();
+                            break;
 
-                }
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                builder.setMessage("Cancel the changes?").setPositiveButton("YES", dialogClickListener)
+                        .setTitle("CONNECT 4")
+                        .setNegativeButton("NO", dialogClickListener).show();
+
+                    }
         );
 
         sounds.setOnClickListener(view -> {
