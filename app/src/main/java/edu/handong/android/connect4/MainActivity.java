@@ -100,11 +100,10 @@ public class MainActivity extends AppCompatActivity {
             DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        if (mediaPlayer!=null)
+                        if (musicPlaying)
                         {
-                            mediaPlayer.stop();
-                            mediaPlayer.release();
-                            mediaPlayer=null;
+                            StopPlayService();
+                            musicPlaying=false;
                         }
                         MainActivity.this.finish();
                         moveTaskToBack(true);
