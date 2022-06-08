@@ -10,30 +10,34 @@
         android:supportsRtl="true"
         android:theme="@style/SplashScreenTheme">
         <service
-            android:name=".BackgroundSoundService"
+            android:name=".MusicService"
             android:enabled="true"
             android:exported="false"></service>
+        <service
+            android:name=".BackgroundSoundService"
+            android:enabled="true"
+            android:exported="false" />
 
         <activity
             android:name=".multiplayer"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".RankingActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".SettingsActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".Connect4GameActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".NewGame_Settings"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
