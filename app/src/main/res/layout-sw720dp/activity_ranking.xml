@@ -37,8 +37,10 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgRankingland"
         app:layout_constraintEnd_toEndOf="@+id/imgRankingland"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageButton2"
         app:layout_constraintTop_toTopOf="@+id/imgRankingland"
-        app:layout_constraintVertical_bias="0.304" />
+        app:layout_constraintVertical_bias="0.285" />
 
     <TextView
         android:id="@+id/txtRanktwo"
@@ -51,8 +53,10 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgRankingland"
         app:layout_constraintEnd_toEndOf="@+id/imgRankingland"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageButton3"
         app:layout_constraintTop_toTopOf="@+id/imgRankingland"
-        app:layout_constraintVertical_bias="0.488" />
+        app:layout_constraintVertical_bias="0.493" />
 
     <TextView
         android:id="@+id/txtRankthree"
@@ -65,8 +69,10 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgRankingland"
         app:layout_constraintEnd_toEndOf="@+id/imgRankingland"
+        app:layout_constraintHorizontal_bias="0.974"
+        app:layout_constraintStart_toEndOf="@+id/imageButton4"
         app:layout_constraintTop_toTopOf="@+id/imgRankingland"
-        app:layout_constraintVertical_bias="0.783" />
+        app:layout_constraintVertical_bias="0.79" />
 
     <ImageButton
         android:id="@+id/back_button"

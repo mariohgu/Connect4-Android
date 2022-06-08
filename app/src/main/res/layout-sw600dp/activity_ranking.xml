@@ -38,6 +38,8 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgRankingland"
         app:layout_constraintEnd_toEndOf="@+id/imgRankingland"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageButton2"
         app:layout_constraintTop_toTopOf="@+id/imgRankingland"
         app:layout_constraintVertical_bias="0.343" />
 
@@ -52,6 +54,8 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgRankingland"
         app:layout_constraintEnd_toEndOf="@+id/imgRankingland"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageButton3"
         app:layout_constraintTop_toTopOf="@+id/imgRankingland"
         app:layout_constraintVertical_bias="0.505" />
 
@@ -66,8 +70,10 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgRankingland"
         app:layout_constraintEnd_toEndOf="@+id/imgRankingland"
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintStart_toEndOf="@+id/imageButton4"
         app:layout_constraintTop_toTopOf="@+id/imgRankingland"
-        app:layout_constraintVertical_bias="0.787" />
+        app:layout_constraintVertical_bias="0.791" />
 
     <ImageButton
         android:id="@+id/back_button"

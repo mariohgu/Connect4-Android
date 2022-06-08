@@ -54,8 +54,8 @@ public class Connect4Controller implements View.OnClickListener {
     private boolean mAiTurn;
     public static boolean mode;
     public static int First_Player;
-    private static int pointsPlayer1=1000;
-    private static int pointsPlayer2=1000;
+    private static int pointsPlayer1;
+    private static int pointsPlayer2;
     /////////
 
     public Connect4Controller(){
@@ -85,7 +85,8 @@ public class Connect4Controller implements View.OnClickListener {
         }
 
         if (First_Player == 2 && connAiPlayer != null) aiTurn();
-
+        pointsPlayer1=1000;
+        pointsPlayer2=1000;
 
     }
 

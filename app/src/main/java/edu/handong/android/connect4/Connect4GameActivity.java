@@ -508,19 +508,37 @@ public class Connect4GameActivity extends AppCompatActivity{
     public void showWinStatus(Connect4Logic.Outcome outcome, ArrayList<ImageView> winDiscs) {
         SharedPreferences preferences = getSharedPreferences(PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor= preferences.edit();
-        String score1=preferences.getString("P1","");
+        /*String score1=preferences.getString("P1","");
         String score2=preferences.getString("P2","");
 
         String [] s1=score1.split("-");
         String [] s2=score2.split("-");
+        s1[1]=s1[1].trim();
+        s2[1]=s2[1].trim();*/
 
-        int p1=Integer.parseInt(s1[1]);
-        int p2=Integer.parseInt(s2[1]);
+        int p1;
+        int p2;
         int p3;
+
+        if (preferences.contains("P1")){
+            String score1=preferences.getString("P1","");
+            String [] s1=score1.split("-");
+            s1[1]=s1[1].trim();
+            p1=Integer.parseInt(s1[1]);
+        }
+        else p1=0;
+        if (preferences.contains("P2")){
+            String score2=preferences.getString("P2","");
+            String [] s2=score2.split("-");
+            s2[1]=s2[1].trim();
+            p2=Integer.parseInt(s2[1]);
+        }
+        else p2=0;
 
         if (preferences.contains("Multi")){
             String scoreMulti=preferences.getString("Multi","");
             String [] s3=scoreMulti.split("-");
+            s3[1]=s3[1].trim();
             p3=Integer.parseInt(s3[1]);
         }
         else p3=0;

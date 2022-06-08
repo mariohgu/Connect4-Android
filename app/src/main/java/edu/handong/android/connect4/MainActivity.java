@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
                             mediaPlayer=null;
                         }
                         MainActivity.this.finish();
-                        moveTaskToBack(true);;
+                        moveTaskToBack(true);
+                        finishAndRemoveTask();
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 mediaPlayer.setVolume(100, 100);
                 mediaPlayer.start();
             }
-            else{
+            else if (mediaPlayer.isPlaying() && mediaPlayer!=null){
                 mediaPlayer.stop();
                 mediaPlayer.release();
                 mediaPlayer=null;
