@@ -15,6 +15,7 @@ import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.media.audiofx.BassBoost;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
@@ -143,6 +144,12 @@ public class MainActivity extends AppCompatActivity {
 
         }
         );
+
+        ImageButton twitter = findViewById(R.id.twitter);
+        twitter.setOnClickListener(view -> {
+            Intent maax = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/MAAX_Studio"));
+            startActivity(maax);
+        });
 
         //Loading the preferences of the application. If nothing set, then default settings are used
         loadPref();
