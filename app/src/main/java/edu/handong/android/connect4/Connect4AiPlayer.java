@@ -1,6 +1,5 @@
 package edu.handong.android.connect4;
 
-import edu.handong.android.connect4.Connect4Logic;
 import umontreal.ssj.probdist.GammaDist;
 
 public class Connect4AiPlayer {
@@ -9,15 +8,20 @@ public class Connect4AiPlayer {
     }
 
     private final Connect4Logic mBoardLogic;
-    public static String mPath;
-    private int[] LastBoard;
-    private static final String TAG = Connect4Controller.class.getName();
-
     public Connect4AiPlayer(Connect4Logic boardLogic) {
         mBoardLogic = boardLogic;
     }
+    private static int[] connActions;
+    static Connect4Node start;
+    private static int[][] connActualState = new int[6][7];
+    private static int[] spaceFree = new int[7];
+    private static Connect4Logic pBoardLogic = new Connect4Logic(connActualState, spaceFree);
+    private static Connect4Logic.Outcome connOutcome = Connect4Logic.Outcome.NOTHING;
 
-    //PATH TO OUR MODEL FILE AND NAMES OF THE INPUT AND OUTPUT NODES
+    //ARRAY TO HOLD THE PREDICTIONS AND FLOAT VALUES TO HOLD THE IMAGE DATA
+    private static float[] FORECAST = new float[42];
+    private static float[] VALUE = new float[42];
+
     /**
      * Page 289
      * The book "Intelligent Mobile Projects with TensorFlow" by Jeff Tang,
@@ -28,61 +32,45 @@ public class Connect4AiPlayer {
      * Tensor("policy_head/MatMul:0"
      * We'll need them when freezing the TensorFlow checkpoint files and loading the model in mobile apps.
      */
+
+    //PATH TO OUR MODEL FILE AND NAMES OF THE INPUT AND OUTPUT NODES
     private static String INPUT_NAME = "main_input";
     private static String OUTPUT_NAME_1 = "value_head/Tanh";
     private static String OUTPUT_NAME_2 = "policy_head/MatMul";
 
-    private static int[] ArrayToList(int[][] arr)
-    {
-        int[] new_arr;
-        new_arr = new int[42];
-        for(int i = 0; i < 6; i++)
-        {
-            for(int j = 0; j < 7; j++)
-            {
-                new_arr[j + 7*i] = arr[i][j];
-                if(new_arr[j + 7*i] == 2)
-                {
-                    new_arr[j + 7*i] = -1;
-                }
-            }
-        }
-        return new_arr;
+    private static int[] toList(int[][] array) {
+        int[] newArr;
+        newArr = new int[42];
+        for(int i = 0; i < 6; i++) {
+            for(int j = 0; j < 7; j++) {
+            newArr[j + 7*i] = array[i][j];
+            if(newArr[j + 7*i] == 2) newArr[j + 7*i] = -1;
+            }  }
+        return newArr;
     }
 
-    public static int[][] ListToArray(int[] arr)
-    {
-        int[][] new_arr;
-        new_arr = new int[6][7];
-        for(int i = 0; i < 6; i++)
-        {
-            for(int j = 0; j < 7; j++)
-            {
-                new_arr[i][j] = arr[j + 7*i];
-                if(new_arr[i][j] == -1)
-                {
-                    new_arr[i][j] = 2;
-                }
-            }
-        }
-        return new_arr;
+    public static int[][] toArray(int[] array) {
+        int[][] newMatrix;
+        newMatrix = new int[6][7];
+        for(int i = 0; i < 6; i++)  {
+            for(int j = 0; j < 7; j++)  {
+                newMatrix[i][j] = array[j + 7*i];
+                if(newMatrix[i][j] == -1) {
+                    newMatrix[i][j] = 2;
+                }  }  }
+        return newMatrix;
     }
 
-    private static float[] Input_Array(int[] state, int Player)
-    {
-        float[] input_array;
-        input_array = new float[6*7*2];
-        for(int i = 0; i < state.length; i++)
-        {
-            if(state[i] == -Player)
-            {
-                input_array[state.length + i] = 1;
-            }else if(state[i] == Player)
-            {
-                input_array[i] = 1;
-            }
-        }
-        return input_array;
+    private static float[] InputArray(int[] position, int Player)  {
+        float[] inpArray;
+        inpArray = new float[6*7*2];
+        for(int i = 0; i < position.length; i++) {
+            if(position[i] == -Player) {
+                inpArray[position.length + i] = 1;
+            }else if(position[i] == Player)  {
+                inpArray[i] = 1;
+            }  }
+        return inpArray;
     }
 
     /**
@@ -91,91 +79,66 @@ public class Connect4AiPlayer {
      */
 
     public int getColumn() {
-        double[] pi = simulate(ArrayToList(Connect4Controller.connGrid)); //MCTS AQUIIIIIIII EEEEEEEEEEESSSSS
-
-        Object[] result = argmax(pi);
-        int best_move = (int) result[0];
-        return best_move % 7;
+        double[] pi = simulate(toList(Connect4Controller.connGrid)); //MCTS AQUIIIIIIII EEEEEEEEEEESSSSS
+        Object[] result = MaxPred(pi);
+        int bestMove = (int) result[0];
+        return bestMove % 7;
     }
 
 
-    //ARRAY TO HOLD THE PREDICTIONS AND FLOAT VALUES TO HOLD THE IMAGE DATA
-    private static float[] PREDICTIONS = new float[42];
-    private static float[] VALUE = new float[42];
-    private float[] floatValues;
-    private int[] INPUT_SIZE = {2,6,7};
 
-
-    public static int[] AllowedActions(int[] board)
+    public static int[] AllowMovement(int[] board)
     {
-        int[] allowed;
-        allowed = new int[42];
-        for(int i = 0; i < board.length; i++)
-        {
+        int[] movement;
+        movement = new int[42];
+        for(int i = 0; i < board.length; i++) {
             if( i >= board.length - 7) {
                 if (board[i] == 0) {
-                    allowed[i] = i+1;
+                    movement[i] = i+1;
                 }
-            }
-            else
-            {
-                if(board[i] == 0 & board[i+7] != 0)
-                {
-                    allowed[i] = i+1;
-                }
-            }
-        }
-        return allowed;
+            } else {
+                if(board[i] == 0 & board[i+7] != 0) {
+                    movement[i] = i+1;
+                }  }  }
+        return movement;
     }
 
     //FUNCTION TO COMPUTE THE MAXIMUM PREDICTION AND ITS CONFIDENCE
-    private Object[] argmax(double[] array){
-
+    private Object[] MaxPred(double[] array){
         int best = -1;
-        //float probs;
-        double best_confidence = -10.0f;
+        double bestResult = -10.0f;
         for(int i = 0;i < array.length;i++){
-
             double value = array[i];
-
-            if (value > best_confidence){
-                best_confidence = value;
+            if (value > bestResult){
+                bestResult = value;
                 best = i;
-            }
-        }
-
-        return new Object[]{best,best_confidence};
-
+            }   }
+        return new Object[]{best,bestResult};
     }
 
 
-    public static float[] predict(int[] Board, int Player){
+    public static float[] predictionTensoFlow(int[] Board, int Player){
         //Pass input into the tensorflow
-        float[] input_array = Input_Array(Board, Player);
-        Connect4GameActivity.tf.feed(INPUT_NAME, input_array,1,2,6,7);
+        float[] inpArray = InputArray(Board, Player);
+        Connect4GameActivity.tf.feed(INPUT_NAME, inpArray,1,2,6,7);
 
         //compute predictions
         Connect4GameActivity.tf.run(new String[]{OUTPUT_NAME_1, OUTPUT_NAME_2});
 
         //copy the output into the PREDICTIONS array
         Connect4GameActivity.tf.fetch(OUTPUT_NAME_1,VALUE);
-        Connect4GameActivity.tf.fetch(OUTPUT_NAME_2,PREDICTIONS);
+        Connect4GameActivity.tf.fetch(OUTPUT_NAME_2, FORECAST);
 
-        int[] allowed = AllowedActions(Board);
+        int[] move = AllowMovement(Board);
         float sum = 0;
         float[] probs = new float[43];
-        for(int i = 0; i < PREDICTIONS.length; i++)
-        {
-            if(allowed[i] == 0) {
+        for(int i = 0; i < FORECAST.length; i++) {
+            if(move[i] == 0) {
                 sum = sum + (float) Math.exp(-100);
-            }
-            else{
-                sum = sum + (float) Math.exp(PREDICTIONS[i]);
-            }
+            }else sum = sum + (float) Math.exp(FORECAST[i]);
         }
-        for(int i = 0; i < PREDICTIONS.length; i++) {
-
-            float value = PREDICTIONS[i];
+        for(int i = 0; i < FORECAST.length; i++) {
+            float value = FORECAST[i];
             double odds = Math.exp(value);
             probs[i] = (float) odds/sum;
         }
@@ -183,37 +146,21 @@ public class Connect4AiPlayer {
         return probs;
     }
 
-    ///////////////////////////////////////////////////////////////////////////////
 
-    static Connect4Node start;
-    private static int[] mFree = new int[7];
-    private static int[] breadcrumbs;
-    private static int[][] currentstate = new int[6][7];
-    private static Connect4Logic pBoardLogic = new Connect4Logic(currentstate, mFree);
-
-    private static Connect4Logic.Outcome mOutcome = Connect4Logic.Outcome.NOTHING;
-
-    private static void buildMCTS(int[] state){
+    private static void Mcts(int[] position){
         Connect4Node s = start;
         if(s != null){
             for(Connect4Node n: s.children){
-                if(n.Player == state[n.move]){
-                    if(n.children != null)
-                    {
-                        for(Connect4Node c : n.children)
-                        {
-                            if(state[c.move] == c.Player)
-                            {
-                                start = c;
-                                start.Player = -start.Player;
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
+            if(n.Player == position[n.move]){
+            if(n.children != null) {
+            for(Connect4Node c : n.children) {
+            if(position[c.move] == c.Player) {
+              start = c;
+              start.Player = -start.Player;
+              return;
+            }  } }  } }
         }
-        NewConnect4Node(state);
+        NewConnect4Node(position);
     }
 
     private static void NewConnect4Node(int[] state){
@@ -224,26 +171,26 @@ public class Connect4AiPlayer {
         start = new Connect4Node(null, state, (byte) -1, turn);
     }
 
-    private static void backFill(float value, int currentPlayer) {
-        Connect4Node s = start;
+    private static void backFill(float value, int actualPlayer) {
+        Connect4Node node1 = start;
         int direction = 0;
-        int turn = s.Player;
-        for (int action : breadcrumbs) {
+        int turn = node1.Player;
+        for (int action : connActions) {
             if (action == 0) {
                 break;
             }
-            for (Connect4Node n : s.children) {
-                n.Player = turn;
-                if (n.move == action - 1) {
-                    if (currentPlayer == n.Player) {
+            for (Connect4Node node : node1.children) {
+                node.Player = turn;
+                if (node.move == action - 1) {
+                    if (actualPlayer == node.Player) {
                         direction = 1;
                     } else {
                         direction = -1;
                     }
-                    n.N = n.N + 1;
-                    n.W = n.W + value * direction; //value
-                    n.Q = n.W / n.N;
-                    s = n;
+                    node.N = node.N + 1;
+                    node.W = node.W + value * direction; //value
+                    node.Q = node.W / node.N;
+                    node1 = node;
                     break;
                 }
             }
@@ -251,9 +198,11 @@ public class Connect4AiPlayer {
         }
     }
 
+
+    //In
     private static Connect4Node selection() { //select a leaf node return index
         double epsilon = 0;
-        double cpuct = 1;
+        double connCPU = 1;
         double alpha = 0.8;
         double[] nu = new double[7];
         double[] y = new double[7];
@@ -261,7 +210,7 @@ public class Connect4AiPlayer {
         double U = 0;
         int first = 1;
         int count = 0;
-        breadcrumbs = new int[42];
+        connActions = new int[42];
         int simulationAction = 0;
         Connect4Node s = start;
         Connect4Node simulationEdge = start;
@@ -272,6 +221,7 @@ public class Connect4AiPlayer {
                 double sum = 0;
                 for (int i = 0; i < sim.children.size(); i++) {
                     epsilon = 0.2;
+                    //Computes the inverse distribution function using the algorithm implemented in the Cephes Math Library.
                     y[i] = GammaDist.inverseF(alpha, 1.0, 1, Math.random());
                     sum += y[i];
                 }
@@ -292,7 +242,7 @@ public class Connect4AiPlayer {
             for (int j = 0; j < sim.children.size(); j++) {
                 Connect4Node n = sim.children.get(j);
 
-                U = cpuct * ((1 - epsilon) * n.P + epsilon * nu[j]) * Math.sqrt(Nb) / (1 + n.N);
+                U = connCPU * ((1 - epsilon) * n.P + epsilon * nu[j]) * Math.sqrt(Nb) / (1 + n.N);
                 Q = n.Q;
                 if(Q + U > maxQU) {//(n.P > maxP){
                     maxQU = Q + U;
@@ -305,7 +255,7 @@ public class Connect4AiPlayer {
             simulationEdge.Player = -simulationEdge.Player;
             first = 0;
             sim = simulationEdge;
-            breadcrumbs[count] = simulationAction + 1;
+            connActions[count] = simulationAction + 1;
             count += 1;
         }
         return sim;
@@ -313,15 +263,15 @@ public class Connect4AiPlayer {
 
     private static float expansion(Connect4Node n) { // choose child of leaf node
         float value = -1;
-        currentstate = ListToArray(n.state);
-        mOutcome = pBoardLogic.checkWin(currentstate);
-        if(mOutcome != Connect4Logic.Outcome.NOTHING)
+        connActualState = toArray(n.state);
+        connOutcome = pBoardLogic.checkWin(connActualState);
+        if(connOutcome != Connect4Logic.Outcome.NOTHING)
         {
             return value;
         }
         else {
-            int[] moves = AllowedActions(n.state);
-            float[] probs = predict(n.state, n.Player);
+            int[] moves = AllowMovement(n.state);
+            float[] probs = predictionTensoFlow(n.state, n.Player);
             Connect4Node c = null;
             for (int m = 0; m < moves.length; m++) {
                 if (moves[m] > 0) {
@@ -372,7 +322,7 @@ public class Connect4AiPlayer {
         return pi;
     }
     public static double[] simulate(int[] state){
-        buildMCTS(state);
+        Mcts(state);
         for(int i = 0; i < 50; i++)
         {
             Connect4Node n = selection();
