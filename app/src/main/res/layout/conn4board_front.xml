@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_weight=".17"
         android:adjustViewBounds="true"
-        android:src="@drawable/cell_frame"
+        android:src="@drawable/cell_frame_wood"
         android:background="@color/white"/>
 
     <ImageView
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_weight=".17"
         android:adjustViewBounds="true"
-        android:src="@drawable/cell_frame"
+        android:src="@drawable/cell_frame_wood"
         android:background="@color/white" />
 
     <ImageView
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_weight=".17"
         android:adjustViewBounds="true"
-        android:src="@drawable/cell_frame"
+        android:src="@drawable/cell_frame_wood"
         android:background="@color/white" />
 
     <ImageView
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_weight=".17"
         android:adjustViewBounds="true"
-        android:src="@drawable/cell_frame"
+        android:src="@drawable/cell_frame_wood"
         android:background="@color/white" />
 
     <ImageView
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_weight=".17"
         android:adjustViewBounds="true"
-        android:src="@drawable/cell_frame"
+        android:src="@drawable/cell_frame_wood"
         android:background="@color/white"/>
 
     <ImageView
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_weight=".17"
         android:adjustViewBounds="true"
-        android:src="@drawable/cell_frame"
+        android:src="@drawable/cell_frame_wood"
         android:background="@color/white" />
 
     <ImageView
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_weight=".17"
         android:adjustViewBounds="true"
-        android:src="@drawable/cell_frame"
+        android:src="@drawable/cell_frame_wood"
         android:background="@color/white" />
 
 </LinearLayout>

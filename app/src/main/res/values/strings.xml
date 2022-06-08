@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name" translatable="false">Connect4Game</string>
+    <string name="app_name" translatable="false">Connect4</string>
     <!--activity_new_game_settings-->
     <string name="player_name">Player name</string>
     <string name="single_player">Single player</string>

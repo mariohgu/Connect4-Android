@@ -35,12 +35,11 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation 'org.tensorflow:tensorflow-android:1.13.1'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //Computes the  distribution function by using the gamma distribution function.
     implementation 'ca.umontreal.iro.simul:ssj:3.3.0'
-
-
-
+    //using tensorflow library to use I.A models
+    implementation 'org.tensorflow:tensorflow-android:1.13.1'
 
 
 

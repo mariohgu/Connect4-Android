@@ -3,112 +3,85 @@ package edu.handong.android.connect4;
 
 import static android.content.ContentValues.TAG; //This class is used to store a set of values that the ContentResolver can process.
 import static edu.handong.android.connect4.Connect4GameActivity.connPlayer1;
-
 import android.util.Log;
 import android.widget.ImageView;
 import java.util.ArrayList;
 
 
 public class Connect4Logic {
-    /**
-     * Reference to player win
-     */
+    /** Check the winner */
     private int connCellValue;
-    /**
-     * Reference to a main mGrid
-     */
-    private final int[][] pGrid;
-    /**
-     * number of columns in the mGrid
-     */
+    /** Variable to make a reference to a main Grid */
+    private final int[][] connBoardL;
+    /**number of columns*/
     public final int numCols;
-    /**
-     * number of rows in the mGrid
-     */
+    /** number of rows */
     private final int numRows;
-    /**
-     * player win starting index
-     */
-    private int p, q;
-    /**
-     * reference to spFree cells in every column
-     */
+    /** player win starting index */
+    private int index1, index2;
+    /** free cells in the column */
     private final int[] spFree;
-    /**
-     * Possible outcomes
-     */
+    /** Possible outcomes */
     public enum Outcome {
         NOTHING, DRAW, PLAYER1_WINS, PLAYER2_WINS
     }
-    /**
-     * flag to mark mDraw
-     */
+
     private boolean conDraw;
-    /**
-     * winner direction
-     */
+    /** winner direction */
     private int WIN_X = 0;
     private int WIN_Y = 0;
 
-    /**
-     * Initialise members
-     *
-     * @param grid reference to board grid
-     * @param free reference to column height
-     */
-
     public Connect4Logic(int[][] grid, int[] free) {
-        pGrid = grid;
+        connBoardL = grid;
         numRows = grid.length;
         numCols = grid[0].length;
         this.spFree = free;
     }
 
-    /**
-     * Class to set the piece in the column
-     */
 
+    /**
+     * Method to set the piece in the column
+     * @param column
+     * @param player
+     */
     public void placeMove(int column, int player) {
         if (spFree[column] > 0) {
-            pGrid[spFree[column] - 1][column] = player;
+            connBoardL[spFree[column] - 1][column] = player;
             spFree[column]--;
         }
     }
 
     /**
-     * Create the Board in the console
+     * class to create the Board in the console
      */
-
     public void displayBoard() {
         System.out.println();
         for (int i = 0; i <= 5; ++i) {
             for (int j = 0; j <= 6; ++j) {
-                System.out.print(pGrid[i][j] + " ");
+                System.out.print(connBoardL[i][j] + " ");
             }
             System.out.println();
         }
         System.out.println();
     }
 
-    public int columnHeight(int index) {
-        return spFree[index];
-    }
 
     /**
      * Check if some of the players get 4 pieces in horizontal
+     * @param board
+     * @return boolean
      */
     private boolean horizontalCheck(int[][] board) {
-        // horizontalCheck
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols - 3; j++) {
                 connCellValue = board[i][j];
                 if (connCellValue == 0) conDraw = false;
                 if (connCellValue != 0 && board[i][j + 1] == connCellValue && board[i][j + 2] == connCellValue && board[i][j + 3] == connCellValue) {
                     if (BuildConfig.DEBUG) {
-                        Log.e(TAG, "Horizontal check pass");
+                        Log.e(TAG, "Possible winning in horizontal way");
                     }
-                    p = i;
-                    q = j;
+                    index1 = i;
+                    index2 = j;
                     WIN_X = 1;
                     WIN_Y = 0;
                     return true;
@@ -123,17 +96,16 @@ public class Connect4Logic {
      */
 
     private boolean verticalCheck(int[][] board) {
-        // verticalCheck
         for (int j = 0; j < numCols; j++) {
             for (int i = 0; i < numRows - 3; i++) {
                 connCellValue = board[i][j];
                 if (connCellValue == 0) conDraw = false;
                 if (connCellValue != 0 && board[i + 1][j] == connCellValue && board[i + 2][j] == connCellValue && board[i + 3][j] == connCellValue) {
                     if (BuildConfig.DEBUG) {
-                        Log.e(TAG, "Vertical check pass");
+                        Log.e(TAG, "Possible winning in Vertical way");
                     }
-                    p = i;
-                    q = j;
+                    index1 = i;
+                    index2 = j;
                     WIN_X = 0;
                     WIN_Y = 1;
                     return true;
@@ -144,21 +116,20 @@ public class Connect4Logic {
     }
 
     /**
-     *Check if some of the player get an diagonal in right
+     *Check if some of the player get an diagonal in right or left
      */
 
     private boolean ascendingDiagonalCheck(int[][] board) {
-        // ascendingDiagonalCheck
         for (int i = 3; i < numRows; i++) {
             for (int j = 0; j < numCols - 3; j++) {
                 connCellValue = board[i][j];
                 if (connCellValue == 0) conDraw = false;
                 if (connCellValue != 0 && board[i - 1][j + 1] == connCellValue && board[i - 2][j + 2] == connCellValue && board[i - 3][j + 3] == connCellValue) {
                     if (BuildConfig.DEBUG) {
-                        Log.e(TAG, "ascendingDiagonal check pass");
+                        Log.e(TAG, "Possible winning in diagonal (ascending) way");
                     }
-                    p = i;
-                    q = j;
+                    index1 = i;
+                    index2 = j;
                     WIN_X = 1;
                     WIN_Y = -1;
                     return true;
@@ -169,17 +140,16 @@ public class Connect4Logic {
     }
 
     private boolean descendingDiagonalCheck(int[][] board) {
-        // descendingDiagonalCheck
         for (int i = 3; i < numRows; i++) {
             for (int j = 3; j < numCols; j++) {
                 connCellValue = board[i][j];
                 if (connCellValue == 0) conDraw = false;
                 if (connCellValue != 0 && board[i - 1][j - 1] == connCellValue && board[i - 2][j - 2] == connCellValue && board[i - 3][j - 3] == connCellValue) {
                     if (BuildConfig.DEBUG) {
-                        Log.e(TAG, "descendingDiagonal check pass");
+                        Log.e(TAG, "Possible winning in Diagonal (descending) way");
                     }
-                    p = i;
-                    q = j;
+                    index1 = i;
+                    index2 = j;
                     WIN_X = -1;
                     WIN_Y = -1;
                     return true;
@@ -190,7 +160,7 @@ public class Connect4Logic {
     }
 
     /**
-     * Check if somebody wins the match
+     * Check if somebody wins the match,or if it is a Draw. set the Outcome DRAW
      * @param board
      * @return
      */
@@ -202,22 +172,21 @@ public class Connect4Logic {
                 ascendingDiagonalCheck(board) || descendingDiagonalCheck(board)) {
             return connCellValue ==  connPlayer1 ? Outcome.PLAYER1_WINS : Outcome.PLAYER2_WINS;
         }
-        // nobody won, return mDraw if it is, nothing if it's not
         return conDraw ? Outcome.DRAW : Outcome.NOTHING;
     }
 
+
     /**
-     * Returns sprites of a winning combination
-     *
-     * @param cells cell mGrid
-     * @return winning move discs
+     * This is the class to help to identify the winning pieces
+     * @param cells
+     * @return winning combination
      */
     public ArrayList<ImageView> getWinDiscs(ImageView[][] cells) {
-        ArrayList<ImageView> combination = new ArrayList<>();
+        ArrayList<ImageView> combine = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            combination.add(cells[p + WIN_Y * i][q + WIN_X * i]);
+            combine.add(cells[index1 + WIN_Y * i][index2 + WIN_X * i]);
         }
-        return combination;
+        return combine;
     }
 
 

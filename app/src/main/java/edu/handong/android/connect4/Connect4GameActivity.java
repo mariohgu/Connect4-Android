@@ -39,7 +39,6 @@ import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import static java.lang.Math.max;
 
@@ -328,6 +327,7 @@ public class Connect4GameActivity extends AppCompatActivity{
     }
 
     public void resetBoard() {
+        if(connCrones!=null) connCrones.cancel();
         initialize();
         for (ImageView[] cell : connCells) {
             for (ImageView imageView : cell) {
@@ -457,7 +457,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                 BoardClick(false);
             connect4Controller.togglePlayer(connPlayerTurn);
            // poi1=poi1-20;
-            connect4Controller.aiTurn();
+            connect4Controller.robotTurn();
             //poi2=poi2-20;
                 BoardClick(true);
             }
