@@ -108,7 +108,7 @@
         app:layout_constraintStart_toEndOf="@+id/time"
         app:layout_constraintTop_toTopOf="@+id/h1"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/player_turn" />
+        app:srcCompat="@drawable/play" />
 
 
     <TextView
