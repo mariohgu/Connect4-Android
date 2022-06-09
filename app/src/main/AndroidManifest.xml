@@ -13,15 +13,7 @@
             android:name=".MusicService"
             android:enabled="true"
             android:exported="false" />
-        <service
-            android:name=".BackgroundSoundService"
-            android:enabled="true"
-            android:exported="false" />
 
-        <activity
-            android:name=".multiplayer"
-            android:exported="false"
-            android:screenOrientation="landscape" />
         <activity
             android:name=".RankingActivity"
             android:exported="false"

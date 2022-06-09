@@ -37,17 +37,6 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
-        //Load saved preferences from SharedPreferences object instance
-        //loadPref();
-
-        /* implementation of localization
-        Locale locale = new Locale("fr");
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-        ****************************************/
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_settings);
@@ -92,9 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
                 builder.setMessage("Save the changes?").setPositiveButton(getResources().getString(R.string.Yes), dialogClickListener)
                         .setTitle("CONNECT 4")
                         .setNegativeButton(getResources().getString(R.string.No), dialogClickListener).show();
-
-
-                }
+                 }
         );
 
         ImageButton cancel_Button = findViewById(R.id.btnCancelSettings);
@@ -130,7 +117,10 @@ public class SettingsActivity extends AppCompatActivity {
         loadPref();
     }
 
-    //Load saved preferences from SharedPreferences object instance
+    /***
+     * This method will Load saved preferences from the previously saved SharedPreferences object instance
+     */
+
     public void loadPref(){
         // Fetching the stored data from the SharedPreference
         SharedPreferences preferences = getSharedPreferences(PREF, Context.MODE_PRIVATE);
@@ -168,29 +158,18 @@ public class SettingsActivity extends AppCompatActivity {
         player_name.setText(player);
 
         sounds.setChecked(preferences.getBoolean(SOUNDS,false));
-        /*launchSounds=preferences.getBoolean(SOUNDS,false);
-        Checking if the music option sets the music ON or OFF
-        if(preferences.contains(MUSIC)){
-            Intent intent = new Intent(SettingsActivity.this, BackgroundSoundService.class);
-            startService(intent);
-        }*/
+        }
 
-    }
+    /***
+     * This method will Save all changes related to the user settings into an object SharedPreferences
+     */
 
-
-    //Save all changes related to the user settings preferences
     public void savePref(){
-
-
         preferences = getSharedPreferences(PREF, MODE_PRIVATE);
         SharedPreferences.Editor editor= preferences.edit();
-        //editor.putBoolean(MUSIC,music.isChecked());
         editor.putBoolean(SOUNDS,sounds.isChecked());
         editor.putString(TEXT,player_name.getText().toString());
         editor.putString(PREF_LANG, language.getSelectedItem().toString());
-
-
-        //editor.commit();
         editor.apply();
         Toast.makeText(SettingsActivity.this,"Settings saved successfully",Toast.LENGTH_SHORT).show();
 

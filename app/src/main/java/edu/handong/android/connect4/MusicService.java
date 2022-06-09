@@ -8,6 +8,11 @@ import android.os.IBinder;
 
 import androidx.annotation.RequiresApi;
 
+/***
+ * This service is responsible of playing a music in the background. It is created and destroyed accordingly to the user's commands
+ * via the Main Activity "sound button"
+ */
+
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class MusicService extends Service implements MediaPlayer.OnCompletionListener,MediaPlayer.OnBufferingUpdateListener,
         MediaPlayer.OnDrmPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnInfoListener, MediaPlayer.OnSeekCompleteListener{

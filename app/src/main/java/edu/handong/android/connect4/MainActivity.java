@@ -34,17 +34,11 @@ public class MainActivity extends AppCompatActivity {
 
     boolean launchSounds;
     boolean musicPlaying=false;
-    MediaPlayer mediaPlayer;
     Intent serviceIntent;
-
-
     public int counter;
-
     public static final String PREF = "PlayerPref";
-    public static final String TEXT = "player1";
-    public static final String MUSIC = "music";
     public static final String SOUNDS = "sounds";
-    public static final String PREF_LANG = "pref_lang";
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -218,10 +212,5 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-    }
-
-
-    public void onMusicStopped() {
-        musicPlaying=false;
     }
 }

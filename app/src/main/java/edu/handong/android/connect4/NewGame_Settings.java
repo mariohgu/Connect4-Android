@@ -27,12 +27,7 @@ public class NewGame_Settings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /* implementation of localization
-        Locale locale = new Locale("fr");
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-        ****************************************/
+
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_new_game_settings);
@@ -44,9 +39,6 @@ public class NewGame_Settings extends AppCompatActivity {
         TextView txtGuest = findViewById(R.id.txtGuest_name);
         EditText guest = findViewById(R.id.edtGuest);
         Spinner pieces = findViewById(R.id.ballShape_spinner);
-
-
-
         multiplayer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

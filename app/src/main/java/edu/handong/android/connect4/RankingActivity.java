@@ -55,9 +55,6 @@ public class RankingActivity extends AppCompatActivity {
 
     }
 
-    private void bestScores(){
-
-    }
     @Override
     public void onBackPressed() {
         counter++;
