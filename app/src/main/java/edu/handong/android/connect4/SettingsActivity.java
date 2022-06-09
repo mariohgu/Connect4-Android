@@ -89,9 +89,9 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 };
                 AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
-                builder.setMessage("Save the changes?").setPositiveButton("YES", dialogClickListener)
+                builder.setMessage("Save the changes?").setPositiveButton(getResources().getString(R.string.Yes), dialogClickListener)
                         .setTitle("CONNECT 4")
-                        .setNegativeButton("NO", dialogClickListener).show();
+                        .setNegativeButton(getResources().getString(R.string.No), dialogClickListener).show();
 
 
                 }
@@ -113,9 +113,9 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 };
                 AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
-                builder.setMessage("Cancel the changes?").setPositiveButton("YES", dialogClickListener)
+                builder.setMessage("Cancel the changes?").setPositiveButton(getResources().getString(R.string.Yes), dialogClickListener)
                         .setTitle("CONNECT 4")
-                        .setNegativeButton("NO", dialogClickListener).show();
+                        .setNegativeButton(getResources().getString(R.string.No), dialogClickListener).show();
 
                     }
         );
