@@ -207,7 +207,7 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/player1_turn"
         app:layout_constraintEnd_toEndOf="@+id/player1_turn"
-        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintHorizontal_bias="0.629"
         app:layout_constraintStart_toStartOf="@+id/player1_turn"
         app:layout_constraintTop_toTopOf="@+id/player1_turn"
         app:layout_constraintVertical_bias="0.521" />

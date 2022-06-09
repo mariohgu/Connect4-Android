@@ -4,11 +4,13 @@ import static android.content.ContentValues.TAG;
 import static edu.handong.android.connect4.Connect4GameActivity.connMultiplayer;
 import static java.lang.Thread.sleep;
 import edu.handong.android.connect4.Connect4Logic.Outcome;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 
 public class Connect4Controller implements View.OnClickListener {
@@ -32,6 +34,7 @@ public class Connect4Controller implements View.OnClickListener {
     public static boolean mode;
     private static int pointsPlayer1;
     private static int pointsPlayer2;
+    ExecutorService service;
 
     public Connect4Controller(){initialize(); }
 
@@ -50,7 +53,10 @@ public class Connect4Controller implements View.OnClickListener {
                 connGrid[i][j] = 0;        }
             spFree[j] = ROWS;        }
 
-       if (!connMultiplayer) connRobotPlayer = new Connect4RobotPlayer(connBoardLogic);
+       if (!connMultiplayer) {
+           service = Executors.newFixedThreadPool(10);
+           connRobotPlayer = new Connect4RobotPlayer(connBoardLogic);
+       }
        else  connRobotPlayer = null;
         pointsPlayer1=1000;
         pointsPlayer2=1000;
@@ -61,7 +67,7 @@ public class Connect4Controller implements View.OnClickListener {
      * This method is very important because the player and robot choose the column of the board.
      * In this method we check constantly the status of the game, switch the turn player, start the
      * animation to drop the disc and change the progressbar. And if it is robot turn, call the robotTurn class.
-     * @param column
+     * @param column number of the column
      */
     private void selectColumn(int column) {
         if (spFree[column] == 0) {
@@ -93,15 +99,16 @@ public class Connect4Controller implements View.OnClickListener {
 
 
     /**
-     *This class call to execute the class robottask
+     *This class call to execute the class RoboticTask
      */
     public void robotTurn() {
     if (connFinished) return;
-    new robotTask().execute(); }
+    RoboticTask();
+    }
 
     /**
      * Method to switch the turns of the players.
-     * @param playerTurn
+     * @param playerTurn the turn of the player
      */
     public void togglePlayer(int playerTurn) {
         if(playerTurn==1) connPlayerTurn =2;
@@ -122,15 +129,16 @@ public class Connect4Controller implements View.OnClickListener {
 
 
 
-    @Override
+
     /**
      * Everytime that the users does a click in the board and if the game is not finished or it is
      * turn of robot, we are going to take the position where the users did click using the Column position method
      * of the Connect4GameActivity class and then we will send this value to the selectColumn method.
      */
+    @Override
     public void onClick(View v) {
         if (connFinished || connRobotTurn) return;
-        int col = Connect4GameActivity.getInstance().colAtX(v.getX());
+        int col = Connect4GameActivity.getInstance().colChosen(v.getX());
         System.out.println(col);
         selectColumn(col);
     }
@@ -160,48 +168,37 @@ public class Connect4Controller implements View.OnClickListener {
     }
 
     /**
-     * "AsyncTask is designed to be a helper class around Thread and Handler and does not constitute
-     * a generic threading framework. AsyncTasks should ideally be used for short operations
-     * (a few seconds at the most.) If you need to keep threads running for long periods of time,
-     * it is highly recommended you use the various APIs provided by the java.util.concurrent package
-     * such as Executor, ThreadPoolExecutor and FutureTask.
-     *
-     * An asynchronous task is defined by a computation that runs on a background thread and whose
-     * result is published on the UI thread. An asynchronous task is defined by 3 generic types,
-     * called Params, Progress and Result, and 4 steps, called onPreExecute, doInBackground,
-     * onProgressUpdate and onPostExecute." https://developer.android.com/reference/android/os/AsyncTask
-     *
-     * In here we are using AsyncTask to execute the turn of the robot as a task in another thread. Previously
-     * we set as true the turn of the Robot. then we create the thread to execute the getcolum in the RobotPlayer class
-     * in order to decide the best position to put the disc. in the postexecute the task execute the selectcolumn class
-     * with the number of the column previously decided.
+     "Executor is a simple standardized interface for defining custom thread-like subsystems,
+     including thread pools, asynchronous I/O, and lightweight task frameworks.
+     Depending on which concrete Executor class is being used, tasks may execute in
+     a newly created thread, an existing task-execution thread, or the thread calling
+     execute, and may execute sequentially or concurrently. ExecutorService provides a
+     more complete asynchronous task execution framework."
+     https://developer.android.com/reference/java/util/concurrent/package-summary
      */
 
-    class robotTask extends AsyncTask<Void, Void, Integer> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            connRobotTurn = true;
-        }
-        @Override
-        protected Integer doInBackground(Void... voids) {
+    private void RoboticTask(){
+        service.execute(() -> {
+            //onPreExecute
+            Connect4GameActivity.getInstance().runOnUiThread(() -> connRobotTurn = true);
+            //InBackground
             try {
                 Thread.currentThread();
-                sleep(100);
+                sleep(500);
             } catch (InterruptedException e) {
                 if (BuildConfig.DEBUG) {
                     e.printStackTrace();
                 }
             }
             if (BuildConfig.DEBUG) {
-                Log.e(TAG, "RobotPlayer " + connRobotPlayer.getColumn());
+                Log.e(TAG, "RobotPlayer chooses column " + connRobotPlayer.getColumn());
             }
-            return connRobotPlayer.getColumn();
-        }
-        @Override
-        protected void onPostExecute(Integer integer) {
-            selectColumn(integer);
-        }
+           int colChosen = connRobotPlayer.getColumn();
+            //PostExecute
+            Connect4GameActivity.getInstance().runOnUiThread(() -> selectColumn(colChosen));
+
+
+        });
     }
 
 

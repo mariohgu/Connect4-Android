@@ -3,19 +3,15 @@ package edu.handong.android.connect4;
 import static android.content.ContentValues.TAG;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
-
 import static edu.handong.android.connect4.Connect4Controller.COLS;
 import static edu.handong.android.connect4.Connect4Controller.ROWS;
 import static edu.handong.android.connect4.Connect4Controller.connPlayerTurn;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -33,14 +29,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-import static java.lang.Math.max;
 
 /**
  * Our code is based in:
@@ -51,110 +44,81 @@ import static java.lang.Math.max;
  */
 
 public class Connect4GameActivity extends AppCompatActivity{
-    private View connBoardGame;
+    /** board views (cell frame)     */
+    private View connBoardGame,connBoardFrontView;
     static Connect4GameActivity connBoardView;
- //   private Connect4Controller mGameController;
-  //  private Connect4Controller mListener;
-    private View connBoardFrontView;
     private ImageView[][] connCells;
-    public int counter;
-    public static int connPlayer1 =1;
-    public static int connPlayer2 =2;
-    public static int firstTurnStatic;
+    /** int variables for a counter and user points */
+    public int counter,poi1,poi2;;
+    /** assign the number 1 to player 1   */
+    public static int connPlayer1 =1, firstTurnStatic=1;
+    /** variables of seconds and minutes for the clock */
     long sec, min;
-    String timeActual;
-    boolean launchSounds;
-    /**
-     * Name of the preferences object
-     */
+    /** Name of the preferences object  */
     public static final String PREF = "PlayerPref";
-    public static final String RANKINGS = "rankings";
+ //   public static final String RANKINGS = "rankings";
     public static final String SOUNDS = "sounds";
-
+    /** Boolean for the multiplayer mode */
     public static boolean connMultiplayer;
-    public static int discColorPlayer1;
-    public static int discColorPlayer2;
-    private TextView connWinnerView;
-    public String draw;
-    public String wins;
-    public static String player1Name;
-    public String player1DiscColor;
-    public String modelPiecePlayer1;
- //   public String modeldiscPlayer2;
-    public static String player2Name;
-    public static String firstTurn;
-    public boolean modeTimer;
-    TextView clock;
+    /** variables int to identify the R.id of the disc in drawable folder */
+    public static int discColorPlayer1,discColorPlayer2;
+    public static String player1Name,player2Name;
+    public String player1DiscColor,modelPiecePlayer1, draw,wins,timeActual;
+    /** boolean to declare if the user chose to play with timer or/and sound  */
+    public boolean modeTimer,launchSounds;
+    TextView clock, connWinnerView;
     ToggleButton pause;
     ImageButton reset;
-    int poi1;
-    int poi2;
-
     public MyTimer connCrones;
+    /** set variable to use the tensorflow library */
+    static public TensorFlowInferenceInterface tf;
+    private static final String MODEL_FILE = "file:///android_asset/finalModel.pb";
 
     Connect4Controller connect4Controller = new Connect4Controller();
-
-
     public ImageView[][] getCells() {
         return connCells;
     }
+    static { System.loadLibrary("tensorflow_inference"); }
 
-    private static final String MODEL_FILE =
-            "file:///android_asset/3_hard.pb";
 
-    static {
-        System.loadLibrary("tensorflow_inference");
-    }
-
-    static public TensorFlowInferenceInterface tf;
-
+    /**
+     * In the onCreate method, we create the objects of the game, Preferences, intents, buttons, Views.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        SoundEffect clickSound=new SoundEffect(this);
-        SharedPreferences preferences = getSharedPreferences(PREF, Context.MODE_PRIVATE);
-        launchSounds=preferences.getBoolean(SOUNDS,false);
-
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        loadPref();
         connBoardView = this;
         connBoardGame = findViewById(R.id.gameBoard);
         connBoardFrontView = findViewById(R.id.game_board_front);
         clock = findViewById(R.id.player_time);
+        SoundEffect clickSound=new SoundEffect(this);
+        //Preferences
+        SharedPreferences preferences = getSharedPreferences(PREF, Context.MODE_PRIVATE);
+        launchSounds=preferences.getBoolean(SOUNDS,false);
+        String player = preferences.getString("player1", "");
+        TextView player_name = findViewById(R.id.player1_turn_label);
+        player_name.setText(player);
+        //Intent (get the information from newgame settings)
         Intent intent=getIntent();
         Bundle extras=intent.getExtras();
-        AssetManager assetManager = getAssets();
         connMultiplayer = extras.getBoolean("Mode");
         modeTimer = extras.getBoolean("Timer");
         modelPiecePlayer1 = extras.getString("ModelPiece");
-        if (!connMultiplayer) tf = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
-
-        TextView name1 = findViewById(R.id.player1_turn_label);
-        player1Name = name1.getText().toString();
-        if(!connMultiplayer) player2Name="Computer";
+        player1DiscColor="Red";
+        if(!connMultiplayer) player2Name="ROBOT";
         else player2Name=extras.getString("Player2Name");
-        firstTurn="Player1Turn"; //extras.getString("FirstTurn");
-        player1DiscColor="Red"; //extras.getString("Player1DiscColor");
-
-
+        //Create the tf object based in the tensorflow algorithm
+        AssetManager assetManager = getAssets();
+        if (!connMultiplayer) tf = new TensorFlowInferenceInterface(assetManager, MODEL_FILE);
+        player1Name = player_name.getText().toString();
         draw = getResources().getString(R.string.draw);
         wins = getResources().getString(R.string.wins);
-
-
-        if(firstTurn.equals("Player1Turn")) {
-            firstTurnStatic= connPlayer1;
-        }else {
-            firstTurnStatic= connPlayer2;
-        }
-
-        //------------------------------------------GAME PIECE -----------------------------
         choosePiece(player1DiscColor,modelPiecePlayer1);
-        //--------------------------------------------END GAME PIECE -------------------------
-
-        //-------------------------------------NAMES BOARD---------------------------------
         turn();
-        //--------------------------------------------------------------------
+
  //--------------------------------------------BUTTONS-------------------------------------------
         //---------------------------------CLOSE BUTTON---------------------------------------------
         ImageButton close = findViewById(R.id.back_button);
@@ -165,31 +129,22 @@ public class Connect4GameActivity extends AppCompatActivity{
             DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                    //    Connect4GameActivity.this.finish();
                         if(connCrones!=null) connCrones.cancel();
                         Intent i= new Intent(getApplicationContext(),NewGame_Settings.class);
-                    //    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
                         finish();
                         break;
-
                     case DialogInterface.BUTTON_NEGATIVE:
-
                         break;
-                }
-            };
-
+                }  };
             AlertDialog.Builder builder = new AlertDialog.Builder(Connect4GameActivity.this);
-            builder.setMessage("Back to menu?").setPositiveButton("YES", dialogClickListener)
+            builder.setMessage("Back to menu?").setPositiveButton( getResources().getString(R.string.Yes), dialogClickListener)
                     .setTitle("CONNECT 4")
-                    .setNegativeButton("NO", dialogClickListener).show();
-
+                    .setNegativeButton(getResources().getString(R.string.No), dialogClickListener).show();
         });
 
-// ------------------------------------END CLOSE ---------------------------------------------------
-
-                    //-------------------------RESET BUTTON----------------------------------------
-
+// ------------------------------------END CLOSE BUTTON ---------------------------------------------------
+        //-------------------------RESET BUTTON----------------------------------------
         reset = findViewById(R.id.reload_game_button);
         reset.setOnClickListener(view -> {
             if(launchSounds){
@@ -200,57 +155,41 @@ public class Connect4GameActivity extends AppCompatActivity{
                     case DialogInterface.BUTTON_POSITIVE:
                         resetBoard();
                         break;
-
                     case DialogInterface.BUTTON_NEGATIVE:
-
                         break;
                 }
             };
-
             AlertDialog.Builder builder = new AlertDialog.Builder(Connect4GameActivity.this);
-            builder.setMessage("Reset the game ?").setPositiveButton("YES", dialogClickListener)
+            builder.setMessage("Reset the game ?").setPositiveButton(getResources().getString(R.string.Yes), dialogClickListener)
                     .setTitle("CONNECT 4")
-                    .setNegativeButton("NO", dialogClickListener).show();
+                    .setNegativeButton(getResources().getString(R.string.No), dialogClickListener).show();
         });
-                    //---------------------END RESET BUTTON ----------------------------------------
-
+        //---------------------END RESET BUTTON ----------------------------------------
         //-------------------------PAUSE BUTTON----------------------------------------
-
         pause = findViewById(R.id.pause_button);
         pause.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(!modeTimer || connMultiplayer) return;
                 if (pause.isChecked()){
                     if(launchSounds){
                         clickSound.playSound();
-
                     }
                     if(connCrones !=null) connCrones.cancel();
                     BoardClick(true);
                     connBoardGame.setVisibility(INVISIBLE);
                     connBoardFrontView.setVisibility(INVISIBLE);
-
-
-
                 }
                 else {
                     resumeTimer();
                     BoardClick(false);
                     connBoardGame.setVisibility(VISIBLE);
                     connBoardFrontView.setVisibility(VISIBLE);
-
                 }
-
             }
         });
-
-
         //---------------------END PAUSE BUTTON ----------------------------------------
-
         //-------------------------SETTINGS BUTTON----------------------------------------
-
         ImageButton settings = findViewById(R.id.settings_button);
         settings.setOnClickListener(view -> {
             if(launchSounds){
@@ -260,21 +199,15 @@ public class Connect4GameActivity extends AppCompatActivity{
             startActivity(settingsIntent);
         });
         //---------------------END PAUSE BUTTON ----------------------------------------
-
         //---------------------------------------END---BUTTONS------------------------------------------
-        //connect4Controller.setPointsPlayer1(1000);
-        //connect4Controller.setPointsPlayer2(1000);
         initialize();
     }
 
-
+    /**
+     * In this class we are building the visual board
+     */
     public void initialize(){
-        buildCells();
-    }
-
-    public void buildCells() {
         pause.setEnabled(false);
-
         connWinnerView = findViewById(R.id.final_message);
         connWinnerView.setVisibility(INVISIBLE);
         connCells = new ImageView[ROWS][COLS];
@@ -294,37 +227,41 @@ public class Connect4GameActivity extends AppCompatActivity{
         }
     }
 
-    public void turn(){
+    /**
+     * Class to set the disc, progressbar and name of every player depending of the number choose
+     * (next feature)
+     */
 
+    public void turn(){
         if(firstTurnStatic==1) {
-            ImageView imageView1=findViewById(R.id.player1_disc);
-            imageView1.setImageResource(discColorPlayer1);
-            ImageView imageView2=findViewById(R.id.player2_disc);
-            imageView2.setImageResource(discColorPlayer2);
+            ImageView disc1=findViewById(R.id.player1_disc);
+            disc1.setImageResource(discColorPlayer1);
+            ImageView disc2=findViewById(R.id.player2_disc);
+            disc2.setImageResource(discColorPlayer2);
             ProgressBar progressBar1=findViewById(R.id.player1_indicator);
             progressBar1.setVisibility(VISIBLE);
             ProgressBar progressBar2=findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(INVISIBLE);
-            //  TextView textView1=(TextView) findViewById(R.id.player1_name);
-            //   textView1.setText(player1Name);
             TextView name2=findViewById(R.id.player2_turn_label);
             name2.setText(player2Name);
         }else {
-            ImageView imageView1=findViewById(R.id.player1_disc);
-            imageView1.setImageResource(discColorPlayer1);
-            ImageView imageView2=findViewById(R.id.player2_disc);
-            imageView2.setImageResource(discColorPlayer2);
+            ImageView disc1=findViewById(R.id.player1_disc);
+            disc1.setImageResource(discColorPlayer1);
+            ImageView disc2=findViewById(R.id.player2_disc);
+            disc2.setImageResource(discColorPlayer2);
             ProgressBar progressBar1= findViewById(R.id.player1_indicator);
             progressBar1.setVisibility(INVISIBLE);
             ProgressBar progressBar2=findViewById(R.id.player2_indicator);
             progressBar2.setVisibility(VISIBLE);
-            //   TextView textView1=(TextView) findViewById(R.id.player1_name);
-            //   textView1.setText(player1Name);
-            TextView name2=findViewById(R.id.player2_turn_label);
+           TextView name2=findViewById(R.id.player2_turn_label);
             name2.setText(player2Name);
         }
 
     }
+
+    /**
+     * Class to reset all the settings and visual in the board.
+     */
 
     public void resetBoard() {
         if(connCrones!=null) connCrones.cancel();
@@ -334,11 +271,7 @@ public class Connect4GameActivity extends AppCompatActivity{
                 imageView.setImageResource(android.R.color.transparent);
             }
         }
-        if(firstTurn.equals("Player1Turn")) {
-            firstTurnStatic= connPlayer1;
-        }else {
-            firstTurnStatic= connPlayer2;
-        }
+        firstTurnStatic= connPlayer1;
         connBoardGame.setVisibility(VISIBLE);
         connBoardFrontView.setVisibility(VISIBLE);
         pause.setChecked(false);
@@ -346,6 +279,11 @@ public class Connect4GameActivity extends AppCompatActivity{
         turn();
         showWinStatus(Connect4Logic.Outcome.NOTHING, null);
     }
+
+    /**
+     * Class to block the click in the board.
+     * @param value boolean
+     */
 
     public void BoardClick(boolean value){
         if(!connMultiplayer){
@@ -361,17 +299,27 @@ public class Connect4GameActivity extends AppCompatActivity{
             }    }
     }
 
+    /**
+     * Class to drop the disc in the column and set the animation
+     * @param row selected the row
+     * @param col selected the column
+     * @param playerTurn who is the player for the color
+     */
     public void dropDisc(int row, int col,int playerTurn) {
         final ImageView cell = connCells[row][col];
         float move = -(cell.getHeight() * row + cell.getHeight() + 15);
         cell.setY(move);
         cell.setImageResource(playerTurn == connPlayer1 ? discColorPlayer1 : discColorPlayer2);
         cell.animate().translationY(0).setInterpolator(new BounceInterpolator()).start();
-
-
     }
 
-    public int colAtX(float x) {
+    /**
+     * Get the column where the user did the click
+     * @param x
+     * @return column
+     */
+
+    public int colChosen(float x) {
         float colWidth = connCells[0][0].getWidth();
         System.out.println("Col width "+colWidth); //send the width of the column
         int col = (int) x / (int) colWidth;
@@ -383,9 +331,13 @@ public class Connect4GameActivity extends AppCompatActivity{
         return col;
     }
 
-    public static Connect4GameActivity getInstance(){
-        return connBoardView;
-    }
+    public static Connect4GameActivity getInstance(){ return connBoardView; }
+
+    /**
+     * The method to set the visual animation and deactivated the click on the board depending
+     * of the user turn
+     * @param playerTurn get who is the player
+     */
 
     public void progressBarSwap(int playerTurn)
     {
@@ -412,6 +364,11 @@ public class Connect4GameActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     * Set the color of the player pieces
+     * @param color of the piece
+     * @param model in this version we put to model, but we can add more in this method
+     */
     public void choosePiece(String color, String model){
         if(color.equals("Red")) {
             switch (model){
@@ -438,48 +395,34 @@ public class Connect4GameActivity extends AppCompatActivity{
         }
     }
 
-    //////////////////////////////
+    /**
+     * My timer is a class extends of the CountDownTimer. in here we set the timer and if the time finish
+     * swap the turn to the "robot"
+     */
     public class MyTimer extends CountDownTimer {
-      //  TextView clock = findViewById(R.id.player_time);
-
-
-        public MyTimer(long millisInFuture, long countDownInterval) {
-
-            super(millisInFuture, countDownInterval);
-
-
-        }
-
-
+        public MyTimer(long millisInFuture, long countDownInterval) { super(millisInFuture, countDownInterval); }
         @Override
         public void onFinish() {
             if(modeTimer && !connMultiplayer){
                 BoardClick(false);
-            connect4Controller.togglePlayer(connPlayerTurn);
-           // poi1=poi1-20;
-            connect4Controller.robotTurn();
-            //poi2=poi2-20;
+                connect4Controller.togglePlayer(connPlayerTurn);
+                connect4Controller.robotTurn();
                 BoardClick(true);
             }
-
         }
-
         @SuppressLint("SetTextI18n")
         @Override
         public void onTick(long millisUntilFinished) {
             if(modeTimer && !connMultiplayer) {
                 NumberFormat f = new DecimalFormat("00");
-
                 min = (millisUntilFinished / 60000) % 60;
                 sec = (millisUntilFinished / 1000) % 60;
                 System.out.println(f.format(sec));
                 timeActual = f.format(min) + ":" + f.format(sec);
                 clock.setText(timeActual);
             }
-
         }
     }
-
     private void resumeTimer() {
         int seco = Integer.parseInt((timeActual.charAt(timeActual.length()-1)+"000"));
         NumberFormat f = new DecimalFormat("00");
@@ -490,11 +433,11 @@ public class Connect4GameActivity extends AppCompatActivity{
         clock.setText(f.format(minu) + ":" + f.format(secon));
 
     }
-    ///////////////////////////
 
 
-
-
+    /**
+     * Override the back button of the Android to force the user to use the app buttons
+     */
     @Override
     public void onBackPressed() {
         counter++;
@@ -504,21 +447,17 @@ public class Connect4GameActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     * This method is for set all the configuration when the player1 win, player 2 win, draw or if
+     * the game continues.
+     * @param outcome get the status from the Connect4Logic
+     * @param winDiscs set an array for the change the visual color of the win discs
+     */
     @SuppressLint("SetTextI18n")
     public void showWinStatus(Connect4Logic.Outcome outcome, ArrayList<ImageView> winDiscs) {
         SharedPreferences preferences = getSharedPreferences(PREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor= preferences.edit();
-        /*String score1=preferences.getString("P1","");
-        String score2=preferences.getString("P2","");
-
-        String [] s1=score1.split("-");
-        String [] s2=score2.split("-");
-        s1[1]=s1[1].trim();
-        s2[1]=s2[1].trim();*/
-
-        int p1;
-        int p2;
-        int p3;
+        int p1,p2,p3;
 
         if (preferences.contains("P1")){
             String score1=preferences.getString("P1","");
@@ -548,7 +487,7 @@ public class Connect4GameActivity extends AppCompatActivity{
             Log.e(TAG, outcome.name());
         }
         if (outcome != Connect4Logic.Outcome.NOTHING) {
-            System.out.println("Hello inside outcome");
+            System.out.println("Checking if the status of the Connect4 game changes");
             connWinnerView.setVisibility(VISIBLE);
             if(connCrones !=null) connCrones.cancel();
             pause.setEnabled(false);
@@ -560,35 +499,28 @@ public class Connect4GameActivity extends AppCompatActivity{
             switch (outcome) {
                 case DRAW:
                     connWinnerView.setText(draw);
-                  
                     for(int r = 0; r < 6; r++){
                         ViewGroup row = (ViewGroup) ((ViewGroup) connBoardGame).getChildAt(r);
                         row.setClipChildren(false);
                         for (int c = 0; c < 7; c++){
                             ImageView imageView = (ImageView) row.getChildAt(c);
                             imageView.setOnClickListener(null);
-                        }
-                    }
-
+                        }   }
                     break;
                 case PLAYER1_WINS:
-                    System.out.println("Hello inside player1");
                     poi1=connect4Controller.getPointsPlayer1()+15;
                     connWinnerView.setText(player1Name+" "+wins);
-                 //   connWinnerView.setText(player1Name+" WINS!");
                     for (ImageView winDisc : winDiscs) {
                         if(player1DiscColor.equals("Red"))
                         {
                             winDisc.setImageResource(R.drawable.win_red);
                         }else {
                             winDisc.setImageResource(R.drawable.win_yellow);
-                        }
-
-                    }
+                        } }
                     //Saving the PLAYER 1 scores into the preferences object
                     if (p1< poi1) editor.putString("P1",player1Name+" - "+poi1);
                     if (connMultiplayer){
-                            if (p3< connect4Controller.getPointsPlayer2()) editor.putString("Multi",player2Name+" - "+connect4Controller.getPointsPlayer2());
+                        if (p3< connect4Controller.getPointsPlayer2()) editor.putString("Multi",player2Name+" - "+connect4Controller.getPointsPlayer2());
                     }
                     else {
                         if (p2< connect4Controller.getPointsPlayer2())
@@ -627,7 +559,6 @@ public class Connect4GameActivity extends AppCompatActivity{
                             editor.putString("P2",player2Name+" - "+poi2);
                     }
                     //End savings scores
-
                     for(int r = 0; r < 6; r++){
                         ViewGroup row = (ViewGroup) ((ViewGroup) connBoardGame).getChildAt(r);
                         row.setClipChildren(false);
@@ -646,36 +577,5 @@ public class Connect4GameActivity extends AppCompatActivity{
         }
         editor.apply();
     }
-
-
-
-
-    private void loadPref(){
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences("PlayerPref", Context.MODE_PRIVATE);
-        String player = preferences.getString("player1", "");
-        TextView player_name = findViewById(R.id.player1_turn_label);
-        player_name.setText(player);
-
-    }
-
-    private int calculatePoints(int points, int time){
-        int newPoints=points;
-        if (time >=7 && time <10){
-            newPoints=points+90;
-        }
-        else if (time>=4 && time<7){
-            newPoints=points+60;
-        }
-        else if (time>=1 && time<4){
-            newPoints=points+30;
-        }
-        else newPoints=points-20;
-
-        return newPoints;
-    }
-
-
-
-
 }
 

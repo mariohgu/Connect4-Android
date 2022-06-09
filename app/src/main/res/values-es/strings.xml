@@ -19,4 +19,6 @@
     <string name="alert_back">POR FAVOR, UTILICE LOS BOTONES DE ATRAS DE LA APP</string>
     <string name="wins">GANO!!!!</string>
     <string name="draw">EMPATE!!!!</string>
+    <string name="Yes">Si</string>
+    <string name="No">No</string>
 </resources>

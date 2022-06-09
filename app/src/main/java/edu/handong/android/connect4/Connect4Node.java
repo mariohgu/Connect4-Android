@@ -3,13 +3,11 @@ import java.util.ArrayList;
 
 /**
  *
- *      Page 280
+ *      Our code is based in the book
  *      The book "Intelligent Mobile Projects with TensorFlow" by Jeff Tang,
  *            ISBN: 978-1-78883-454-4
  *            "first define the input and output node names, then prepare the input tensor
- *             using the values in binary"
- *
- *
+ *             using the values in binary" page 280
  *
  */
 

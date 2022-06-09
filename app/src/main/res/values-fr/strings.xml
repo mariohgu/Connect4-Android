@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Connect4Game</string>
+    <string name="app_name">Connect4</string>
     <string name="player_name">Joueur</string>
 
     <string name="multi_player">Multijoueur</string>
@@ -21,5 +21,7 @@
     <string name="guest">invités</string>
     <string name="draw">DRAW!!!!</string>
     <string name="wins">WINS!!!!</string>
+    <string name="Yes">Oui</string>
+    <string name="No">Non</string>
 
 </resources>

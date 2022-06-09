@@ -7,6 +7,14 @@ import android.util.Log;
 import android.widget.ImageView;
 import java.util.ArrayList;
 
+/**
+ *      Our code is based in the book
+ *      The book "Intelligent Mobile Projects with TensorFlow" by Jeff Tang,
+ *            ISBN: 978-1-78883-454-4
+ *
+ */
+
+
 
 public class Connect4Logic {
     /** Check the winner */

@@ -85,13 +85,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);}
         );
 
-        /*ImageButton bluetooth_button = (ImageButton)findViewById(R.id.multiplayer);
-        bluetooth_button.setOnClickListener(view -> {
-            clickSound.playSound();
-            Intent intent = new Intent(this, multiplayer.class);
-            startActivity(intent);}
-        );*/
-
         ImageButton exit_button = findViewById(R.id.exit_button);
         exit_button.setOnClickListener(view -> {
             if(launchSounds){
@@ -116,9 +109,9 @@ public class MainActivity extends AppCompatActivity {
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setMessage("Exit the app?").setPositiveButton("YES", dialogClickListener)
+            builder.setMessage("Exit the app?").setPositiveButton(getResources().getString(R.string.Yes), dialogClickListener)
                     .setTitle("CONNECT 4")
-                    .setNegativeButton("NO", dialogClickListener).show();
+                    .setNegativeButton(getResources().getString(R.string.No), dialogClickListener).show();
 
             }
         );
@@ -185,8 +178,7 @@ public class MainActivity extends AppCompatActivity {
            MainActivity.this.finish();
            moveTaskToBack(true);
         }
-        //clickSound.StopSound();
-    }
+           }
 
     @Override
     protected void onDestroy() {
